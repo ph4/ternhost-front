@@ -1,59 +1,63 @@
 <template>
   <!-- Footer -->
-  <footer class="footer">
-    <div class="footer__company">
-      <div class="footer__company-logo">
-        <img :src="assets.footerLogo" alt="Logo" />
-        <h1>Ternhost</h1>
-      </div>
-      <div class="footer__company-about">
-        <p>
-          Nulla diam felis, malesuada ut erat quis, mattis dignissim justo. Cras cursus, lacus et dignissim volutpat
-        </p>
-      </div>
-    </div>
-    <div class="footer__sitemap">
-      <div class="footer__menu">
-        <h1>Quick Links</h1>
-
-        <ul class="footer__menu-group">
-          <li class="footer__menu-group__item" v-for="value in links.quick" :key="value.id">
-            <a :href="value.url">{{ value.name }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="footer__menu">
-        <h1>Services</h1>
-
-        <ul class="footer__menu-group">
-          <li class="footer__menu-group__item" v-for="value in links.service" :key="value.id">
-            <a :href="value.url">{{ value.name }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="footer__menu">
-        <h1>Contact Us</h1>
-
-        <ul class="footer__menu-group">
-          <li class="footer__menu-group__item" v-for="value in links.contact" :key="value.id">
-            <a :href="value.url">{{ value.name }}</a>
-          </li>
-        </ul>
-
-        <div class="footer__menu-social">
-          <h1>Follow Us</h1>
-
-          <ul class="social__group">
-            <li class="social__group-item" v-for="value in links.social" :key="value.id">
-              <a :href="value.url" class="social__group-item__link">
-                <img :src="value.icon" alt="Icon" />
-              </a>
-            </li>
-          </ul>
+  <TheWrapper class="footer-wrapper">
+    <TheContainer>
+      <footer class="footer">
+        <div class="footer__company">
+          <div class="footer__company-logo">
+            <img :src="assets.footerLogo" alt="Logo" />
+            <h1>Ternhost</h1>
+          </div>
+          <div class="footer__company-about">
+            <p>
+              Nulla diam felis, malesuada ut erat quis, mattis dignissim justo. Cras cursus, lacus et dignissim volutpat
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-  </footer>
+        <div class="footer__sitemap">
+          <div class="footer__menu">
+            <h1>Quick Links</h1>
+
+            <ul class="footer__menu-group">
+              <li class="footer__menu-group__item" v-for="value in links.quick" :key="value.id">
+                <a :href="value.url">{{ value.name }}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__menu">
+            <h1>Services</h1>
+
+            <ul class="footer__menu-group">
+              <li class="footer__menu-group__item" v-for="value in links.service" :key="value.id">
+                <a :href="value.url">{{ value.name }}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__menu">
+            <h1>Contact Us</h1>
+
+            <ul class="footer__menu-group">
+              <li class="footer__menu-group__item" v-for="value in links.contact" :key="value.id">
+                <a :href="value.url">{{ value.name }}</a>
+              </li>
+            </ul>
+
+            <div class="footer__menu-social">
+              <h1>Follow Us</h1>
+
+              <ul class="social__group">
+                <li class="social__group-item" v-for="value in links.social" :key="value.id">
+                  <a :href="value.url" class="social__group-item__link">
+                    <img :src="value.icon" alt="Icon" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </TheContainer>
+  </TheWrapper>
 </template>
 
 <script>
@@ -62,8 +66,15 @@ import facebook from '@/assets/images/facebook.svg';
 import twitter from '@/assets/images/twitter.svg';
 import youtube from '@/assets/images/youtube.svg';
 
+import TheWrapper from '@/components/common/TheWrapper/TheWrapper.vue';
+import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
+
 export default {
   name: 'TheFooter',
+  components: {
+    TheContainer,
+    TheWrapper,
+  },
   data() {
     return {
       assets: {
@@ -102,70 +113,73 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/common/all';
 
-.footer {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-gap: 10rem;
-  @media screen and (max-width: 1000px) {
-    grid-gap: 3rem;
-  }
-  @media screen and (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-  &__company {
-    @media screen and (max-width: 800px) {
-      @include center-y;
-      flex-direction: column;
-      text-align: center;
-    }
-    &-logo {
-      @include center-y;
-      h1 {
-        @include text-4xl(700, $blue-200);
-        text-transform: uppercase;
-        margin-left: 0.625rem;
-      }
-    }
-    &-about {
-      margin-top: 1.5rem;
-      p {
-        @include text-base(400, $gray-200);
-      }
-    }
-  }
-  &__sitemap {
+.footer-wrapper {
+  background-color: $white-200;
+  .footer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    @media screen and (max-width: 600px) {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 10rem;
+    @media screen and (max-width: 1000px) {
       grid-gap: 3rem;
-      text-align: center;
     }
-    .footer__menu {
-      h1 {
-        @include text-base(700);
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
+    &__company {
+      @media screen and (max-width: 800px) {
+        @include center-y;
+        flex-direction: column;
+        text-align: center;
       }
-      &-group {
-        margin-top: 0.625rem;
-        &__item {
-          margin-top: 0.625rem;
-          a {
-            @include text-base(400, $gray-200);
-          }
+      &-logo {
+        @include center-y;
+        h1 {
+          @include text-4xl(700, $blue-200);
+          text-transform: uppercase;
+          margin-left: 0.625rem;
         }
       }
-      &-social {
-        margin-top: 3rem;
-        .social__group {
-          display: flex;
-          margin-top: 1rem;
-          @media screen and (max-width: 600px) {
-            justify-content: center;
+      &-about {
+        margin-top: 1.5rem;
+        p {
+          @include text-base(400, $gray-200);
+        }
+      }
+    }
+    &__sitemap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      @media screen and (max-width: 600px) {
+        grid-template-columns: 1fr;
+        grid-gap: 3rem;
+        text-align: center;
+      }
+      .footer__menu {
+        h1 {
+          @include text-base(700);
+        }
+        &-group {
+          margin-top: 0.625rem;
+          &__item {
+            margin-top: 0.625rem;
+            a {
+              @include text-base(400, $gray-200);
+            }
           }
-          &-item {
-            margin-left: 1rem;
-            &:first-child {
-              margin-left: 0;
+        }
+        &-social {
+          margin-top: 3rem;
+          .social__group {
+            display: flex;
+            margin-top: 1rem;
+            @media screen and (max-width: 600px) {
+              justify-content: center;
+            }
+            &-item {
+              margin-left: 1rem;
+              &:first-child {
+                margin-left: 0;
+              }
             }
           }
         }

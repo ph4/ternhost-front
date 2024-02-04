@@ -1,27 +1,31 @@
 <template>
-  <header class="header">
-    <a href="/" class="header__logo">
-      <img :src="headerLogo" alt="Ternhost" />
-      <h1>Ternhost</h1>
-    </a>
-    <div class="header__menu">
-      <ul class="header__menu-group">
-        <li class="header__menu-group__item" v-for="menuItem in menu" :key="menuItem.id">
-          <a href="#">{{ menuItem.name }}</a>
-        </li>
-      </ul>
+  <TheContainer>
+    <header class="header">
+      <router-link to="/" class="header__logo">
+        <img :src="headerLogo" alt="Ternhost" />
+        <h1>Ternhost</h1>
+      </router-link>
+      <div class="header__menu">
+        <ul class="header__menu-group">
+          <li class="header__menu-group__item" v-for="menuItem in menu" :key="menuItem.id">
+            <router-link :to="menuItem.url">{{ menuItem.name }}</router-link>
+          </li>
+        </ul>
 
-      <TheButton class="btn btn-primary">Login</TheButton>
-    </div>
-    <div class="header__menu-mobile">
-      <img :src="headerBars" alt="bars" />
-    </div>
-  </header>
+        <TheButton class="btn btn-primary">Login</TheButton>
+      </div>
+      <div class="header__menu-mobile">
+        <img :src="headerBars" alt="bars" />
+      </div>
+    </header>
+  </TheContainer>
 </template>
 
 <script>
 import headerLogo from '@/assets/images/header-logo.svg';
 import headerBars from '@/assets/images/header-bars.svg';
+
+import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 
 import TheButton from '@/components/UI/TheButton.vue';
 
@@ -29,16 +33,17 @@ export default {
   name: 'TheHeader',
   components: {
     TheButton,
+    TheContainer,
   },
   data() {
     return {
       headerLogo,
       headerBars,
       menu: [
-        { id: 1, name: 'Domain', url: undefined },
-        { id: 2, name: 'Hosting', url: undefined },
-        { id: 3, name: 'Website Builder', url: undefined },
-        { id: 4, name: 'Help', url: undefined },
+        { id: 1, name: 'Domain', url: '/domain' },
+        { id: 2, name: 'Hosting', url: '/hosting' },
+        { id: 3, name: 'Website Builder', url: '/builder' },
+        { id: 4, name: 'Help', url: '/help' },
       ],
     };
   },
@@ -52,8 +57,7 @@ export default {
   @include center-y;
   justify-content: space-between;
   padding: 0.938rem 0;
-  position: relative;
-  z-index: 10;
+  backdrop-filter: blur(10px);
   &__logo {
     @include center-y;
     text-decoration: none;

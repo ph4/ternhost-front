@@ -1,16 +1,9 @@
 <template>
-  <NotFound />
+  <router-view></router-view>
 </template>
 
 <script>
-import NotFound from '@/components/pages/NotFound.vue';
-
 export default {
   name: 'App',
-  components: {
-    NotFound,
-  },
 };
 </script>
-
-<style scoped></style>

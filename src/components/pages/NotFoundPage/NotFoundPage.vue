@@ -1,8 +1,8 @@
 <template>
   <section class="nf-wrapper">
-    <TheContainer>
-      <TheHeader />
+    <TheHeader />
 
+    <TheContainer>
       <div class="nf">
         <div class="text">
           <h1>Ooops... <br /><span>Page Not Found</span></h1>
@@ -12,10 +12,10 @@
           <img :src="NotFoundBackground" alt="Not Found Background" />
         </div>
       </div>
-
-      <TheFooter class="footer" />
-      <TheTerms />
     </TheContainer>
+
+    <TheFooter class="footer" />
+    <TheTerms />
   </section>
 </template>
 
@@ -52,12 +52,11 @@ export default {
   width: 100%;
   min-height: 100vh;
   background-color: $white-300;
+  display: flex;
+  flex-direction: column;
   .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    flex-grow: 1;
     .nf {
-      flex-grow: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
@@ -101,10 +100,10 @@ export default {
         }
       }
     }
-    .footer {
-      @media screen and (max-width: 900px) {
-        display: none;
-      }
+  }
+  .footer {
+    @media screen and (max-width: 900px) {
+      display: none;
     }
   }
 }
