@@ -1,0 +1,26 @@
+<template>
+  <button><slot></slot></button>
+</template>
+
+<script>
+export default {
+  name: 'TheButton',
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/styles/common/all';
+
+.btn {
+  @include text-lg(700, $white-100);
+  border-radius: 0.313rem;
+  padding: 0.625rem 2.188rem;
+  cursor: pointer;
+  &-primary {
+    background-color: $blue-200;
+  }
+  &-secondary {
+    background-color: $blue-100;
+  }
+}
+</style>
