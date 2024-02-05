@@ -16,7 +16,7 @@ export default {
 .tern-wrapper {
   @include center-x;
   width: 100%;
-  padding: 7.5rem 0;
+  padding: 9.375rem 0;
   @media screen and (max-width: 700px) {
     padding: 3.5rem 0;
   }

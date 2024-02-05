@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'TheButton',
+  name: 'BaseButton',
 };
 </script>
 
@@ -16,6 +16,10 @@ export default {
   border-radius: 0.313rem;
   padding: 0.625rem 2.188rem;
   cursor: pointer;
+
+  @media screen and (max-width: 500px) {
+    padding: 0.5rem 1.5rem;
+  }
   &-primary {
     background-color: $blue-200;
   }

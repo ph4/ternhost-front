@@ -2,11 +2,17 @@
   <!-- FAQ -->
   <TheWrapper class="faq-wrapper">
     <TheContainer>
-      <TheTitle>Have a question? FAQ</TheTitle>
+      <BaseTitle>Have a question? FAQ</BaseTitle>
 
       <div class="faq">
         <ul class="faq__group">
-          <li class="accordion" v-for="item in faq" :key="item.id">
+          <li
+            class="accordion"
+            v-for="(item, index) in faq"
+            :key="item.id"
+            :class="{ show: index === activeAccordionID }"
+            @click="toggleAccordion(item.id)"
+          >
             <header class="accordion__head">
               <h1>{{ item.question }}</h1>
               <img class="accordion__head-switch" :src="assets.faqArrow" alt="Switcher" />
@@ -24,14 +30,14 @@
 <script>
 import faqArrow from '@/assets/images/faq-arrow.svg';
 
-import TheTitle from '@/components/UI/TheTitle.vue';
+import BaseTitle from '@/components/UI/BaseTitle.vue';
 import TheWrapper from '@/components/common/TheWrapper/TheWrapper.vue';
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 
 export default {
   name: 'TheFAQ',
   components: {
-    TheTitle,
+    BaseTitle,
     TheContainer,
     TheWrapper,
   },
@@ -42,31 +48,37 @@ export default {
       },
       faq: [
         {
-          id: 1,
+          id: 0,
           question: 'What is Web Hosting?',
           answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa blanditiis maiores eum et quo dolor quos provident, minima nulla dolore earum eius, tenetur perferendis a ea incidunt minus debitis, fugit consequatur.',
         },
         {
-          id: 2,
+          id: 1,
           question: 'Why Do I Need to Buy a Domain Name?',
           answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa blanditiis maiores eum et quo dolor quos provident, minima nulla dolore earum eius, tenetur perferendis a ea incidunt minus debitis, fugit consequatur.',
         },
         {
-          id: 3,
+          id: 2,
           question: 'What Is Privacy Protection?',
           answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa blanditiis maiores eum et quo dolor quos provident, minima nulla dolore earum eius, tenetur perferendis a ea incidunt minus debitis, fugit consequatur.',
         },
         {
-          id: 4,
+          id: 3,
           question: 'I Already Purchased a Domain Name. Can I Transfer It to TernHost?',
           answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa blanditiis maiores eum et quo dolor quos provident, minima nulla dolore earum eius, tenetur perferendis a ea incidunt minus debitis, fugit consequatur.',
         },
       ],
+      activeAccordionID: undefined,
     };
+  },
+  methods: {
+    toggleAccordion(id) {
+      this.activeAccordionID !== id ? (this.activeAccordionID = id) : (this.activeAccordionID = undefined);
+    },
   },
 };
 </script>
@@ -78,7 +90,7 @@ export default {
 .faq-wrapper {
   .container {
     .faq {
-      margin-top: 3rem;
+      margin-top: 4.688rem;
       &__group {
         .accordion {
           border: 0.063rem solid $gray-200;

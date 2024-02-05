@@ -2,7 +2,7 @@
   <!-- Reviews -->
   <TheWrapper class="reviews-wrapper">
     <TheContainer>
-      <TheTitle>Word From Our Clients</TheTitle>
+      <BaseTitle>Word From Our Clients</BaseTitle>
 
       <div class="reviews">
         <swiper-container
@@ -45,14 +45,14 @@
 </template>
 
 <script>
-import TheTitle from '@/components/UI/TheTitle.vue';
+import BaseTitle from '@/components/UI/BaseTitle.vue';
 import TheWrapper from '@/components/common/TheWrapper/TheWrapper.vue';
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 
 export default {
   name: 'HomeReviews',
   components: {
-    TheTitle,
+    BaseTitle,
     TheWrapper,
     TheContainer,
   },

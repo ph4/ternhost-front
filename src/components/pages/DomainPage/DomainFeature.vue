@@ -2,12 +2,28 @@
   <section class="feature">
     <TheContainer class="feature-container">
       <div class="search-domain" v-if="isSwitch">
-        <TheSearch title="Search Your Domain Now" btnText="Search" />
-        <h2>Already bought a domain? <span>Transfer it</span></h2>
+        <TheSearch class="search">
+          <template #title>Search Your Domain Now</template>
+          <template #input>
+            <BaseInput placeholder="Search your domain..." />
+          </template>
+          <template #button>
+            <BaseButton class="btn btn-secondary">Search</BaseButton>
+          </template>
+        </TheSearch>
+        <h2>Already bought a domain? <span @click="isSwitch = false">Transfer it</span></h2>
       </div>
       <div class="search-domain" v-else="isSwitch">
-        <TheSearch title="Transfer Your Domain Now" btnText="Transfer" />
-        <h2>Want a new domain name? <span>Try domain checker</span></h2>
+        <TheSearch class="search">
+          <template #title>Transfer Your Domain Now</template>
+          <template #input>
+            <BaseInput placeholder="Search your domain..." />
+          </template>
+          <template #button>
+            <BaseButton class="btn btn-secondary">Transfer</BaseButton>
+          </template>
+        </TheSearch>
+        <h2>Want a new domain name? <span @click="isSwitch = true">Try domain checker</span></h2>
       </div>
       <div class="domains">
         <ul class="list">
@@ -29,12 +45,17 @@ import TheDomain from '@/components/common/TheDomain/TheDomain.vue';
 import TheSearch from '@/components/common/TheSearch/TheSearch.vue';
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
+
 export default {
   name: 'DomainFeature',
   components: {
     TheDomain,
     TheSearch,
     TheContainer,
+    BaseInput,
+    BaseButton,
   },
   data() {
     return {

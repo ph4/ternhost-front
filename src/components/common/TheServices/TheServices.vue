@@ -2,7 +2,7 @@
   <!-- Services -->
   <TheWrapper class="services-wrapper">
     <TheContainer>
-      <TheTitle>Our Services</TheTitle>
+      <BaseTitle>Our Services</BaseTitle>
 
       <div class="services">
         <ul class="services__group">
@@ -24,7 +24,7 @@
 <script>
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 import TheWrapper from '@/components/common/TheWrapper/TheWrapper.vue';
-import TheTitle from '@/components/UI/TheTitle.vue';
+import BaseTitle from '@/components/UI/BaseTitle.vue';
 
 import serviceIcon1 from '@/assets/images/services-image-1.svg';
 import serviceIcon2 from '@/assets/images/services-image-2.svg';
@@ -38,7 +38,7 @@ export default {
   components: {
     TheContainer,
     TheWrapper,
-    TheTitle,
+    BaseTitle,
   },
   data() {
     return {

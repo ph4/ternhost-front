@@ -2,20 +2,26 @@
   <!-- Pricing -->
   <TheWrapper class="pricing-wrapper" id="pricing">
     <TheContainer>
-      <TheTitle>Our Flexible Plan</TheTitle>
+      <BaseTitle>Our Flexible Plan</BaseTitle>
 
       <div class="pricing">
         <div class="pricing__time">
           <ul class="pricing__time-group">
-            <template v-for="time in planTimes" :key="time.id">
-              <li class="pricing__time-group__item" :class="{ active: time.isActive }">{{ time.value }} Month</li>
+            <template v-for="(time, index) in planTimes" :key="time.id">
+              <li
+                class="pricing__time-group__item"
+                :class="{ active: index === activePlanID }"
+                @click="setActivePlan(time.id)"
+              >
+                {{ time.value }} Month
+              </li>
             </template>
           </ul>
         </div>
 
         <div class="pricing__plans">
           <ul class="pricing__plans-group">
-            <template v-for="plan in plans" :key="plan.id">
+            <template v-for="plan in getActivePlan" :key="plan.id">
               <li class="pricing__plans-group__item" :class="{ best: plan.isActive }">
                 <header class="plan__header">
                   <h1>{{ plan.name }}</h1>
@@ -41,7 +47,7 @@
                 </div>
 
                 <footer class="plan__footer">
-                  <TheButton class="btn btn-primary">Buy Now</TheButton>
+                  <BaseButton class="btn btn-primary">Buy Now</BaseButton>
                 </footer>
               </li>
             </template>
@@ -53,89 +59,169 @@
 </template>
 
 <script>
-import TheTitle from '@/components/UI/TheTitle.vue';
+import BaseTitle from '@/components/UI/BaseTitle.vue';
 import TheWrapper from '@/components/common/TheWrapper/TheWrapper.vue';
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
-import TheButton from '@/components/UI/TheButton.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 export default {
   name: 'ThePricing',
   components: {
-    TheTitle,
+    BaseTitle,
     TheWrapper,
     TheContainer,
-    TheButton,
+    BaseButton,
   },
   data() {
     return {
-      plans: [
-        {
-          id: 1,
-          name: 'Premium',
-          monthlyPrice: 199.5,
-          discount: 20,
-          details: [
-            { id: 1, field: 'Domain', value: 'Host 5' },
-            { id: 2, field: 'Storage', value: '2GB NVMe' },
-            { id: 3, field: 'Bandwidth', value: '50GB' },
-            { id: 4, field: 'SSL Certificate', value: 'Free' },
-            { id: 5, field: 'Support', value: '24/7' },
-            { id: 6, field: 'Storage', value: '2GB NVMe' },
-            { id: 7, field: 'SSL Certificate', value: 'Free' },
-          ],
-        },
-        {
-          id: 2,
-          name: 'Business',
-          monthlyPrice: 199.5,
-          discount: 70,
-          isActive: true,
-          details: [
-            { id: 1, field: 'Domain', value: 'Host 5' },
-            { id: 2, field: 'Storage', value: '2GB NVMe' },
-            { id: 3, field: 'Bandwidth', value: '50GB' },
-            { id: 4, field: 'SSL Certificate', value: 'Free' },
-            { id: 5, field: 'Support', value: '24/7' },
-            { id: 6, field: 'Storage', value: '2GB NVMe' },
-            { id: 7, field: 'SSL Certificate', value: 'Free' },
-          ],
-        },
-        {
-          id: 3,
-          name: 'Online Store',
-          monthlyPrice: 199.5,
-          discount: 30,
-          details: [
-            { id: 1, field: 'Domain', value: 'Host 5' },
-            { id: 2, field: 'Storage', value: '2GB NVMe' },
-            { id: 3, field: 'Bandwidth', value: '50GB' },
-            { id: 4, field: 'SSL Certificate', value: 'Free' },
-            { id: 5, field: 'Support', value: '24/7' },
-            { id: 6, field: 'Storage', value: '2GB NVMe' },
-            { id: 7, field: 'SSL Certificate', value: 'Free' },
-          ],
-        },
-        {
-          id: 4,
-          name: 'Pro',
-          monthlyPrice: 199.5,
-          discount: 40,
-          details: [
-            { id: 1, field: 'Domain', value: 'Host 5' },
-            { id: 2, field: 'Storage', value: '2GB NVMe' },
-            { id: 3, field: 'Bandwidth', value: '50GB' },
-            { id: 4, field: 'SSL Certificate', value: 'Free' },
-            { id: 5, field: 'Support', value: '24/7' },
-            { id: 6, field: 'Storage', value: '2GB NVMe' },
-            { id: 7, field: 'SSL Certificate', value: 'Free' },
-          ],
-        },
-      ],
+      plans: {
+        12: [
+          {
+            id: 0,
+            name: 'Premium',
+            monthlyPrice: 66.5,
+            discount: 20,
+            isActive: true,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 1,
+            name: 'Business',
+            monthlyPrice: 66.5,
+            discount: 70,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 2,
+            name: 'Online Store',
+            monthlyPrice: 66.5,
+            discount: 30,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 3,
+            name: 'Pro',
+            monthlyPrice: 66.5,
+            discount: 40,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+        ],
+        36: [
+          {
+            id: 0,
+            name: 'Premium',
+            monthlyPrice: 199.5,
+            discount: 20,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 1,
+            name: 'Business',
+            monthlyPrice: 199.5,
+            discount: 70,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 2,
+            name: 'Online Store',
+            monthlyPrice: 199.5,
+            discount: 30,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+          {
+            id: 3,
+            name: 'Pro',
+            monthlyPrice: 199.5,
+            discount: 40,
+            isActive: true,
+            details: [
+              { id: 1, field: 'Domain', value: 'Host 5' },
+              { id: 2, field: 'Storage', value: '2GB NVMe' },
+              { id: 3, field: 'Bandwidth', value: '50GB' },
+              { id: 4, field: 'SSL Certificate', value: 'Free' },
+              { id: 5, field: 'Support', value: '24/7' },
+              { id: 6, field: 'Storage', value: '2GB NVMe' },
+              { id: 7, field: 'SSL Certificate', value: 'Free' },
+            ],
+          },
+        ],
+      },
       planTimes: [
-        { id: 1, value: 12, isActive: false },
-        { id: 2, value: 36, isActive: true },
+        { id: 0, value: 12 },
+        { id: 1, value: 36 },
       ],
+      activePlanID: 1,
     };
+  },
+  computed: {
+    getActivePlan() {
+      const month = this.planTimes[this.activePlanID].value;
+
+      // console.log(month, plans[month]);
+
+      return this.plans[month];
+    },
+  },
+  methods: {
+    setActivePlan(id) {
+      this.activePlanID = id;
+    },
   },
 };
 </script>

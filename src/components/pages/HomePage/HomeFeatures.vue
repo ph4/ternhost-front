@@ -18,7 +18,7 @@
           </h3>
         </div>
 
-        <a href="#pricing"><TheButton class="btn btn-secondary">View Pricing</TheButton></a>
+        <a href="#pricing"><BaseButton class="btn btn-secondary">View Pricing</BaseButton></a>
       </div>
     </TheContainer>
   </section>
@@ -29,13 +29,13 @@ import featureBackground from '@/assets/images/feature-background.svg';
 
 import TheContainer from '@/components/common/TheContainer/TheContainer.vue';
 
-import TheButton from '@/components/UI/TheButton.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 export default {
   name: 'HomeFeatures',
   components: {
     TheContainer,
-    TheButton,
+    BaseButton,
   },
   data() {
     return {

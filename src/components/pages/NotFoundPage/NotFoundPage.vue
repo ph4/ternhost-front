@@ -6,7 +6,7 @@
       <div class="nf">
         <div class="text">
           <h1>Ooops... <br /><span>Page Not Found</span></h1>
-          <TheButton class="btn btn-secondary">Go Back</TheButton>
+          <BaseButton class="btn btn-secondary">Go Back</BaseButton>
         </div>
         <div class="image">
           <img :src="NotFoundBackground" alt="Not Found Background" />
@@ -25,7 +25,7 @@ import TheHeader from '@/components/common/TheHeader/TheHeader.vue';
 import TheFooter from '@/components/common/TheFooter/TheFooter.vue';
 import TheTerms from '@/components/common/TheTerms/TheTerms.vue';
 
-import TheButton from '@/components/UI/TheButton.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 import NotFoundBackground from '@/assets/images/404-background.svg';
 
@@ -36,7 +36,7 @@ export default {
     TheHeader,
     TheFooter,
     TheTerms,
-    TheButton,
+    BaseButton,
   },
   data() {
     return {

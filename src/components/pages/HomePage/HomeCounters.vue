@@ -42,9 +42,16 @@ export default {
   background-color: $blue-100;
   .container {
     .counters {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 2.5rem;
+      @media screen and (max-width: 1100px) {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 5rem;
+      }
+      @media screen and (max-width: 1100px) {
+        grid-template-columns: 1fr;
+      }
       &__item {
         margin: 1rem;
         text-align: center;

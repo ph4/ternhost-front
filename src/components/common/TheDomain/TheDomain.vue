@@ -1,8 +1,10 @@
 <template>
   <li class="subfeature__prices-group__item">
-    <span>{{ tld }}</span>
-    <h3>${{ monthlyPrice }} / month</h3>
-    <h1><span>$</span>{{ annualPrice }} <span>/ year</span></h1>
+    <div class="text">
+      <span>{{ tld }}</span>
+      <h3>${{ monthlyPrice }} / month</h3>
+      <h1><span>$</span>{{ annualPrice }} <span>/ year</span></h1>
+    </div>
   </li>
 </template>
 
@@ -21,11 +23,15 @@ export default {
 @import '@/styles/common/all';
 
 .subfeature__prices-group__item {
+  @media screen and (max-width: 1100px) {
+    @include center;
+  }
   span {
     @include text-xl(700, $blue-100);
   }
   h3 {
     @include text-sm(500, $gray-200);
+    text-decoration: line-through;
   }
   h1 {
     @include text-4xl(700, $blue-200);
