@@ -1,9 +1,9 @@
 <template>
   <div class="subfeature__domain">
-    <h1>Search Your Domain Now</h1>
+    <h1>{{ title }}</h1>
     <div class="subfeature__domain-input">
       <input type="text" placeholder="Search your domain..." />
-      <TheButton class="btn btn-secondary">Find Now</TheButton>
+      <TheButton class="btn btn-secondary">{{ btnText }}</TheButton>
     </div>
   </div>
 </template>
@@ -13,6 +13,10 @@ import TheButton from '@/components/UI/TheButton.vue';
 
 export default {
   name: 'TheSearch',
+  props: {
+    title: String,
+    btnText: String,
+  },
   components: {
     TheButton,
   },
