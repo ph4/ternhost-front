@@ -19,6 +19,7 @@ import DomainPage from './pages/DomainPage.vue';
 import BuilderPage from './pages/BuilderPage.vue';
 import HelpPage from './pages/HelpPage.vue';
 import SignupPage from './pages/SignupPage.vue';
+import NotFound from './pages/NotFound.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,6 +31,7 @@ const router = createRouter({
     { path: '/builder', component: BuilderPage },
     { path: '/help', component: HelpPage },
     { path: '/signup', component: SignupPage },
+    { path: '/:pathMatch(.*)*', component: NotFound },
   ],
 });
 
