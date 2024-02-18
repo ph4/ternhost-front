@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/common/variables';
 @import '@/styles/common/mixins';
 @import '@/styles/common/fluid-type';

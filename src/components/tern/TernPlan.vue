@@ -22,21 +22,26 @@
     </div>
 
     <footer class="plan__footer">
-      <button class="btn btn-primary">Buy Now</button>
+      <base-button class="btn-primary">Buy Now</base-button>
     </footer>
   </li>
 </template>
 
 <script>
+import BaseButton from '@/components/UI/BaseButton.vue';
+
 export default {
   name: 'TernPlan',
   props: {
     plan: Object,
   },
+  components: {
+    BaseButton,
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/common/all';
 
 .pricing__plans-group__item {

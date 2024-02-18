@@ -72,12 +72,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/common/all';
 
 .hero {
   padding-top: calc(7.188rem + 7.5rem);
-  background-color: $white-100;
   .container {
     background-image: url('@/assets/images/domain/domain-feature-background.svg');
     background-repeat: no-repeat;
@@ -105,11 +104,6 @@ export default {
             background-color: $white-200;
             border-radius: 0.25rem;
             width: 100%;
-          }
-          button {
-            @media screen and (max-width: 900px) {
-              padding: 0 0.5rem;
-            }
           }
         }
         h3 {
