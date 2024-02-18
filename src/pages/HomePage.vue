@@ -8,7 +8,7 @@
 
   <home-hero></home-hero>
   <home-sentence></home-sentence>
-  <app-services :services="services" class="gray"></app-services>
+  <app-services :services="services.items" :title="services.title" class="gray"></app-services>
   <home-reviews></home-reviews>
   <home-counters></home-counters>
   <home-plans></home-plans>
@@ -33,12 +33,12 @@ import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
 
-import serviceImage1 from '@/assets/images/home/services-image-1.svg';
-import serviceImage2 from '@/assets/images/home/services-image-2.svg';
-import serviceImage3 from '@/assets/images/home/services-image-3.svg';
-import serviceImage4 from '@/assets/images/home/services-image-4.svg';
-import serviceImage5 from '@/assets/images/home/services-image-5.svg';
-import serviceImage6 from '@/assets/images/home/services-image-6.svg';
+import HomeServiceIcon1 from '@/assets/images/home/services-image-1.svg';
+import HomeServiceIcon2 from '@/assets/images/home/services-image-2.svg';
+import HomeServiceIcon3 from '@/assets/images/home/services-image-3.svg';
+import HomeServiceIcon4 from '@/assets/images/home/services-image-4.svg';
+import HomeServiceIcon5 from '@/assets/images/home/services-image-5.svg';
+import HomeServiceIcon6 from '@/assets/images/home/services-image-6.svg';
 
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -63,44 +63,47 @@ export default {
   },
   data() {
     return {
-      services: [
-        {
-          id: 0,
-          title: 'Shared Web Hosting',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage1,
-        },
-        {
-          id: 1,
-          title: '24/7/365 Support',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage2,
-        },
-        {
-          id: 2,
-          title: 'Dedicated Server',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage3,
-        },
-        {
-          id: 3,
-          title: 'Cloud Hosting',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage4,
-        },
-        {
-          id: 4,
-          title: 'Domain Names',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage5,
-        },
-        {
-          id: 5,
-          title: 'License Keys',
-          text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
-          icon: serviceImage6,
-        },
-      ],
+      services: {
+        title: 'Our Services',
+        items: [
+          {
+            id: 0,
+            title: 'Shared Web Hosting',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon1,
+          },
+          {
+            id: 1,
+            title: '24/7/365 Support',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon2,
+          },
+          {
+            id: 2,
+            title: 'Dedicated Server',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon3,
+          },
+          {
+            id: 3,
+            title: 'Cloud Hosting',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon4,
+          },
+          {
+            id: 4,
+            title: 'Domain Names',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon5,
+          },
+          {
+            id: 5,
+            title: 'License Keys',
+            text: 'Vestibulum tristique urna eget odio interdum pellentesque. In sodales venenatis lectus, ac tincidunt quam placerat egestas',
+            icon: HomeServiceIcon6,
+          },
+        ],
+      },
       faq: [
         {
           id: 0,

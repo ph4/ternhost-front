@@ -2,7 +2,7 @@
   <!-- services -->
   <section class="services">
     <base-container>
-      <base-title>Our Services</base-title>
+      <base-title>{{ title }}</base-title>
 
       <div class="services-body">
         <ul class="services-cards">
@@ -32,9 +32,9 @@ export default {
     BaseTitle,
   },
   props: {
+    title: String,
     services: {
       type: Array,
-      required: true,
     },
   },
 };
