@@ -1,10 +1,69 @@
 <template>
-  <h1>Builder Page</h1>
-  <router-link to="/">home</router-link>
+  <mobile-menu></mobile-menu>
+
+  <div class="top">
+    <main-promo></main-promo>
+    <main-header></main-header>
+  </div>
+
+  <builder-hero></builder-hero>
+  <app-questions :faq="faq"></app-questions>
+  <app-footer></app-footer>
+  <app-terms></app-terms>
 </template>
 
 <script>
+import MainPromo from '@/components/common/MainPromo/MainPromo.vue';
+import MainHeader from '@/components/common/MainHeader/MainHeader.vue';
+import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
+
+import BuilderHero from '@/components/builder/BuilderHero.vue';
+
+import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
+import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
+import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
+
 export default {
-  name: 'BuilderPage',
+  name: 'HostingPage',
+  components: {
+    MainPromo,
+    MainHeader,
+    MobileMenu,
+    AppQuestions,
+    AppFooter,
+    AppTerms,
+    BuilderHero,
+  },
+  data() {
+    return {
+      faq: [
+        {
+          id: 0,
+          question: 'What is Shared Hosting?',
+          answer:
+            'What is Shared Hosting? What is Shared Hosting? What is Shared Hosting?What is Shared Hosting?What is Shared Hosting? What is Shared Hosting? What is Shared Hosting?What is Shared Hosting?What is Shared Hosting? What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?What is Shared Hosting?',
+          isActive: false,
+        },
+        { id: 1, question: 'Why Do I Need to Buy a Domain Name?', answer: 'Fart', isActive: false },
+        { id: 2, question: 'What Is Privacy Protection?', answer: 'Fart', isActive: false },
+        {
+          id: 3,
+          question: 'I Already Purchased a Domain Name. Can I Transfer It to TernHost?',
+          answer: 'Fart',
+          isAcitve: false,
+        },
+      ],
+    };
+  },
 };
 </script>
+
+<style scoped>
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 666;
+}
+</style>

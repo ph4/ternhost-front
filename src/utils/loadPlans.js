@@ -12,6 +12,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -26,6 +28,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -40,6 +44,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -54,6 +60,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
   ],
@@ -136,6 +144,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -150,6 +160,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -164,6 +176,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -178,6 +192,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
   ],
@@ -194,6 +210,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -208,6 +226,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -222,6 +242,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
     {
@@ -236,6 +258,8 @@ const plans = {
         { id: 3, value: 'Unlimited Bandwidth', field: 'Bandwidth' },
         { id: 4, value: 'Free SSL Certificate', field: 'SSL Certificate' },
         { id: 5, value: '24/7 Support', field: 'Support' },
+        { id: 6, value: '2GB NVMe', field: 'Storage' },
+        { id: 7, value: 'Free', field: 'SSL Certificate' },
       ],
     },
   ],

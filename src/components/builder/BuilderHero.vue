@@ -1,15 +1,17 @@
 <template>
-  <section class="pricing">
+  <section class="hero">
     <base-container>
-      <base-title>Our Flexible Plan</base-title>
+      <header class="hero__header">
+        <h1>Choose Your Website Builder Plan</h1>
+      </header>
 
-      <div class="pricing-body">
-        <div class="pricing__time">
-          <tern-plans-time :times="plansTime"></tern-plans-time>
+      <!-- plans -->
+      <div class="plans">
+        <div class="plans__time">
+          <tern-plans-time :times="plansTime" class="reverse"></tern-plans-time>
         </div>
-
-        <div class="pricing__plans">
-          <ul class="pricing__plans-group">
+        <div class="plans__box">
+          <ul class="offers">
             <tern-plan v-for="plan in plans" :key="plan.id" :plan="plan"></tern-plan>
           </ul>
         </div>
@@ -20,7 +22,6 @@
 
 <script>
 import BaseContainer from '@/components/UI/BaseContainer.vue';
-import BaseTitle from '@/components/UI/BaseTitle.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
 import TernPlansTime from '@/components/tern/TernPlansTime.vue';
@@ -29,19 +30,20 @@ import TernPlan from '@/components/tern/TernPlan.vue';
 import { loadPlans } from '@/utils/loadPlans.js';
 
 export default {
-  name: 'HomePlans',
+  name: 'BuilderHero',
   components: {
     BaseContainer,
-    BaseTitle,
     BaseButton,
-    TernPlansTime,
     TernPlan,
+    TernPlansTime,
   },
   data() {
     return {
       plansTime: [
-        { id: 0, value: 12, isActive: true },
-        { id: 1, value: 36, isActive: false },
+        { id: 0, value: 1, isActive: false },
+        { id: 1, value: 12, isActive: true },
+        { id: 2, value: 36, isActive: false },
+        { id: 3, value: 48, isActive: false },
       ],
       plans: [],
     };
@@ -57,11 +59,7 @@ export default {
   },
   methods: {
     setActivePlansTime(id) {
-      console.log('fart', id);
-
-      if (this.plansTime[id]) {
-        this.plansTime[id].isActive = true;
-      }
+      this.plansTime[id].isActive = true;
     },
     resetActivePlansTime() {
       this.plansTime.forEach((time) => (time.isActive = false));
@@ -73,30 +71,33 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/common/all';
 
-.pricing {
-  padding: 9.375rem 0;
+.hero {
+  @include center;
+  min-height: 100vh;
   .container {
-    .pricing-header {
+    margin-top: 10rem;
+    .hero__header {
       text-align: center;
       h1 {
         @include fluid-type($text-4xl, $text-4xl, 700, $blue-200);
       }
     }
-    .pricing-body {
+    .plans {
       @include center-col;
-      .pricing__time {
-        margin: 3rem 0;
-      }
-      .pricing__plans {
+      margin-top: 3rem;
+      &__box {
         width: 100%;
-        &-group {
+        margin-top: 5rem;
+        background-color: $white-100;
+        .offers {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          @media screen and (max-width: 1000px) {
-            grid-template-columns: repeat(2, 1fr);
+          @media screen and (max-width: 1100px) {
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 1rem;
           }
-          @media screen and (max-width: 500px) {
-            grid-template-columns: repeat(1, 1fr);
+          @media screen and (max-width: 600px) {
+            grid-template-columns: 1fr;
           }
         }
       }

@@ -8,7 +8,7 @@
       <!-- plans -->
       <div class="plans">
         <div class="plans__time">
-          <tern-plans-time :times="plansTime"></tern-plans-time>
+          <tern-plans-time :times="plansTime" class="reverse"></tern-plans-time>
         </div>
         <div class="plans__box">
           <ul class="offers">
