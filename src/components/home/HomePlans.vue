@@ -1,5 +1,5 @@
 <template>
-  <section class="pricing">
+  <section class="pricing" id="pricing">
     <base-container>
       <base-title>Our Flexible Plan</base-title>
 

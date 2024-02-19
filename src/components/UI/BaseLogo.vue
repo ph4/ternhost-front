@@ -1,21 +1,31 @@
 <template>
-  <router-link to="/" class="header__logo">
-    <img :src="assets.headerLogo" alt="Logo" />
+  <router-link to="/" class="header__logo" :class="{ v2: v2 }">
+    <img :src="getLogo" alt="Logo" />
     <h1>Ternhost</h1>
   </router-link>
 </template>
 
 <script>
-import headerLogo from '@/assets/images/header/header-logo.svg';
+import HeaderLogo from '@/assets/images/header/header-logo.svg';
+import LoginLogo from '@/assets/images/login/login-logo.svg';
 
 export default {
   name: 'BaseLogo',
+  props: {
+    v2: Boolean,
+  },
   data() {
     return {
       assets: {
-        headerLogo,
+        HeaderLogo,
+        LoginLogo,
       },
     };
+  },
+  computed: {
+    getLogo() {
+      return this.v2 ? this.assets.LoginLogo : this.assets.HeaderLogo;
+    },
   },
 };
 </script>
@@ -25,6 +35,11 @@ export default {
 
 .header__logo {
   @include center-y;
+  &.v2 {
+    h1 {
+      color: $white-100;
+    }
+  }
   h1 {
     @include fluid-type($text-4xl, $text-4xl, 700, $blue-200);
     text-transform: uppercase;

@@ -5,9 +5,16 @@ import App from './App.vue';
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faChevronRight, faBars, faCircleXmark, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronRight,
+  faBars,
+  faCircleXmark,
+  faChevronDown,
+  faChevronUp,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faChevronRight, faBars, faCircleXmark, faChevronDown, faChevronUp);
+library.add(faChevronRight, faBars, faCircleXmark, faChevronDown, faChevronUp, faPlus);
 
 // Vue Router
 import { createRouter, createWebHistory } from 'vue-router';

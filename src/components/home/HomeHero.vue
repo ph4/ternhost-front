@@ -7,8 +7,9 @@
           Deidcated resources, full root access, & easy scaling. It’s the virtual <br />
           private server you’ve been cravin
         </h3>
-
-        <base-button class="btn-secondary">View Pricing</base-button>
+        <a href="#pricing">
+          <base-button class="btn-secondary">View Pricing</base-button>
+        </a>
       </div>
     </base-container>
   </section>
