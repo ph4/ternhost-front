@@ -18,8 +18,8 @@
       </div>
       <div class="signup__form-group">
         <label>Mobile Number</label>
-        <Field name="mobile_number" v-model="mobile_number">
-          <input type="text" placeholder="Mobile Number" v-model="mobile_number" />
+        <Field name="phoneNumber" v-model="phoneNumber">
+          <input type="text" placeholder="Mobile Number" v-model="phoneNumber" />
         </Field>
       </div>
       <div class="signup__form-grid">
@@ -31,8 +31,8 @@
         </div>
         <div class="signup__form-group">
           <label>Confirm Password</label>
-          <Field name="confirm_password" v-model="confirm_password">
-            <input type="password" placeholder="Confirm Password" v-model="confirm_password" />
+          <Field name="confirmPassword" v-model="confirmPassword">
+            <input type="password" placeholder="Confirm Password" v-model="confirmPassword" />
           </Field>
         </div>
       </div>
@@ -45,9 +45,6 @@
 
 <script>
 import BaseButton from '@/components/UI/BaseButton.vue';
-import BaseInput from '@/components/UI/BaseInput.vue';
-
-import SignupFormPart from './SignupFormPart.vue';
 
 import { Form, Field } from 'vee-validate';
 
@@ -57,26 +54,24 @@ export default {
   name: 'SignupForm',
   components: {
     BaseButton,
-    BaseInput,
-    SignupFormPart,
     Form,
     Field,
   },
   data() {
     return {
       email: undefined,
-      mobile_number: undefined,
+      phoneNumber: undefined,
       password: undefined,
-      confirm_password: undefined,
+      confirmPassword: undefined,
     };
   },
   computed: {
     schema() {
       return yup.object({
         email: yup.string().email().required(),
-        mobile_number: yup.number().required().integer().positive(),
+        phoneNumber: yup.number().required().integer().positive(),
         password: yup.string().required(),
-        confirm_password: yup
+        confirmPassword: yup
           .string()
           .required()
           .oneOf([yup.ref('password'), '']),
@@ -85,21 +80,19 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      console.log('Success');
-      console.log(values);
+      console.log('[onSubmit]: ', values);
 
       /**
-       * Values:
+       * Example:
        *
        * email: 'example@gmail.com',
-       * mobile_number: "+1 123 123 123",
+       * phoneNumber: "+1 123 123 123",
        * password: "test",
-       * confirm_password: "test"
+       * confirmPassword: "test"
        */
     },
     onInvalidSubmit({ errors }) {
-      console.log('Failed');
-      console.log(errors);
+      console.log('[onInvalidSubmit]: ', errors);
     },
   },
 };
