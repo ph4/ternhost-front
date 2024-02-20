@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'TernFastLoginPlug',
+  name: 'TernFastLoginItemPlug',
 };
 </script>
 

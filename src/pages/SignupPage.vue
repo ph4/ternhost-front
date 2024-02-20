@@ -1,17 +1,17 @@
 <template>
   <signup-hero></signup-hero>
-  <tern-fast-login-box></tern-fast-login-box>
+  <tern-fast-login></tern-fast-login>
 </template>
 
 <script>
 import SignupHero from '@/components/signup/SignupHero.vue';
-import TernFastLoginBox from '@/components/tern/TernFastLoginBox.vue';
+import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
 export default {
   name: 'SignupPage',
   components: {
     SignupHero,
-    TernFastLoginBox,
+    TernFastLogin,
   },
 };
 </script>

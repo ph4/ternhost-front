@@ -1,83 +1,81 @@
 <template>
-  <li class="profiles__row-item">
-    <header class="profiles__row-item__header" @click="logout(this.session.userId)">
-      <font-awesome-icon icon="fa-solid fa-circle-xmark" class="icon" />
-    </header>
-    <div class="profiles__row-item__person">
-      <img :src="this.session.avatar" alt="Icon" />
-    </div>
-    <footer class="profiles__row-item__footer" @click="login(this.session.userId)">
-      <h1>Your Account</h1>
-      <h3>Active {{ parseRecentOnline }} days ago</h3>
-    </footer>
-  </li>
+  <section class="accounts">
+    <base-container>
+      <div class="accounts__body">
+        <header class="accounts__header">
+          <h1>Login as</h1>
+        </header>
+
+        <div class="profiles">
+          <ul class="profiles__row">
+            <tern-fast-login-item
+              v-for="session in sessions"
+              :key="session.userId"
+              :session="session"
+            ></tern-fast-login-item>
+            <tern-fast-login-plug></tern-fast-login-plug>
+          </ul>
+        </div>
+      </div>
+    </base-container>
+  </section>
 </template>
 
 <script>
+import BaseContainer from '@/components/UI/BaseContainer.vue';
+
+import TernFastLoginItem from './TernFastLoginItem.vue';
+import TernFastLoginPlug from './TernFastLoginPlug.vue';
+
+import DefaultAvatar from '@/assets/images/login/login-person.jpg';
+
 export default {
   name: 'TernFastLogin',
-  props: {
-    session: Object,
+  components: {
+    BaseContainer,
+    TernFastLoginItem,
+    TernFastLoginPlug,
   },
-  computed: {
-    parseRecentOnline() {
-      const currentTimeUnix = new Date().getTime() / 1000;
-      const differenceInSeconds = currentTimeUnix - this.session.recentOnline / 1000;
-      const differenceInDays = differenceInSeconds / (60 * 60 * 24);
-
-      return Math.floor(differenceInDays);
-    },
-  },
-  methods: {
-    logout(userId) {
-      console.log('[logout]: ', userId);
-    },
-    login(userId) {
-      console.log('[login]: ', userId);
-    },
+  data() {
+    return {
+      sessions: [
+        { userId: 47, avatar: DefaultAvatar, recentOnline: 1708426037965 },
+        { userId: 69, avatar: DefaultAvatar, recentOnline: 1208122485839 },
+        { userId: 228, avatar: DefaultAvatar, recentOnline: 1708341199854 },
+        { userId: 1488, avatar: DefaultAvatar, recentOnline: 1706422685839 },
+      ],
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/common/all';
-.profiles__row-item {
-  border-radius: 0.625rem;
-  background-color: $white-200;
-  padding: 0.625rem;
-  display: inline-block;
-  flex-basis: 9.375rem;
-  cursor: pointer;
-  &__person,
-  &__footer {
-    @include center-col;
+
+.accounts {
+  width: 100%;
+  height: 50vh;
+  background-color: $white-100;
+  @media screen and (max-width: 900px) {
+    display: none;
   }
-  &__header {
-    display: flex;
-    justify-content: flex-end;
-    .icon {
-      color: $gray-100;
-      &:hover {
-        color: $blue-100;
+  .container {
+    padding: 3.125rem 0;
+    .accounts__body {
+      max-width: calc(100% - (500px + 1.25rem));
+    }
+    .accounts__header {
+      h1 {
+        @include fluid-type($text-base, $text-base);
       }
     }
-  }
-  &__person {
-    margin: 0.625rem 0;
-    img {
-      width: 4.75rem;
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-    }
-  }
-  &__footer {
-    text-align: center;
-    h1 {
-      @include fluid-type($text-base, $text-base, 500);
-    }
-    h3 {
-      @include fluid-type($text-sm, $text-sm, 300, $gray-100);
-      margin-top: 0.313rem;
+    .profiles {
+      margin-top: 1.875rem;
+      &__row {
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
     }
   }
 }
