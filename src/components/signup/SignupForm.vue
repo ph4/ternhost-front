@@ -87,6 +87,15 @@ export default {
     onSubmit(values) {
       console.log('Success');
       console.log(values);
+
+      /**
+       * Values:
+       *
+       * email: 'example@gmail.com',
+       * mobile_number: "+1 123 123 123",
+       * password: "test",
+       * confirm_password: "test"
+       */
     },
     onInvalidSubmit({ errors }) {
       console.log('Failed');
