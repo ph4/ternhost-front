@@ -12,32 +12,24 @@
     <Form class="signup__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">
       <div class="signup__form-group">
         <label>Enter your username or email address</label>
-        <Field name="email" v-model="email">
-          <input type="text" placeholder="Username or email address" v-model="email" />
-        </Field>
+        <input type="text" placeholder="Username or email address" />
       </div>
       <div class="signup__form-group">
         <label>Mobile Number</label>
-        <Field name="mobile_number" v-model="mobile_number">
-          <input type="text" placeholder="Mobile Number" v-model="mobile_number" />
-        </Field>
+        <input type="text" placeholder="Mobile Number" />
       </div>
       <div class="signup__form-grid">
         <div class="signup__form-group">
           <label>Password</label>
-          <Field name="password" v-model="password">
-            <input type="password" placeholder="Password" v-model="password" />
-          </Field>
+          <input type="password" placeholder="Password" />
         </div>
         <div class="signup__form-group">
           <label>Confirm Password</label>
-          <Field name="confirm_password" v-model="confirm_password">
-            <input type="password" placeholder="Confirm Password" v-model="confirm_password" />
-          </Field>
+          <input type="password" placeholder="Confirm Password" />
         </div>
       </div>
       <div class="signup__form-button">
-        <base-button class="btn-secondary">Register</base-button>
+        <base-button class="btn-primary">Register</base-button>
       </div>
     </Form>
   </div>
@@ -49,7 +41,7 @@ import BaseInput from '@/components/UI/BaseInput.vue';
 
 import SignupFormPart from './SignupFormPart.vue';
 
-import { Form, Field } from 'vee-validate';
+import { Form } from 'vee-validate';
 
 import * as yup from 'yup';
 
@@ -60,26 +52,11 @@ export default {
     BaseInput,
     SignupFormPart,
     Form,
-    Field,
-  },
-  data() {
-    return {
-      email: undefined,
-      mobile_number: undefined,
-      password: undefined,
-      confirm_password: undefined,
-    };
   },
   computed: {
     schema() {
       return yup.object({
-        email: yup.string().email().required(),
-        mobile_number: yup.number().required().integer().positive(),
-        password: yup.string().required(),
-        confirm_password: yup
-          .string()
-          .required()
-          .oneOf([yup.ref('password'), '']),
+        email: yup.string().email().required().typeError('Failde Email'),
       });
     },
   },
@@ -187,7 +164,12 @@ export default {
         margin-top: 1.875rem;
       }
       button {
+        @include fluid-type($text-base, $text-base, 500, $white-100);
+        background-color: $blue-100;
+        border-radius: 0.313rem;
+        padding: 1.25rem 0;
         width: 100%;
+        cursor: pointer;
       }
     }
   }
