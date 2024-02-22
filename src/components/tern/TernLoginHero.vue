@@ -5,15 +5,11 @@
 
       <div class="hero-group">
         <div class="hero-text">
-          <h1>Sign in to</h1>
-          <h2>Lorem Ipsum is simply</h2>
-          <h3>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s,
-          </h3>
+          <slot></slot>
         </div>
 
-        <signup-form></signup-form>
+        <login-form v-if="this.component === 'login'"></login-form>
+        <signup-form v-if="this.component === 'signup'"></signup-form>
       </div>
 
       <div class="terms">
@@ -27,13 +23,18 @@
 import BaseContainer from '@/components/UI/BaseContainer.vue';
 import BaseLogo from '@/components/UI/BaseLogo.vue';
 
-import SignupForm from './SignupForm.vue';
+import LoginForm from '@/components/login/LoginForm.vue';
+import SignupForm from '@/components/signup/SignupForm.vue';
 
 export default {
-  name: 'SignupHero',
+  name: 'TernLoginHero',
+  props: {
+    component: String,
+  },
   components: {
     BaseContainer,
     BaseLogo,
+    LoginForm,
     SignupForm,
   },
 };
@@ -75,22 +76,15 @@ export default {
       }
     }
     .hero-group {
+      width: 100%;
       margin: 1.875rem 0;
+      @media screen and (max-width: 900px) {
+        @include center;
+      }
       .hero-text {
         margin-top: 5rem;
         @media screen and (max-width: 900px) {
           display: none;
-        }
-        h1 {
-          @include fluid-type($text-4xl, $text-4xl, 700, $white-100);
-        }
-        h2 {
-          @include fluid-type($text-2xl, $text-2xl, $color: $white-100);
-          margin: 1rem 0;
-        }
-        h3 {
-          @include fluid-type($text-sm, $text-sm, 300, $white-100);
-          max-width: 18.75rem;
         }
       }
     }

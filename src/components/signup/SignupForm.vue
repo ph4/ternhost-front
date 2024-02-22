@@ -14,6 +14,7 @@
         <label>Enter your username or email address</label>
         <Field name="email" v-model="email">
           <input type="text" placeholder="Username or email address" v-model="email" />
+          <ErrorMessage name="email" />
         </Field>
       </div>
       <div class="signup__form-group">
@@ -46,7 +47,7 @@
 <script>
 import BaseButton from '@/components/UI/BaseButton.vue';
 
-import { Form, Field } from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
@@ -56,6 +57,7 @@ export default {
     BaseButton,
     Form,
     Field,
+    ErrorMessage,
   },
   data() {
     return {
@@ -175,6 +177,9 @@ export default {
         margin-top: 1.25rem;
         @media screen and (max-width: 500px) {
           padding: 0.938rem;
+        }
+        &:focus {
+          border: 0.063rem solid $blue-100;
         }
       }
       a {

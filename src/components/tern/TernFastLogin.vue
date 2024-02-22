@@ -39,10 +39,10 @@ export default {
   data() {
     return {
       sessions: [
-        { userId: 47, avatar: DefaultAvatar, recentOnline: 1708426037965 },
-        { userId: 69, avatar: DefaultAvatar, recentOnline: 1208122485839 },
-        { userId: 228, avatar: DefaultAvatar, recentOnline: 1708341199854 },
-        { userId: 1488, avatar: DefaultAvatar, recentOnline: 1706422685839 },
+        { userId: 47, avatar: DefaultAvatar, recentOnline: 'Active 1 days ago' },
+        { userId: 69, avatar: DefaultAvatar, recentOnline: 'Active 22 days ago' },
+        { userId: 228, avatar: DefaultAvatar, recentOnline: 'Active 2821 days ago' },
+        { userId: 1488, avatar: DefaultAvatar, recentOnline: 'Active 3 days ago' },
       ],
     };
   },

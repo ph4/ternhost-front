@@ -8,7 +8,7 @@
     </div>
     <footer class="profiles__row-item__footer" @click="login(this.session.userId)">
       <h1>Your Account</h1>
-      <h3>Active {{ parseRecentOnline }} days ago</h3>
+      <h3>{{ this.session.recentOnline }}</h3>
     </footer>
   </li>
 </template>
@@ -18,15 +18,6 @@ export default {
   name: 'TernFastLoginItem',
   props: {
     session: Object,
-  },
-  computed: {
-    parseRecentOnline() {
-      const currentTimeUnix = new Date().getTime() / 1000;
-      const differenceInSeconds = currentTimeUnix - this.session.recentOnline / 1000;
-      const differenceInDays = differenceInSeconds / (60 * 60 * 24);
-
-      return Math.floor(differenceInDays);
-    },
   },
   methods: {
     logout(userId) {
