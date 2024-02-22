@@ -1,30 +1,13 @@
 <template>
-  <div class="login">
-    <header class="login__header">
-      <div class="login__header-title">
+  <div class="forgot">
+    <header class="forgot__header">
+      <div class="forgot__header-title">
         <h2>Welcome to <span>Ternhost</span></h2>
-        <h1>Sign In</h1>
-      </div>
-      <div class="login__header-signup">
-        <h3>No Account? <br /><router-link to="/signup">Sign Up</router-link></h3>
+        <h1>Forgot Password?</h1>
       </div>
     </header>
-    <div class="login__social">
-      <ul class="login__social-group">
-        <li class="login__social-group__item" @click="googleLogin">
-          <img :src="assets.LoginGoogleIcon" alt="Icon" />
-          <h3>Sign in with Google</h3>
-        </li>
-        <li class="login__social-group__item" @click="facebookLogin">
-          <img :src="assets.LoginFacebookIcon" alt="Icon" />
-        </li>
-        <li class="login__social-group__item" @click="appleLogin">
-          <img :src="assets.LoginAppleIcon" alt="Icon" />
-        </li>
-      </ul>
-    </div>
-    <Form class="login__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">
-      <div class="login__form-group">
+    <Form class="forgot__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">
+      <div class="forgot__form-group">
         <label>Enter your email</label>
         <Field name="email" v-model="email">
           <input
@@ -33,24 +16,11 @@
             v-model="email"
             :class="{ danger: errors?.email && !email }"
           />
-          <ErrorMessage name="email" class="login__form-group__error" />
+          <ErrorMessage name="email" class="forgot__form-group__error" />
         </Field>
       </div>
-      <div class="login__form-group">
-        <label>Enter your password</label>
-        <Field name="password" v-model="password">
-          <input
-            type="password"
-            placeholder="Password"
-            v-model="password"
-            :class="{ danger: errors?.password && !password }"
-          />
-          <ErrorMessage name="password" class="login__form-group__error" />
-        </Field>
-        <router-link to="/forgot-password">Forgot Password</router-link>
-      </div>
-      <div class="login__form-button">
-        <base-button class="btn-secondary">Sign In</base-button>
+      <div class="forgot__form-button">
+        <base-button class="btn-secondary">Submit</base-button>
       </div>
     </Form>
   </div>
@@ -61,14 +31,10 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
-import LoginFacebookIcon from '@/assets/images/login/login-facebook-icon.svg';
-import LoginGoogleIcon from '@/assets/images/login/login-google-icon.svg';
-import LoginAppleIcon from '@/assets/images/login/login-apple-icon.svg';
-
 import BaseButton from '@/components/UI/BaseButton.vue';
 
 export default {
-  name: 'LoginForm',
+  name: 'forgotForm',
   components: {
     BaseButton,
     Form,
@@ -77,13 +43,7 @@ export default {
   },
   data() {
     return {
-      assets: {
-        LoginFacebookIcon,
-        LoginAppleIcon,
-        LoginGoogleIcon,
-      },
       email: undefined,
-      password: undefined,
       errors: undefined,
     };
   },
@@ -94,27 +54,19 @@ export default {
           .string('Please enter a valid email address')
           .email('Please enter a valid email address')
           .required('This field cannot be empty'),
-        password: yup.string().required('This field cannot be empty'),
       });
     },
   },
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
+
+      this.$router.push('/login');
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);
 
       this.errors = errors;
-    },
-    googleLogin() {
-      console.log('[googleLogin]: ');
-    },
-    facebookLogin() {
-      console.log('[facebookLogin]: ');
-    },
-    appleLogin() {
-      console.log('[appleLogin]: ');
     },
   },
 };
@@ -123,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/common/all';
 
-.login {
+.forgot {
   background-color: $white-100;
   position: absolute;
   bottom: 0;
@@ -156,44 +108,6 @@ export default {
       h1 {
         @include fluid-type($text-4xl, $text-5xl, 700);
         margin-top: 1rem;
-      }
-    }
-    &-signup {
-      margin-left: 5rem;
-      @media screen and (max-width: 900px) {
-        margin-left: 1rem;
-      }
-      h3 {
-        @include fluid-type($text-xs, $text-sm, $color: $gray-100);
-        a {
-          color: $blue-100;
-        }
-      }
-    }
-  }
-  &__social {
-    margin-top: 3.125rem;
-    @media screen and (max-width: 500px) {
-      margin-top: 2.188rem;
-    }
-    &-group {
-      display: grid;
-      grid-template-columns: 5fr 1fr 1fr;
-      grid-gap: 0.75rem;
-      @media screen and (max-width: 900px) {
-        grid-template-columns: 4fr 1fr 1fr;
-        grid-gap: 0.25rem;
-      }
-      &__item {
-        @include center;
-        background-color: $white-200;
-        border-radius: 0.625rem;
-        padding: 0.5rem 0;
-        cursor: pointer;
-        h3 {
-          @include fluid-type($text-xs, $text-base, $color: $blue-100);
-          margin-left: 0.5rem;
-        }
       }
     }
   }
