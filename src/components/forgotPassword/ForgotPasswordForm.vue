@@ -34,7 +34,7 @@ import * as yup from 'yup';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
 export default {
-  name: 'forgotForm',
+  name: 'ForgotPasswordForm',
   components: {
     BaseButton,
     Form,
@@ -61,7 +61,7 @@ export default {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
 
-      this.$router.push('/login');
+      this.$router.push('/check-email');
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);

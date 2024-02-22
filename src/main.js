@@ -28,6 +28,7 @@ import HelpPage from './pages/HelpPage.vue';
 import SignupPage from './pages/SignupPage.vue';
 import NotFound from './pages/NotFound.vue';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
+import CheckEmailPage from './pages/CheckEmailPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -40,6 +41,7 @@ const router = createRouter({
     { path: '/help', component: HelpPage },
     { path: '/signup', component: SignupPage },
     { path: '/forgot-password', component: ForgotPasswordPage },
+    { path: '/check-email', component: CheckEmailPage },
     { path: '/:pathMatch(.*)*', component: NotFound },
   ],
 });

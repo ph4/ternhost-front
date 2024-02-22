@@ -1,5 +1,5 @@
 <template>
-  <tern-login-hero component="forgot-password">
+  <tern-login-hero component="check-email">
     <h1>Sign in to</h1>
     <h2>Lorem Ipsum is simply</h2>
     <h3>
@@ -15,7 +15,7 @@ import TernLoginHero from '@/components/tern/TernLoginHero.vue';
 import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
 export default {
-  name: 'ForgotPasswordPage',
+  name: 'CheckEmailPage',
   components: {
     TernLoginHero,
     TernFastLogin,
