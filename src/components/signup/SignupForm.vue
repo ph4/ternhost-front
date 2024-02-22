@@ -11,29 +11,52 @@
     </header>
     <Form class="signup__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">
       <div class="signup__form-group">
-        <label>Enter your username or email address</label>
+        <label>Enter your email</label>
         <Field name="email" v-model="email">
-          <input type="text" placeholder="Username or email address" v-model="email" />
-          <ErrorMessage name="email" />
+          <input
+            type="text"
+            placeholder="example@tern.com"
+            v-model="email"
+            :class="{ danger: errors?.email && !email }"
+          />
+          <ErrorMessage name="email" class="signup__form-group__error" />
         </Field>
       </div>
       <div class="signup__form-group">
         <label>Mobile Number</label>
         <Field name="phoneNumber" v-model="phoneNumber">
-          <input type="text" placeholder="Mobile Number" v-model="phoneNumber" />
+          <input
+            type="number"
+            placeholder="Mobile Number"
+            v-model="phoneNumber"
+            :class="{ danger: errors?.phoneNumber && !phoneNumber }"
+          />
+          <ErrorMessage name="phoneNumber" class="signup__form-group__error" />
         </Field>
       </div>
       <div class="signup__form-grid">
         <div class="signup__form-group">
           <label>Password</label>
           <Field name="password" v-model="password">
-            <input type="password" placeholder="Password" v-model="password" />
+            <input
+              type="password"
+              placeholder="Password"
+              v-model="password"
+              :class="{ danger: errors?.password && !password }"
+            />
+            <ErrorMessage name="password" class="signup__form-group__error" />
           </Field>
         </div>
         <div class="signup__form-group">
           <label>Confirm Password</label>
           <Field name="confirmPassword" v-model="confirmPassword">
-            <input type="password" placeholder="Confirm Password" v-model="confirmPassword" />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              v-model="confirmPassword"
+              :class="{ danger: (errors?.confirmPassword && !confirmPassword) || confirmPassword !== password }"
+            />
+            <ErrorMessage name="confirmPassword" class="signup__form-group__error" />
           </Field>
         </div>
       </div>
@@ -65,36 +88,38 @@ export default {
       phoneNumber: undefined,
       password: undefined,
       confirmPassword: undefined,
+      errors: undefined,
     };
   },
   computed: {
     schema() {
       return yup.object({
-        email: yup.string().email().required(),
-        phoneNumber: yup.number().required().integer().positive(),
-        password: yup.string().required(),
+        email: yup
+          .string('Please enter a valid email address')
+          .email('Please enter a valid email address')
+          .required('This field cannot be empty'),
+        phoneNumber: yup
+          .number('Please enter a valid phone number')
+          .required('This field cannot be empty')
+          .integer('Please enter a valid phone number')
+          .positive('Please enter a valid phone number')
+          .typeError('Please enter a valid phone number'),
+        password: yup.string().required('This field cannot be empty'),
         confirmPassword: yup
           .string()
-          .required()
-          .oneOf([yup.ref('password'), '']),
+          .required('This field cannot be empty')
+          .oneOf([yup.ref('password')], 'The password does not match'),
       });
     },
   },
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
-
-      /**
-       * Example:
-       *
-       * email: 'example@gmail.com',
-       * phoneNumber: "+1 123 123 123",
-       * password: "test",
-       * confirmPassword: "test"
-       */
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);
+
+      this.errors = errors;
     },
   },
 };
@@ -165,6 +190,10 @@ export default {
       @media screen and (max-width: 500px) {
         margin-top: 1.875rem;
       }
+      &__error {
+        @include fluid-type($text-xs, $text-xs, 500, $red-1);
+        margin-top: 0.5rem;
+      }
       label,
       input {
         @include fluid-type($text-sm, $text-base);
@@ -175,8 +204,8 @@ export default {
         border: 0.063rem solid $gray-100;
         padding: 1.25rem 1.563rem;
         margin-top: 1.25rem;
-        @media screen and (max-width: 500px) {
-          padding: 0.938rem;
+        &.danger {
+          border: 0.063rem solid $red-1;
         }
         &:focus {
           border: 0.063rem solid $blue-100;

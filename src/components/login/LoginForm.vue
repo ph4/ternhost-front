@@ -25,7 +25,7 @@
     </div>
     <Form class="login__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">
       <div class="login__form-group">
-        <label>Enter your username or email address</label>
+        <label>Enter your email</label>
         <Field name="email" v-model="email">
           <input
             type="text"
@@ -37,7 +37,7 @@
         </Field>
       </div>
       <div class="login__form-group">
-        <label>Enter your Password</label>
+        <label>Enter your password</label>
         <Field name="password" v-model="password">
           <input
             type="password"
@@ -90,8 +90,11 @@ export default {
   computed: {
     schema() {
       return yup.object({
-        email: yup.string().email().required(),
-        password: yup.string().required(),
+        email: yup
+          .string('Please enter a valid email address')
+          .email('Please enter a valid email address')
+          .required('This field cannot be empty'),
+        password: yup.string().required('This field cannot be empty'),
       });
     },
   },
