@@ -17,7 +17,7 @@ import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
 import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
 
 export default {
-  name: 'NotFound',
+  name: 'NotFoundPage',
   components: {
     MainHeader,
     AppFooter,

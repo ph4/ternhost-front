@@ -26,9 +26,10 @@ import DomainPage from './pages/DomainPage.vue';
 import BuilderPage from './pages/BuilderPage.vue';
 import HelpPage from './pages/HelpPage.vue';
 import SignupPage from './pages/SignupPage.vue';
-import NotFound from './pages/NotFound.vue';
+import NotFoundPage from './pages/NotFoundPage.vue';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
 import CheckEmailPage from './pages/CheckEmailPage.vue';
+import SetPasswordPage from './pages/SetPasswordPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -42,7 +43,8 @@ const router = createRouter({
     { path: '/signup', component: SignupPage },
     { path: '/forgot-password', component: ForgotPasswordPage },
     { path: '/check-email', component: CheckEmailPage },
-    { path: '/:pathMatch(.*)*', component: NotFound },
+    { path: '/set-password', component: SetPasswordPage },
+    { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
 

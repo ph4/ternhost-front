@@ -12,6 +12,7 @@
         <signup-form v-if="this.component === 'signup'"></signup-form>
         <forgot-password-form v-if="this.component === 'forgot-password'"></forgot-password-form>
         <check-email-form v-if="this.component === 'check-email'"></check-email-form>
+        <set-password-form v-if="this.component === 'set-password'"></set-password-form>
       </div>
 
       <div class="terms">
@@ -29,6 +30,7 @@ import LoginForm from '@/components/login/LoginForm.vue';
 import SignupForm from '@/components/signup/SignupForm.vue';
 import ForgotPasswordForm from '@/components/forgotPassword/ForgotPasswordForm.vue';
 import CheckEmailForm from '@/components/checkEmail/CheckEmailForm.vue';
+import SetPasswordForm from '@/components/setPassword/SetPasswordForm.vue';
 
 export default {
   name: 'TernLoginHero',
@@ -42,6 +44,7 @@ export default {
     SignupForm,
     ForgotPasswordForm,
     CheckEmailForm,
+    SetPasswordForm,
   },
 };
 </script>
