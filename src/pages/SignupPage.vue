@@ -1,11 +1,16 @@
 <template>
-  <tern-login-hero component="signup">
-    <h1>Sign Up</h1>
-    <h2>Lorem Ipsum is simply</h2>
-    <h3>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s,
-    </h3>
+  <tern-login-hero>
+    <template #text>
+      <h1>Sign Up</h1>
+      <h2>Lorem Ipsum is simply</h2>
+      <h3>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s,
+      </h3>
+    </template>
+    <template #form>
+      <signup-form></signup-form>
+    </template>
   </tern-login-hero>
   <tern-fast-login></tern-fast-login>
 </template>
@@ -14,11 +19,14 @@
 import TernLoginHero from '@/components/tern/TernLoginHero.vue';
 import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
+import SignupForm from '@/components/signup/SignupForm.vue';
+
 export default {
   name: 'SignupPage',
   components: {
     TernLoginHero,
     TernFastLogin,
+    SignupForm,
   },
 };
 </script>

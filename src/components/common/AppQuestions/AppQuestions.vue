@@ -5,15 +5,15 @@
 
       <div class="faq-body">
         <ul class="questions">
-          <li class="questions__item" v-for="item in faq" :key="item.id" @click="showAnswer(item.id)">
-            <header class="questions__item-header">
+          <li class="questions__item" v-for="item in faq" :key="item.id" @click="showAnswer(item.id)" ref="acc">
+            <header class="questions__item-header" :data-id="item.id">
               <h1>{{ item.question }}</h1>
 
               <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon" v-if="item.isActive" />
               <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon" v-else />
             </header>
 
-            <div class="questions__item-body" v-if="item.isActive">
+            <div class="questions__item-body" v-show="item.isActive" :data-id="item.id">
               <p>{{ item.answer }}</p>
             </div>
           </li>

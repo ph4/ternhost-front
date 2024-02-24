@@ -60,6 +60,7 @@ export default {
   padding: 1rem;
   display: block;
   transition: all 1s;
+  background-color: red;
   &__header {
     @include center-y;
     justify-content: space-between;

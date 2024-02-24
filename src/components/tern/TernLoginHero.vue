@@ -5,14 +5,10 @@
 
       <div class="hero-group">
         <div class="hero-text">
-          <slot></slot>
+          <slot name="text"></slot>
         </div>
 
-        <login-form v-if="this.component === 'login'"></login-form>
-        <signup-form v-if="this.component === 'signup'"></signup-form>
-        <forgot-password-form v-if="this.component === 'forgot-password'"></forgot-password-form>
-        <check-email-form v-if="this.component === 'check-email'"></check-email-form>
-        <set-password-form v-if="this.component === 'set-password'"></set-password-form>
+        <slot name="form"></slot>
       </div>
 
       <div class="terms">
@@ -26,25 +22,11 @@
 import BaseContainer from '@/components/UI/BaseContainer.vue';
 import BaseLogo from '@/components/UI/BaseLogo.vue';
 
-import LoginForm from '@/components/login/LoginForm.vue';
-import SignupForm from '@/components/signup/SignupForm.vue';
-import ForgotPasswordForm from '@/components/forgotPassword/ForgotPasswordForm.vue';
-import CheckEmailForm from '@/components/checkEmail/CheckEmailForm.vue';
-import SetPasswordForm from '@/components/setPassword/SetPasswordForm.vue';
-
 export default {
   name: 'TernLoginHero',
-  props: {
-    component: String,
-  },
   components: {
     BaseContainer,
     BaseLogo,
-    LoginForm,
-    SignupForm,
-    ForgotPasswordForm,
-    CheckEmailForm,
-    SetPasswordForm,
   },
 };
 </script>

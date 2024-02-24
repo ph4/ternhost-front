@@ -12,9 +12,22 @@ import {
   faChevronDown,
   faChevronUp,
   faPlus,
+  faBasketShopping,
+  faCheck,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faChevronRight, faBars, faCircleXmark, faChevronDown, faChevronUp, faPlus);
+library.add(
+  faXmark,
+  faChevronRight,
+  faBars,
+  faCircleXmark,
+  faChevronDown,
+  faChevronUp,
+  faPlus,
+  faBasketShopping,
+  faCheck,
+);
 
 // Vue Router
 import { createRouter, createWebHistory } from 'vue-router';
@@ -30,6 +43,9 @@ import NotFoundPage from './pages/NotFoundPage.vue';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
 import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
+import OrderDomainPage from './pages/OrderDomainPage.vue';
+
+import Animation from './tests/Animation.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +60,8 @@ const router = createRouter({
     { path: '/forgot-password', component: ForgotPasswordPage },
     { path: '/check-email', component: CheckEmailPage },
     { path: '/set-password', component: SetPasswordPage },
+    { path: '/order-domain', component: OrderDomainPage },
+    { path: '/testing', component: Animation },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });

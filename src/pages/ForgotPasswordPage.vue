@@ -1,11 +1,16 @@
 <template>
-  <tern-login-hero component="forgot-password">
-    <h1>Sign in to</h1>
-    <h2>Lorem Ipsum is simply</h2>
-    <h3>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s,
-    </h3>
+  <tern-login-hero>
+    <template #text>
+      <h1>Forgot Password</h1>
+      <h2>Lorem Ipsum is simply</h2>
+      <h3>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s,
+      </h3>
+    </template>
+    <template #form>
+      <forgot-password-form></forgot-password-form>
+    </template>
   </tern-login-hero>
   <tern-fast-login></tern-fast-login>
 </template>
@@ -14,11 +19,14 @@
 import TernLoginHero from '@/components/tern/TernLoginHero.vue';
 import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
+import ForgotPasswordForm from '@/components/forgotPassword/ForgotPasswordForm.vue';
+
 export default {
   name: 'ForgotPasswordPage',
   components: {
     TernLoginHero,
     TernFastLogin,
+    ForgotPasswordForm,
   },
 };
 </script>

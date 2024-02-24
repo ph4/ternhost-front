@@ -1,11 +1,16 @@
 <template>
-  <tern-login-hero component="check-email">
-    <h1>Sign in to</h1>
-    <h2>Lorem Ipsum is simply</h2>
-    <h3>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s,
-    </h3>
+  <tern-login-hero>
+    <template #text>
+      <h1>Check Email</h1>
+      <h2>Lorem Ipsum is simply</h2>
+      <h3>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s,
+      </h3>
+    </template>
+    <template #form>
+      <check-email-form></check-email-form>
+    </template>
   </tern-login-hero>
   <tern-fast-login></tern-fast-login>
 </template>
@@ -14,11 +19,14 @@
 import TernLoginHero from '@/components/tern/TernLoginHero.vue';
 import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
+import CheckEmailForm from '@/components/checkEmail/CheckEmailForm.vue';
+
 export default {
   name: 'CheckEmailPage',
   components: {
     TernLoginHero,
     TernFastLogin,
+    CheckEmailForm,
   },
 };
 </script>
