@@ -60,7 +60,7 @@ const router = createRouter({
     { path: '/forgot-password', component: ForgotPasswordPage },
     { path: '/check-email', component: CheckEmailPage },
     { path: '/set-password', component: SetPasswordPage },
-    { path: '/order-domain', component: OrderDomainPage },
+    { path: '/order/domain', component: OrderDomainPage },
     { path: '/testing', component: Animation },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
@@ -76,12 +76,18 @@ import { register } from 'swiper/element/bundle';
 
 register();
 
+// Pinia
+import { createPinia } from 'pinia';
+
+const pinia = createPinia();
+
 // Vue
 const app = createApp(App);
 
 app.config.globalProperties.$emitter = emitter;
 
 app.use(router);
+app.use(pinia);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
