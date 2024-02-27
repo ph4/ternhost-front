@@ -12,21 +12,9 @@
           <div class="orders__item-domain">
             <h3>{{ domain.second }}{{ domain.top }}</h3>
           </div>
-          <div class="orders__item-age">
-            <div class="orders__item-age__active">
-              <h3>1 year</h3>
-              <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
-            </div>
 
-            <div class="orders__item-age__body">
-              <ul class="ages">
-                <li class="ages__item">1 year</li>
-                <li class="ages__item">2 year</li>
-                <li class="ages__item">3 year</li>
-                <li class="ages__item">4 year</li>
-              </ul>
-            </div>
-          </div>
+          <order-select :index="index" :isShow="index === activeSelect"></order-select>
+
           <div class="orders__item-price">
             <h3>${{ domain.originalPrice }}/yr</h3>
             <h1>${{ domain.discountPrice }}/yr</h1>
@@ -56,16 +44,20 @@
 <script>
 import BaseButton from '@/components/UI/BaseButton.vue';
 
+import OrderSelect from './OrderSelect.vue';
+
 import { useCartStore } from '@/stores/useCartStore.js';
 
 export default {
   name: 'OrderCartDomain',
   components: {
     BaseButton,
+    OrderSelect,
   },
   data() {
     return {
       cartStore: null,
+      activeSelect: null,
     };
   },
   computed: {
@@ -87,6 +79,14 @@ export default {
   },
   created() {
     this.cartStore = useCartStore();
+  },
+  mounted() {
+    this.$emitter.on('_order_-toggle-select', (index) => this.toggleSelect(index));
+  },
+  methods: {
+    toggleSelect(index) {
+      index !== this.activeSelect ? (this.activeSelect = index) : (this.activeSelect = null);
+    },
   },
 };
 </script>
@@ -158,6 +158,7 @@ export default {
     }
   }
   &__body {
+    height: 100%;
     .search-domain {
       display: flex;
       justify-content: space-between;
@@ -190,6 +191,7 @@ export default {
     .orders {
       margin-top: 1rem;
       max-height: 16.5rem;
+      height: 100%;
       overflow-y: scroll;
       &__item {
         display: grid;
@@ -211,23 +213,6 @@ export default {
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-          }
-        }
-        &-age {
-          position: relative;
-          &__active {
-            @include center-y-between;
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            border: 0.063rem solid $gray-200;
-            cursor: pointer;
-            h3 {
-              @include fluid-type($text-sm, $text-base, 500, $gray-200);
-            }
-            .icon {
-              color: $gray-200;
-            }
           }
         }
         &-price {
