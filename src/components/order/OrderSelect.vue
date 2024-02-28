@@ -44,6 +44,7 @@ export default {
       const store = useCartStore();
 
       store.setAge(ageId, this.domain);
+
       this.currentAge = store.getCurrentAgeByDomain(this.domain);
       this.toggleSelect();
     },

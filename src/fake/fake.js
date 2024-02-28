@@ -1,55 +1,12 @@
-/**
- * id: 0,
- * tld: '.com',
- * root: null | 'example.com',
- * ages: [
- *  { id: 0, age: 12, price: 34.99, discount: 20, isActive: false }
- * ]
- */
-
-// export const fakeDomains = [
-//   { id: 0, top: '.com', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 1, top: '.net', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 2, top: '.org', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 3, top: '.dev', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 4, top: '.app', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 5, top: '.inc', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 6, top: '.website', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 7, top: '.io', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 8, top: '.co', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 9, top: '.ai', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 10, top: '.co.', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 11, top: '.ca', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 12, top: '.me', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 13, top: '.de', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 14, top: '.xyz', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 15, top: '.club', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 16, top: '.online', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 17, top: '.info', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 18, top: '.store', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 19, top: '.best', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 20, top: '.live', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 21, top: '.tech', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 22, top: '.pro', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 23, top: '.world', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 24, top: '.space', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 25, top: '.vip', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 26, top: '.life', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 27, top: '.in', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 28, top: '.is', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 29, top: '.eu', originalPrice: 34.99, discountPrice: 9.99 },
-//   { id: 30, top: '.gg', originalPrice: 34.99, discountPrice: 9.99 },
-// ];
-
 export const fakeDomains = [
   {
     id: 0,
     tld: '.com',
     root: undefined,
     ages: [
-      { id: 0, age: 12, price: 34.99, discount: 20, isActive: false },
+      { id: 0, age: 12, price: 34.99, discount: 0, isActive: true },
       { id: 1, age: 24, price: 69.99, discount: 30, isActive: false },
-      { id: 2, age: 36, price: 104.99, discount: 40, isActive: true },
+      { id: 2, age: 36, price: 104.99, discount: 40, isActive: false },
       // { id: 3, age: 48, price: 139.99, discount: 50, isActive: false },
     ],
   },

@@ -17,8 +17,8 @@
           ></order-select>
 
           <div class="orders__item-price">
-            <h3>${{ getOriginalPrice(domain) }}</h3>
-            <h1>${{ getDiscountPrice(domain) }}</h1>
+            <h3>${{ store.getOriginalPriceByDomain(domain) }}</h3>
+            <h1>${{ store.getDiscountPriceByDomain(domain) }}</h1>
           </div>
         </li>
       </ul>
@@ -27,16 +27,15 @@
       <div class="top">
         <h1>Total</h1>
         <div class="total-price">
-          <!-- <h1>${{ getTotalOriginalPrice }}</h1> -->
-          <!-- <h1>${{ getTotalDiscountPrice }}</h1> -->
+          <h1>${{ store.getTotalOriginalPrice }}</h1>
+          <h1>${{ store.getTotalDiscountPrice }}</h1>
         </div>
       </div>
-      <div class="promocode">
-        <input type="text" placeholder="Enter Promocode..." />
-        <font-awesome-icon icon="fa-solid fa-plus" class="icon"></font-awesome-icon>
-      </div>
+
+      <order-cart-promocode></order-cart-promocode>
+
       <div class="continue">
-        <base-button class="btn btn-secondary">Continue</base-button>
+        <router-link to="/"><base-button class="btn btn-secondary">Continue</base-button></router-link>
       </div>
     </footer>
   </li>
@@ -46,6 +45,7 @@
 import BaseButton from '@/components/UI/BaseButton.vue';
 
 import OrderSelect from './OrderSelect.vue';
+import OrderCartPromocode from './OrderCartPromocode.vue';
 
 import { useCartStore } from '@/stores/useCartStore.js';
 
@@ -54,15 +54,13 @@ export default {
   components: {
     BaseButton,
     OrderSelect,
+    OrderCartPromocode,
   },
   data() {
     return {
-      store: null,
+      store: useCartStore(),
       activeSelect: null,
     };
-  },
-  created() {
-    this.store = useCartStore();
   },
   mounted() {
     this.$emitter.on('_order_-toggle-select', (index) => this.toggleSelect(index));
@@ -70,13 +68,6 @@ export default {
   methods: {
     toggleSelect(index) {
       index !== this.activeSelect ? (this.activeSelect = index) : (this.activeSelect = null);
-    },
-    getOriginalPrice(domain) {
-      return domain.ages.filter((age) => age.isActive === true)[0].price;
-    },
-    getDiscountPrice(domain) {
-      const activeAge = domain.ages.filter((age) => age.isActive === true)[0].price;
-      return (activeAge - (activeAge / 100) * 40).toFixed(2);
     },
   },
 };
@@ -246,22 +237,6 @@ export default {
             text-decoration: line-through;
           }
         }
-      }
-    }
-    .promocode {
-      border-radius: 0.25rem;
-      border: 0.125rem solid $gray-200;
-      display: flex;
-      justify-content: space-between;
-      margin: 2rem 0;
-      input {
-        @include fluid-type($text-base, $text-base, $color: $gray-200);
-        padding: 0 1rem;
-      }
-      .icon {
-        background-color: $gray-200;
-        padding: 1rem;
-        color: $white-100;
       }
     }
     .continue {

@@ -5,7 +5,7 @@
     </header>
     <div class="domains__group-item__body">
       <div class="search-domain">
-        <input type="text" placeholder="Search your domain..." />
+        <input type="text" placeholder="Search your domain..." v-model="domain" />
       </div>
       <p>
         Our powerful infrastructure ensures stability and high performance, while our support experts are ready to
@@ -13,7 +13,7 @@
       </p>
     </div>
     <footer class="domains__group-item__footer">
-      <base-button class="btn-secondary">Next</base-button>
+      <base-button class="btn-secondary" @click="transferDomain">Next</base-button>
     </footer>
   </li>
 </template>
@@ -25,6 +25,16 @@ export default {
   name: 'OrderTransferDomain',
   components: {
     BaseButton,
+  },
+  data() {
+    return {
+      domain: '',
+    };
+  },
+  methods: {
+    transferDomain() {
+      console.log('[transferDomain]: ', this.domain);
+    },
   },
 };
 </script>

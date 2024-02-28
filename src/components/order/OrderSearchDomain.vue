@@ -80,17 +80,19 @@ export default {
   },
   methods: {
     loadDomains() {
-      this.isLoading = true;
+      if (this.domainName.length) {
+        this.isLoading = true;
 
-      const domains = useFakeDomains(this.domainName);
+        const domains = useFakeDomains(this.domainName);
 
-      if (domains) {
-        this.domains = domains;
-        this.domainName = '';
+        if (domains) {
+          this.domains = domains;
+          this.domainName = '';
 
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 500);
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
+        }
       }
     },
     addToCart(domain) {
@@ -115,8 +117,9 @@ export default {
     },
     getDiscountPrice(domain) {
       const price = domain.ages[0].price;
+      const discount = domain.ages[0].discount;
 
-      return (price - (price / 100) * 40).toFixed(2);
+      return (price - (price / 100) * discount).toFixed(2);
     },
   },
 };
