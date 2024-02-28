@@ -47,10 +47,10 @@ export const fakeDomains = [
     tld: '.com',
     root: undefined,
     ages: [
-      { id: 0, age: 12, price: 34.99, discount: 20, isActive: true },
+      { id: 0, age: 12, price: 34.99, discount: 20, isActive: false },
       { id: 1, age: 24, price: 69.99, discount: 30, isActive: false },
-      { id: 2, age: 36, price: 104.99, discount: 40, isActive: false },
-      { id: 3, age: 48, price: 139.99, discount: 50, isActive: false },
+      { id: 2, age: 36, price: 104.99, discount: 40, isActive: true },
+      // { id: 3, age: 48, price: 139.99, discount: 50, isActive: false },
     ],
   },
   {

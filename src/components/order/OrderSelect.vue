@@ -1,14 +1,14 @@
 <template>
   <div class="orders__item-age">
     <div class="orders__item-age__active" @click="toggleSelect()">
-      <h3>12 months</h3>
+      <h3>{{ currentAge }} months</h3>
       <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon" v-if="!isShow"></font-awesome-icon>
       <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon" v-else></font-awesome-icon>
     </div>
 
     <div class="orders__item-age__body" :class="{ show: isShow }">
       <ul class="ages">
-        <li class="ages__item" v-for="age in ages" @click="setAge()">{{ age.months }} months</li>
+        <li class="ages__item" v-for="age in ages" :key="age.id" @click="setAge(age.id)">{{ age.age }} months</li>
       </ul>
     </div>
   </div>
@@ -22,25 +22,30 @@ export default {
   props: {
     index: Number,
     isShow: Boolean,
+    domain: String,
   },
   data() {
     return {
-      ages: [
-        { id: 0, months: 12 },
-        { id: 1, months: 24 },
-        { id: 2, months: 36 },
-        { id: 3, months: 48 },
-      ],
+      currentAge: null,
+      ages: [],
     };
+  },
+  mounted() {
+    const store = useCartStore();
+
+    this.ages = store.getAgesByDomain(this.domain);
+    this.currentAge = store.getCurrentAgeByDomain(this.domain);
   },
   methods: {
     toggleSelect() {
       this.$emitter.emit('_order_-toggle-select', this.index);
     },
-    setAge() {
+    setAge(ageId) {
       const store = useCartStore();
 
-      console.log(store.domains);
+      store.setAge(ageId, this.domain);
+      this.currentAge = store.getCurrentAgeByDomain(this.domain);
+      this.toggleSelect();
     },
   },
 };

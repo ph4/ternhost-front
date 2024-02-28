@@ -4,20 +4,21 @@
       <h1>You Order</h1>
     </header>
     <div class="domains__group-item__body">
-      <!-- <div class="orders-empty">
-        <p>Your order doesn't include any services yet. Begin by selecting a domain.</p>
-      </div> -->
       <ul class="orders">
-        <li class="orders__item" v-for="(domain, index) in getCart">
+        <li class="orders__item" v-for="(domain, index) in store.domains">
           <div class="orders__item-domain">
-            <h3>{{ domain.second }}{{ domain.top }}</h3>
+            <h3>{{ domain.root }}{{ domain.tld }}</h3>
           </div>
 
-          <order-select :index="index" :isShow="index === activeSelect"></order-select>
+          <order-select
+            :index="index"
+            :isShow="index === activeSelect"
+            :domain="`${domain.root}${domain.tld}`"
+          ></order-select>
 
           <div class="orders__item-price">
-            <h3>${{ domain.originalPrice }}/yr</h3>
-            <h1>${{ domain.discountPrice }}/yr</h1>
+            <h3>${{ getOriginalPrice(domain) }}</h3>
+            <h1>${{ getDiscountPrice(domain) }}</h1>
           </div>
         </li>
       </ul>
@@ -26,8 +27,8 @@
       <div class="top">
         <h1>Total</h1>
         <div class="total-price">
-          <h1>${{ getTotalOriginalPrice }}</h1>
-          <h1>${{ getTotalDiscountPrice }}</h1>
+          <!-- <h1>${{ getTotalOriginalPrice }}</h1> -->
+          <!-- <h1>${{ getTotalDiscountPrice }}</h1> -->
         </div>
       </div>
       <div class="promocode">
@@ -56,29 +57,12 @@ export default {
   },
   data() {
     return {
-      cartStore: null,
+      store: null,
       activeSelect: null,
     };
   },
-  computed: {
-    getCart() {
-      return this.cartStore.domains;
-    },
-    getTotalOriginalPrice() {
-      return this.cartStore.domains
-        .map((i) => i.originalPrice)
-        .reduce((a, b) => a + b, 0)
-        .toFixed(2);
-    },
-    getTotalDiscountPrice() {
-      return this.cartStore.domains
-        .map((i) => i.discountPrice)
-        .reduce((a, b) => a + b, 0)
-        .toFixed(2);
-    },
-  },
   created() {
-    this.cartStore = useCartStore();
+    this.store = useCartStore();
   },
   mounted() {
     this.$emitter.on('_order_-toggle-select', (index) => this.toggleSelect(index));
@@ -86,6 +70,13 @@ export default {
   methods: {
     toggleSelect(index) {
       index !== this.activeSelect ? (this.activeSelect = index) : (this.activeSelect = null);
+    },
+    getOriginalPrice(domain) {
+      return domain.ages.filter((age) => age.isActive === true)[0].price;
+    },
+    getDiscountPrice(domain) {
+      const activeAge = domain.ages.filter((age) => age.isActive === true)[0].price;
+      return (activeAge - (activeAge / 100) * 40).toFixed(2);
     },
   },
 };

@@ -6,7 +6,7 @@
     <div class="domains__group-item__body">
       <div class="search-domain">
         <input type="text" placeholder="Search your domain..." v-model="domainName" />
-        <base-button class="btn-secondary" @click="findDomains">Search</base-button>
+        <base-button class="btn-secondary" @click="loadDomains">Search</base-button>
       </div>
 
       <footer class="domains__group-item__footer" v-if="!domains.length">
@@ -25,25 +25,25 @@
         <ul class="catalog__group">
           <li class="catalog__group-item" v-for="domain in domains" :key="domain.id">
             <div class="catalog__group-item__name">
-              <h3>{{ domain.second }}{{ domain.top }}</h3>
+              <h3>{{ domain.root }}{{ domain.tld }}</h3>
             </div>
             <div class="catalog__group-item__box">
               <div class="catalog__price">
-                <h3>${{ domain.originalPrice }}/yr</h3>
-                <h1>${{ domain.discountPrice }}/yr</h1>
+                <h3>${{ getOriginalPrice(domain) }}/yr</h3>
+                <h1>${{ getDiscountPrice(domain) }}/yr</h1>
               </div>
               <div
                 class="catalog__cart"
-                :class="{ show: !isAvailablePurchase(`${domain.second}${domain.top}`) }"
+                :class="{ show: !isAvailablePurchase(`${domain.root}${domain.tld}`) }"
                 @click="addToCart(domain)"
               >
                 <font-awesome-icon icon="fa-solid fa-basket-shopping" class="icon"></font-awesome-icon>
               </div>
-              <div class="catalog__action" :class="{ show: isAvailablePurchase(`${domain.second}${domain.top}`) }">
+              <div class="catalog__action" :class="{ show: isAvailablePurchase(`${domain.root}${domain.tld}`) }">
                 <div class="catalog__action-buy">
                   <font-awesome-icon icon="fa-solid fa-check" class="icon buy"></font-awesome-icon>
                 </div>
-                <div class="catalog__action-remove" @click="removeFromCart(`${domain.second}${domain.top}`)">
+                <div class="catalog__action-remove" @click="removeFromCart(`${domain.root}${domain.tld}`)">
                   <font-awesome-icon icon="fa-solid fa-xmark" class="icon remove"></font-awesome-icon>
                 </div>
               </div>
@@ -79,7 +79,7 @@ export default {
     };
   },
   methods: {
-    findDomains() {
+    loadDomains() {
       this.isLoading = true;
 
       const domains = useFakeDomains(this.domainName);
@@ -108,7 +108,15 @@ export default {
     isAvailablePurchase(fullDomain) {
       const store = useCartStore();
 
-      return store.domains.some((domain) => `${domain.second}${domain.top}` === fullDomain);
+      return store.domains.some((domain) => `${domain.root}${domain.tld}` === fullDomain);
+    },
+    getOriginalPrice(domain) {
+      return domain.ages[0].price;
+    },
+    getDiscountPrice(domain) {
+      const price = domain.ages[0].price;
+
+      return (price - (price / 100) * 40).toFixed(2);
     },
   },
 };
