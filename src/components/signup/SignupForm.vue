@@ -74,6 +74,8 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
+import axios from 'axios';
+
 export default {
   name: 'SignupForm',
   components: {
@@ -114,6 +116,13 @@ export default {
   },
   methods: {
     onSubmit(values) {
+      axios.post("/api/v1/auth/signup",
+        { email: values.email,
+          phoneNumber: values.phoneNumber.toString(),
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+        }
+      )
       console.log('[onSubmit]: ', values);
     },
     onInvalidSubmit({ errors }) {
