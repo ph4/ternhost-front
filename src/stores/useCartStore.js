@@ -45,7 +45,7 @@ export const useCartStore = defineStore('cart', {
 
       return total.toFixed(2);
     },
-    getTotalDiscountPrice: (state) => {
+    getTotalDiscountPrice(state) {
       let total = 0;
 
       state.domains.forEach((domain) => {
@@ -55,6 +55,10 @@ export const useCartStore = defineStore('cart', {
           }
         });
       });
+
+      if (state.discount) {
+        return (total - (total / 100) * state.discount).toFixed(2);
+      }
 
       return total.toFixed(2);
     },
@@ -80,7 +84,7 @@ export const useCartStore = defineStore('cart', {
         }
       }
     },
-    setDiscount(discount) {
+    setDiscount(discount, price) {
       this.discount = discount;
     },
   },

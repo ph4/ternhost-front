@@ -8,7 +8,13 @@
     }"
   >
     <input type="text" placeholder="Enter Promocode..." v-model="promocode" />
-    <font-awesome-icon icon="fa-solid fa-plus" class="icon" @click="sendPromocode"></font-awesome-icon>
+    <font-awesome-icon
+      icon="fa-solid fa-plus"
+      class="icon"
+      v-if="!UI.isValid"
+      @click="sendPromocode"
+    ></font-awesome-icon>
+    <font-awesome-icon icon="fa-solid fa-check" class="icon" v-else></font-awesome-icon>
   </div>
 </template>
 

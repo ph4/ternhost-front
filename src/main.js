@@ -45,8 +45,6 @@ import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import OrderDomainPage from './pages/OrderDomainPage.vue';
 
-import Animation from './tests/Animation.vue';
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -61,7 +59,6 @@ const router = createRouter({
     { path: '/check-email', component: CheckEmailPage },
     { path: '/set-password', component: SetPasswordPage },
     { path: '/order/domain', component: OrderDomainPage },
-    { path: '/testing', component: Animation },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
