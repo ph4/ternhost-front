@@ -1,5 +1,5 @@
 <template>
-  <mobile-menu></mobile-menu>
+  <app-preloader></app-preloader>
 
   <div class="top">
     <main-promo></main-promo>
@@ -16,7 +16,6 @@
 <script>
 import MainPromo from '@/components/common/MainPromo/MainPromo.vue';
 import MainHeader from '@/components/common/MainHeader/MainHeader.vue';
-import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
 
 import DomainHero from '@/components/domain/DomainHero.vue';
 
@@ -24,6 +23,7 @@ import AppServices from '@/components/common/AppServices/AppServices.vue';
 import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
 import DomainServiceImage1 from '@/assets/images/domain/domain-service-image-1.svg';
 import DomainServiceImage2 from '@/assets/images/domain/domain-service-image-2.svg';
@@ -37,11 +37,11 @@ export default {
   components: {
     MainPromo,
     MainHeader,
-    MobileMenu,
     AppServices,
     AppQuestions,
     AppFooter,
     AppTerms,
+    AppPreloader,
     DomainHero,
   },
   data() {
@@ -105,6 +105,11 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$emitter.emit('_animate_preloader_-close-preloader');
+    }, 1000);
   },
 };
 </script>

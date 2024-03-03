@@ -1,4 +1,6 @@
 <template>
+  <app-preloader></app-preloader>
+
   <order-hero>
     <template #hero-text>
       <h1>Moving forward, let's configure your domain for you.</h1>
@@ -24,6 +26,7 @@ import OrderSkip from '@/components/order/OrderSkip.vue';
 
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
 export default {
   name: 'OrderDomainPage',
@@ -32,6 +35,12 @@ export default {
     OrderSkip,
     AppFooter,
     AppTerms,
+    AppPreloader,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$emitter.emit('_animate_preloader_-close-preloader');
+    }, 1000);
   },
 };
 </script>

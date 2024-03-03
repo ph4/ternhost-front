@@ -1,4 +1,6 @@
 <template>
+  <app-preloader></app-preloader>
+
   <tern-login-hero>
     <template #text>
       <h1>Check Email</h1>
@@ -21,12 +23,20 @@ import TernFastLogin from '@/components/tern/TernFastLogin.vue';
 
 import CheckEmailForm from '@/components/checkEmail/CheckEmailForm.vue';
 
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
+
 export default {
   name: 'CheckEmailPage',
   components: {
     TernLoginHero,
     TernFastLogin,
     CheckEmailForm,
+    AppPreloader,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$emitter.emit('_animate_preloader_-close-preloader');
+    }, 1000);
   },
 };
 </script>

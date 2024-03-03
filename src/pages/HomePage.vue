@@ -1,5 +1,5 @@
 <template>
-  <mobile-menu></mobile-menu>
+  <app-preloader></app-preloader>
 
   <div class="top">
     <main-promo></main-promo>
@@ -20,7 +20,6 @@
 <script>
 import MainPromo from '@/components/common/MainPromo/MainPromo.vue';
 import MainHeader from '@/components/common/MainHeader/MainHeader.vue';
-import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
 
 import HomeHero from '@/components/home/HomeHero.vue';
 import HomeSentence from '@/components/home/HomeSentence.vue';
@@ -32,6 +31,7 @@ import AppServices from '@/components/common/AppServices/AppServices.vue';
 import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
 import HomeServiceIcon1 from '@/assets/images/home/services-image-1.svg';
 import HomeServiceIcon2 from '@/assets/images/home/services-image-2.svg';
@@ -50,7 +50,6 @@ export default {
   components: {
     MainPromo,
     MainHeader,
-    MobileMenu,
     HomeHero,
     HomeSentence,
     HomeReviews,
@@ -60,6 +59,7 @@ export default {
     AppQuestions,
     AppFooter,
     AppTerms,
+    AppPreloader,
   },
   data() {
     return {
@@ -124,6 +124,10 @@ export default {
     };
   },
   mounted() {
+    setTimeout(() => {
+      this.$emitter.emit('_animate_preloader_-close-preloader');
+    }, 1000);
+
     ScrollTrigger.create({
       trigger: '.counters',
       once: true,

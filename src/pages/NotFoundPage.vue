@@ -1,4 +1,5 @@
 <template>
+  <app-preloader></app-preloader>
   <mobile-menu></mobile-menu>
   <main-header class="gray"></main-header>
   <not-found-hero></not-found-hero>
@@ -13,8 +14,7 @@ import NotFoundHero from '@/components/notfound/NotFoundHero.vue';
 
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
-
-import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
 export default {
   name: 'NotFoundPage',
@@ -22,8 +22,13 @@ export default {
     MainHeader,
     AppFooter,
     AppTerms,
+    AppPreloader,
     NotFoundHero,
-    MobileMenu,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$emitter.emit('_animate_preloader_-close-preloader');
+    }, 1000);
   },
 };
 </script>

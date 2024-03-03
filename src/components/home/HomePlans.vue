@@ -9,7 +9,7 @@
         </div>
 
         <div class="pricing__plans">
-          <ul class="pricing__plans-group">
+          <ul class="pricing__plans-group" ref="plans">
             <tern-plan v-for="plan in plans" :key="plan.id" :plan="plan"></tern-plan>
           </ul>
         </div>
@@ -27,6 +27,7 @@ import TernPlansTime from '@/components/tern/TernPlansTime.vue';
 import TernPlan from '@/components/tern/TernPlan.vue';
 
 import { loadPlans } from '@/utils/loadPlans.js';
+import { gsap } from 'gsap';
 
 export default {
   name: 'HomePlans',
@@ -49,13 +50,27 @@ export default {
   mounted() {
     this.plans = loadPlans(12);
 
-    this.$emitter.on('load-plans', (months) => (this.plans = loadPlans(months)));
+    this.$emitter.on('load-plans', (months) => this.animate(months));
     this.$emitter.on('set-active-plans-time', (id) => {
       this.resetActivePlansTime();
       this.setActivePlansTime(id);
     });
   },
   methods: {
+    animate(months) {
+      const tl = gsap.timeline();
+
+      tl.to(this.$refs.plans, {
+        opacity: 0,
+        y: '10%',
+        duration: 0.5,
+        onComplete: () => (this.plans = loadPlans(months)),
+      }).to(this.$refs.plans, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+      });
+    },
     setActivePlansTime(id) {
       console.log('fart', id);
 

@@ -1,12 +1,12 @@
 <template>
-  <div class="promo">
+  <a href="#pricing" class="promo">
     <base-container>
-      <router-link to="/hosting" class="row">
+      <div class="row">
         <h1>Don't miss deals up to 70% on web hosting</h1>
         <font-awesome-icon icon="fa-solid fa-chevron-right" class="icon" />
-      </router-link>
+      </div>
     </base-container>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -24,6 +24,7 @@ export default {
 @import '@/styles/common/all';
 
 .promo {
+  display: block;
   background-color: $blue-100;
   .container {
     .row {
