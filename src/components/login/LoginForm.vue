@@ -110,7 +110,10 @@ export default {
       axios.postForm("/api/v1/auth/login", data)
         .then(function (resp) { console.log(resp); })
         .catch(function (error) {
-          console.error(error.message, error.response.data);
+          let data = error.response.data
+          let msg = (data && data.detail) ? data.detail : null;
+          console.error(error.message, msg);
+          alert(`${error.message} (${msg})` )
         });
     },
     onInvalidSubmit({ errors }) {

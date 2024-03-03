@@ -116,14 +116,20 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      axios.post("/api/v1/auth/signup",
-        { email: values.email,
+      console.log('[onSubmit]: ', values);
+      let data = { email: values.email,
           phoneNumber: values.phoneNumber.toString(),
           password: values.password,
           confirmPassword: values.confirmPassword,
-        }
-      )
-      console.log('[onSubmit]: ', values);
+      }
+      axios.post("/api/v1/auth/signup", data)
+        .then(function (resp) { console.log(resp); })
+        .catch(function (error) {
+          let data = error.response.data
+          let msg = (data && data.detail) ? data.detail : null;
+          console.error(error.message, msg);
+          alert(`${error.message} (${msg})` )
+        });
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);
