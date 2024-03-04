@@ -61,7 +61,7 @@ export default {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
 
-      this.$router.push('/check-email');
+      this.$router.push('/users/email/check');
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);

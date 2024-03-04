@@ -23,10 +23,10 @@ export default {
   },
   methods: {
     loadPlans(months) {
-      this.$emitter.emit('load-plans', months);
+      this.$emitter.emit('_home_-load-plans', months);
     },
     setActivePlansTime(id) {
-      this.$emitter.emit('set-active-plans-time', id);
+      this.$emitter.emit('_home_-set-active-plans-time', id);
     },
   },
 };

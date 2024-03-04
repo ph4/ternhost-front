@@ -49,16 +49,20 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomePage },
+
     { path: '/hosting', component: HostingPage },
-    { path: '/login', component: LoginPage },
     { path: '/domain', component: DomainPage },
     { path: '/builder', component: BuilderPage },
     { path: '/help', component: HelpPage },
-    { path: '/signup', component: SignupPage },
-    { path: '/forgot-password', component: ForgotPasswordPage },
-    { path: '/check-email', component: CheckEmailPage },
-    { path: '/set-password', component: SetPasswordPage },
+
+    { path: '/users/login', component: LoginPage },
+    { path: '/users/signup', component: SignupPage },
+    { path: '/users/password/forgot', component: ForgotPasswordPage },
+    { path: '/users/email/check', component: CheckEmailPage },
+    { path: '/users/password/new', component: SetPasswordPage },
+
     { path: '/order/domain', component: OrderDomainPage },
+
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
@@ -66,7 +70,7 @@ const router = createRouter({
 // Event Bus
 import mitt from 'mitt';
 
-const emitter = mitt();
+export const emitter = mitt();
 
 // Swiper
 import { register } from 'swiper/element/bundle';

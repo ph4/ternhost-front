@@ -50,8 +50,8 @@ export default {
   mounted() {
     this.plans = loadPlans(12);
 
-    this.$emitter.on('load-plans', (months) => this.animate(months));
-    this.$emitter.on('set-active-plans-time', (id) => {
+    this.$emitter.on('_home_-load-plans', (months) => this.animate(months));
+    this.$emitter.on('_home_-set-active-plans-time', (id) => {
       this.resetActivePlansTime();
       this.setActivePlansTime(id);
     });
@@ -72,11 +72,7 @@ export default {
       });
     },
     setActivePlansTime(id) {
-      console.log('fart', id);
-
-      if (this.plansTime[id]) {
-        this.plansTime[id].isActive = true;
-      }
+      if (this.plansTime[id]) this.plansTime[id].isActive = true;
     },
     resetActivePlansTime() {
       this.plansTime.forEach((time) => (time.isActive = false));

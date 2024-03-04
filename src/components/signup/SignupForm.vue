@@ -6,7 +6,7 @@
         <h1>Sign Up</h1>
       </div>
       <div class="signup__header-signup">
-        <h3>No Account? <br /><router-link to="/login">Sign In</router-link></h3>
+        <h3>No Account? <br /><router-link to="/users/login">Sign In</router-link></h3>
       </div>
     </header>
     <Form class="signup__form" @submit="onSubmit" @invalid-submit="onInvalidSubmit" :validation-schema="schema">

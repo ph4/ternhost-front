@@ -4,7 +4,7 @@
       <router-link :to="page.url">{{ page.name }}</router-link>
     </li>
     <li class="header__menu-group__item">
-      <router-link to="/login">
+      <router-link to="/users/login">
         <base-button class="btn-primary">Login</base-button>
       </router-link>
     </li>

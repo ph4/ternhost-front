@@ -15,7 +15,7 @@
           <router-link :to="page.url">{{ page.name }}</router-link>
         </li>
         <li class="header__mobile-menu__item">
-          <router-link to="/login"><base-button class="btn-secondary">Login</base-button></router-link>
+          <router-link to="/users/login"><base-button class="btn-secondary">Login</base-button></router-link>
         </li>
       </ul>
     </div>

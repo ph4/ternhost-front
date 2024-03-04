@@ -5,7 +5,6 @@
         <h1>Choose Your Website Builder Plan</h1>
       </header>
 
-      <!-- plans -->
       <div class="plans">
         <div class="plans__time">
           <tern-plans-time :times="plansTime" class="reverse"></tern-plans-time>
@@ -35,6 +34,7 @@ export default {
   components: {
     BaseContainer,
     BaseButton,
+
     TernPlan,
     TernPlansTime,
   },
@@ -52,8 +52,8 @@ export default {
   mounted() {
     this.plans = loadPlans(12);
 
-    this.$emitter.on('load-plans', (months) => this.animate(months));
-    this.$emitter.on('set-active-plans-time', (id) => {
+    this.$emitter.on('_home_-load-plans', (months) => this.animate(months));
+    this.$emitter.on('_home_-set-active-plans-time', (id) => {
       this.resetActivePlansTime();
       this.setActivePlansTime(id);
     });

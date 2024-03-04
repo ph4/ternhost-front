@@ -13,25 +13,22 @@
 </template>
 
 <script>
-import MainPromo from '@/components/common/MainPromo/MainPromo.vue';
-import MainHeader from '@/components/common/MainHeader/MainHeader.vue';
+import { AppFooter, AppPreloader, AppQuestions, AppTerms, MainHeader, MainPromo } from '@/components/common/index.js';
+import { usePreloader } from '@/hooks/usePreloader.js';
 
 import HostingHero from '@/components/hosting/HostingHero.vue';
-
-import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
-import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
-import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
-import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
 export default {
   name: 'HostingPage',
   components: {
     MainPromo,
     MainHeader,
+
     AppQuestions,
     AppFooter,
     AppTerms,
     AppPreloader,
+
     HostingHero,
   },
   data() {
@@ -56,9 +53,7 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.$emitter.emit('_animate_preloader_-close-preloader');
-    }, 1000);
+    usePreloader();
   },
 };
 </script>

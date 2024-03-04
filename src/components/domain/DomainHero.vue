@@ -1,33 +1,16 @@
 <template>
   <section class="hero">
     <base-container>
-      <div class="search-box">
-        <div class="search" v-if="!switcher">
-          <h1>Search Your Domain Now</h1>
-          <div class="search__input">
-            <input type="text" placeholder="Search your domain.." />
-            <base-button class="btn-secondary">Search</base-button>
-          </div>
-          <h3>Already bought a domain? <a href="#" @click="switcher = 1">Transfer it</a></h3>
-        </div>
-        <div class="search" v-else>
-          <h1>Transfer Your Domain Now</h1>
-          <div class="search__input">
-            <input type="text" placeholder="Search your domain.." />
-            <base-button class="btn-secondary transfer">Transfer</base-button>
-          </div>
-          <h3>Want a new domain name? <a href="#" @click="switcher = 0">Try domain checker</a></h3>
-        </div>
-      </div>
+      <domain-hero-search></domain-hero-search>
 
       <div class="domains">
         <ul class="domains__group">
           <tern-domain-offer
             v-for="domain in domains"
             :key="domain.id"
-            :domain_name="domain.domain_name"
-            :monthly_price="domain.monthly_price"
-            :annual_price="domain.annual_price"
+            :name="domain.name"
+            :monthlyPrice="domain.monthlyPrice"
+            :annualPrice="domain.annualPrice"
           ></tern-domain-offer>
         </ul>
       </div>
@@ -45,27 +28,31 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 
 import TernDomainOffer from '@/components/tern/TernDomainOffer.vue';
 
+import DomainHeroSearch from './DomainHeroSearch.vue';
+
 export default {
   name: 'DomainHero',
   components: {
     BaseContainer,
     BaseButton,
+
     TernDomainOffer,
+
+    DomainHeroSearch,
   },
   data() {
     return {
-      switcher: 0,
       domains: [
-        { id: 0, domain_name: '.com', monthly_price: 10, annual_price: 4.99 },
-        { id: 1, domain_name: '.shop', monthly_price: 10, annual_price: 1.99 },
-        { id: 2, domain_name: '.nl', monthly_price: 10, annual_price: 0.99 },
-        { id: 3, domain_name: '.nl', monthly_price: 10, annual_price: 2.99 },
-        { id: 4, domain_name: '.nl', monthly_price: 10, annual_price: 2.99 },
-        { id: 5, domain_name: '.com', monthly_price: 10, annual_price: 4.99 },
-        { id: 6, domain_name: '.shop', monthly_price: 10, annual_price: 1.99 },
-        { id: 7, domain_name: '.nl', monthly_price: 10, annual_price: 0.99 },
-        { id: 8, domain_name: '.nl', monthly_price: 10, annual_price: 2.99 },
-        { id: 9, domain_name: '.nl', monthly_price: 10, annual_price: 2.99 },
+        { id: 0, name: '.com', monthlyPrice: 10, annualPrice: 4.99 },
+        { id: 1, name: '.shop', monthlyPrice: 10, annualPrice: 1.99 },
+        { id: 2, name: '.nl', monthlyPrice: 10, annualPrice: 0.99 },
+        { id: 3, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
+        { id: 4, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
+        { id: 5, name: '.com', monthlyPrice: 10, annualPrice: 4.99 },
+        { id: 6, name: '.shop', monthlyPrice: 10, annualPrice: 1.99 },
+        { id: 7, name: '.nl', monthlyPrice: 10, annualPrice: 0.99 },
+        { id: 8, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
+        { id: 9, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
       ],
     };
   },
@@ -84,35 +71,6 @@ export default {
     padding: 0;
     @media screen and (max-width: 1100px) {
       background-image: none;
-    }
-    .search-box {
-      .search {
-        @media screen and (max-width: 600px) {
-          @include center-col;
-        }
-        h1 {
-          @include fluid-type($text-2xl, $text-3xl, 700, $blue-200);
-        }
-        &__input {
-          width: 31.25rem;
-          max-width: 100%;
-          display: flex;
-          margin: 1.25rem 0;
-          input {
-            @include fluid-type($text-sm, $text-base, $color: $gray-200);
-            padding: 1rem;
-            background-color: $white-200;
-            border-radius: 0.25rem;
-            width: 100%;
-          }
-        }
-        h3 {
-          @include fluid-type($text-sm, $text-xl, 600, $blue-200);
-          a {
-            color: $blue-100;
-          }
-        }
-      }
     }
     .domains {
       position: relative;

@@ -1,6 +1,6 @@
 <template>
   <li class="counters__group-item">
-    <h1>{{ value }}{{ data.short_scale }}</h1>
+    <h1>{{ value }}{{ data.shortScale }}</h1>
     <h3>{{ data.field }}</h3>
   </li>
 </template>
@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    this.$emitter.on('animate-counters', this.animate);
+    this.$emitter.on('_animate_counters_-play', this.animate);
   },
   methods: {
     animate() {
