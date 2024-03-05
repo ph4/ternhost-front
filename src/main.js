@@ -44,6 +44,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
 import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import OrderDomainPage from './pages/OrderDomainPage.vue';
+import OrderHostingPage from './pages/OrderHostingPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -62,6 +63,7 @@ const router = createRouter({
     { path: '/users/password/new', component: SetPasswordPage },
 
     { path: '/order/domain', component: OrderDomainPage },
+    { path: '/order/hosting', component: OrderHostingPage },
 
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],

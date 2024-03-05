@@ -10,7 +10,7 @@
       </h3>
     </template>
 
-    <template #domains>
+    <template #content>
       <div class="domains">
         <ul class="domains__group">
           <order-search-domain></order-search-domain>
@@ -24,7 +24,7 @@
   <order-skip>
     <template #hero-skip>
       <h2>Alternatively, you have the option to bypass this step and generate <br />a domain at a later time.</h2>
-      <router-link to="/">I'll generate my domain at a later time ></router-link>
+      <router-link to="/order/hosting">I'll generate my domain at a later time ></router-link>
     </template>
   </order-skip>
 

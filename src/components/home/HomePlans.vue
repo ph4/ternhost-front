@@ -26,7 +26,7 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 import TernPlansTime from '@/components/tern/TernPlansTime.vue';
 import TernPlan from '@/components/tern/TernPlan.vue';
 
-import { loadPlans } from '@/utils/loadPlans.js';
+import { useLoadPlans } from '@/hooks/useLoadPlans.js';
 import { gsap } from 'gsap';
 
 export default {
@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted() {
-    this.plans = loadPlans(12);
+    this.plans = useLoadPlans(12);
 
     this.$emitter.on('_home_-load-plans', (months) => this.animate(months));
     this.$emitter.on('_home_-set-active-plans-time', (id) => {
@@ -64,7 +64,7 @@ export default {
         opacity: 0,
         y: '10%',
         duration: 0.5,
-        onComplete: () => (this.plans = loadPlans(months)),
+        onComplete: () => (this.plans = useLoadPlans(months)),
       }).to(this.$refs.plans, {
         opacity: 1,
         y: 0,

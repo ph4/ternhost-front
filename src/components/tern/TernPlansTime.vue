@@ -1,7 +1,7 @@
 <template>
-  <ul class="pricing__time-group">
+  <ul class="plans-group">
     <li
-      class="pricing__time-group__item"
+      class="plans-group__item"
       v-for="time in times"
       :key="time.id"
       :class="{ active: time.isActive }"
@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/common/all';
 
-.pricing__time-group {
+.plans-group {
   display: flex;
   border: 0.125rem solid $blue-100;
   border-radius: 0.5rem;
@@ -66,7 +66,7 @@ export default {
     display: flex;
     border: 0.125rem solid $blue-100;
     border-radius: 0.5rem;
-    .pricing__time-group__item {
+    .plans-group__item {
       @include fluid-type($text-base, $text-lg, 700, $white-100);
       text-transform: uppercase;
       text-align: center;
@@ -78,6 +78,23 @@ export default {
       @media screen and (max-width: 800px) {
         padding: 0.5rem;
       }
+      &.active {
+        background-color: $white-100;
+        color: $blue-100;
+      }
+      &:first-child {
+        border-left: 0;
+        border-radius: 0.25rem 0 0 0.25rem;
+      }
+      &:last-child {
+        border-radius: 0 0.25rem 0.25rem 0;
+      }
+    }
+  }
+  &.order-hosting {
+    border: 0.125rem solid $white-100;
+    .plans-group__item {
+      color: $white-100;
       &.active {
         background-color: $white-100;
         color: $blue-100;

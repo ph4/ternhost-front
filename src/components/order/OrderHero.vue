@@ -7,7 +7,7 @@
         <slot name="hero-text"></slot>
       </div>
 
-      <slot name="domains"></slot>
+      <slot name="content"></slot>
     </base-container>
   </section>
 </template>
