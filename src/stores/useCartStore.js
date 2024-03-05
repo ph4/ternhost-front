@@ -45,7 +45,7 @@ export const useCartStore = defineStore('cart', {
 
       return total.toFixed(2);
     },
-    getTotalDiscountPrice(state) {
+    getTotalDiscountPrice: (state) => {
       let total = 0;
 
       state.domains.forEach((domain) => {
@@ -61,6 +61,11 @@ export const useCartStore = defineStore('cart', {
       }
 
       return total.toFixed(2);
+    },
+    isAvailablePurchase: (state) => {
+      return (fullDomain) => {
+        return state.domains.some((domain) => `${domain.root}${domain.tld}` === fullDomain);
+      };
     },
   },
   actions: {

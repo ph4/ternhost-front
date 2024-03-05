@@ -1,6 +1,6 @@
 <template>
   <div class="orders__item-age">
-    <div class="orders__item-age__active" @click="toggleSelect()">
+    <div class="orders__item-age__active" @click="toggleSelect">
       <h3>{{ currentAge }} months</h3>
       <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon" v-if="!isShow"></font-awesome-icon>
       <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon" v-else></font-awesome-icon>
