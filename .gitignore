@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-default.vue
-tests
+default.my.vue
+tasks.my.txt
+test.my.js

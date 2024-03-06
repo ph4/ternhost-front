@@ -5,13 +5,12 @@
         <h1>Choose Your Website Builder Plan</h1>
       </header>
 
-      <!-- plans -->
       <div class="plans">
         <div class="plans__time">
           <tern-plans-time :times="plansTime" class="reverse"></tern-plans-time>
         </div>
         <div class="plans__box">
-          <ul class="offers">
+          <ul class="offers" ref="plans">
             <tern-plan v-for="plan in plans" :key="plan.id" :plan="plan"></tern-plan>
           </ul>
         </div>
@@ -27,7 +26,8 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 import TernPlansTime from '@/components/tern/TernPlansTime.vue';
 import TernPlan from '@/components/tern/TernPlan.vue';
 
-import { loadPlans } from '@/utils/loadPlans.js';
+import { useLoadPlans } from '@/hooks/useLoadPlans.js';
+import { gsap } from 'gsap';
 
 export default {
   name: 'BuilderHero',
@@ -49,15 +49,29 @@ export default {
     };
   },
   mounted() {
-    this.plans = loadPlans(12);
+    this.plans = useLoadPlans(12);
 
-    this.$emitter.on('load-plans', (months) => (this.plans = loadPlans(months)));
-    this.$emitter.on('set-active-plans-time', (id) => {
+    this.$emitter.on('_home_-load-plans', (months) => this.animate(months));
+    this.$emitter.on('_home_-set-active-plans-time', (id) => {
       this.resetActivePlansTime();
       this.setActivePlansTime(id);
     });
   },
   methods: {
+    animate(months) {
+      const tl = gsap.timeline();
+
+      tl.to(this.$refs.plans, {
+        opacity: 0,
+        y: '10%',
+        duration: 0.5,
+        onComplete: () => (this.plans = useLoadPlans(months)),
+      }).to(this.$refs.plans, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+      });
+    },
     setActivePlansTime(id) {
       this.plansTime[id].isActive = true;
     },

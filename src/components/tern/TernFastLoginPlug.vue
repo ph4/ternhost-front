@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/signup">
+  <router-link to="/users/signup">
     <li class="profiles__row-item template">
       <div class="profiles__row-item__person">
         <font-awesome-icon icon="fa-solid fa-plus" class="icon" />

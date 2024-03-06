@@ -1,10 +1,11 @@
 <template>
-  <div></div>
+  <h1>Order Pay Page</h1>
+  <router-link to="/"></router-link>
 </template>
 
 <script>
 export default {
-  name: '',
+  name: 'OrderPayPage',
 };
 </script>
 

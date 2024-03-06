@@ -45,23 +45,29 @@ import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import OrderDomainPage from './pages/OrderDomainPage.vue';
 
-// import Animation from './tests/Animation.vue';
+import OrderHostingPage from './pages/OrderHostingPage.vue';
+import OrderPayPage from './pages/OrderPayPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomePage },
+
     { path: '/hosting', component: HostingPage },
-    { path: '/login', component: LoginPage },
     { path: '/domain', component: DomainPage },
     { path: '/builder', component: BuilderPage },
     { path: '/help', component: HelpPage },
-    { path: '/signup', component: SignupPage },
-    { path: '/forgot-password', component: ForgotPasswordPage },
-    { path: '/check-email', component: CheckEmailPage },
-    { path: '/set-password', component: SetPasswordPage },
-    { path: '/order-domain', component: OrderDomainPage },
-    // { path: '/testing', component: Animation },
+
+    { path: '/users/login', component: LoginPage },
+    { path: '/users/signup', component: SignupPage },
+    { path: '/users/password/forgot', component: ForgotPasswordPage },
+    { path: '/users/email/check', component: CheckEmailPage },
+    { path: '/users/password/new', component: SetPasswordPage },
+
+    { path: '/order/domain', component: OrderDomainPage },
+    { path: '/order/hosting', component: OrderHostingPage },
+    { path: '/order/pay', component: OrderPayPage },
+
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
@@ -69,12 +75,17 @@ const router = createRouter({
 // Event Bus
 import mitt from 'mitt';
 
-const emitter = mitt();
+export const emitter = mitt();
 
 // Swiper
 import { register } from 'swiper/element/bundle';
 
 register();
+
+// Pinia
+import { createPinia } from 'pinia';
+
+const pinia = createPinia();
 
 // Vue
 const app = createApp(App);
@@ -82,6 +93,7 @@ const app = createApp(App);
 app.config.globalProperties.$emitter = emitter;
 
 app.use(router);
+app.use(pinia);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

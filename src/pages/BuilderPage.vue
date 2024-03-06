@@ -1,5 +1,5 @@
 <template>
-  <mobile-menu></mobile-menu>
+  <app-preloader></app-preloader>
 
   <div class="top">
     <main-promo></main-promo>
@@ -7,31 +7,29 @@
   </div>
 
   <builder-hero></builder-hero>
+
   <app-questions :faq="faq"></app-questions>
   <app-footer></app-footer>
   <app-terms></app-terms>
 </template>
 
 <script>
-import MainPromo from '@/components/common/MainPromo/MainPromo.vue';
-import MainHeader from '@/components/common/MainHeader/MainHeader.vue';
-import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
+import { AppFooter, AppPreloader, AppQuestions, AppTerms, MainHeader, MainPromo } from '@/components/common/index.js';
+import { usePreloader } from '@/hooks/usePreloader.js';
 
 import BuilderHero from '@/components/builder/BuilderHero.vue';
-
-import AppQuestions from '@/components/common/AppQuestions/AppQuestions.vue';
-import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
-import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
 
 export default {
   name: 'HostingPage',
   components: {
     MainPromo,
     MainHeader,
-    MobileMenu,
+
     AppQuestions,
     AppFooter,
     AppTerms,
+    AppPreloader,
+
     BuilderHero,
   },
   data() {
@@ -54,6 +52,9 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    usePreloader();
   },
 };
 </script>

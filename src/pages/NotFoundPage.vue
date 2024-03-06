@@ -1,7 +1,10 @@
 <template>
-  <mobile-menu></mobile-menu>
+  <app-preloader></app-preloader>
+
   <main-header class="gray"></main-header>
+
   <not-found-hero></not-found-hero>
+
   <app-footer></app-footer>
   <app-terms class="gray"></app-terms>
 </template>
@@ -13,17 +16,23 @@ import NotFoundHero from '@/components/notfound/NotFoundHero.vue';
 
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
+import AppPreloader from '@/components/common/AppPreloader/AppPreloader.vue';
 
-import MobileMenu from '@/components/common/MobileMenu/MobileMenu.vue';
+import { usePreloader } from '@/hooks/usePreloader.js';
 
 export default {
   name: 'NotFoundPage',
   components: {
     MainHeader,
+
     AppFooter,
     AppTerms,
+    AppPreloader,
+
     NotFoundHero,
-    MobileMenu,
+  },
+  mounted() {
+    usePreloader();
   },
 };
 </script>

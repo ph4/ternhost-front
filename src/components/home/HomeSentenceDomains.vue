@@ -3,9 +3,9 @@
     <tern-domain-offer
       v-for="domain in domains"
       :key="domain.id"
-      :domain_name="domain.domain_name"
-      :monthly_price="domain.monthly_price"
-      :annual_price="domain.annual_price"
+      :name="domain.name"
+      :monthlyPrice="domain.monthlyPrice"
+      :annualPrice="domain.annualPrice"
     ></tern-domain-offer>
   </ul>
 </template>
@@ -21,10 +21,10 @@ export default {
   data() {
     return {
       domains: [
-        { id: 1, domain_name: '.com', monthly_price: 10, annual_price: 4.99 },
-        { id: 2, domain_name: '.in', monthly_price: 10, annual_price: 1.99 },
-        { id: 3, domain_name: '.shop', monthly_price: 10, annual_price: 0.99 },
-        { id: 4, domain_name: '.nl', monthly_price: 10, annual_price: 2.99 },
+        { id: 1, name: '.com', monthlyPrice: 10, annualPrice: 4.99 },
+        { id: 2, name: '.in', monthlyPrice: 10, annualPrice: 1.99 },
+        { id: 3, name: '.shop', monthlyPrice: 10, annualPrice: 0.99 },
+        { id: 4, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
       ],
     };
   },

@@ -10,7 +10,7 @@
       </div>
       <div class="mail__footer-buttons">
         <router-link to="/"><base-button class="btn-secondary">Go to Email</base-button></router-link>
-        <router-link to="/login"><base-button class="btn-white">Sign In</base-button></router-link>
+        <router-link to="/users/login"><base-button class="btn-white">Sign In</base-button></router-link>
       </div>
     </footer>
   </div>

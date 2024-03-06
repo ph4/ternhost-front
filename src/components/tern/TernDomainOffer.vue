@@ -1,9 +1,9 @@
 <template>
   <li class="domains__group-item">
     <div class="domains__group-item__body">
-      <h3>{{ domain_name }}</h3>
-      <h4>${{ monthly_price }}/month</h4>
-      <h1><span>$</span>{{ annual_price }}<span>/year</span></h1>
+      <h3>{{ name }}</h3>
+      <h4>${{ monthlyPrice }}/month</h4>
+      <h1><span>$</span>{{ annualPrice }}<span>/year</span></h1>
     </div>
   </li>
 </template>
@@ -12,9 +12,9 @@
 export default {
   name: 'TernDomainOffer',
   props: {
-    domain_name: String,
-    monthly_price: Number,
-    annual_price: Number,
+    name: String,
+    monthlyPrice: Number,
+    annualPrice: Number,
   },
 };
 </script>

@@ -10,21 +10,23 @@
 
 <script>
 import BaseContainer from '@/components/UI/BaseContainer.vue';
+
 import HomeCounter from './HomeCounter.vue';
 
 export default {
   name: 'HomeCounters',
   components: {
     BaseContainer,
+
     HomeCounter,
   },
   data() {
     return {
       counters: [
-        { id: 1, from: 0, to: 70, short_scale: 'k', field: 'Shared Web Hosting' },
-        { id: 2, from: 0, to: 100, short_scale: 'm', field: 'VPS Hosting' },
-        { id: 3, from: 0, to: 11, short_scale: 'k', field: 'Cloud' },
-        { id: 4, from: 0, to: 199, short_scale: '+', field: 'Cloud Hosting' },
+        { id: 1, from: 0, to: 70, shortScale: 'k', field: 'Shared Web Hosting' },
+        { id: 2, from: 0, to: 100, shortScale: 'm', field: 'VPS Hosting' },
+        { id: 3, from: 0, to: 11, shortScale: 'k', field: 'Cloud' },
+        { id: 4, from: 0, to: 199, shortScale: '+', field: 'Cloud Hosting' },
       ],
     };
   },

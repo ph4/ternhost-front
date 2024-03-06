@@ -1,14 +1,21 @@
 <template>
-  <div class="header__menu-hamburger" @click="showMobileMenu">
-    <font-awesome-icon icon="fa-solid fa-bars" class="icon" />
+  <div class="header__menu-hamburger" @click="open">
+    <font-awesome-icon icon="fa-solid fa-bars" class="icon" v-if="!isShow" />
+    <font-awesome-icon icon="fa-solid fa-xmark" class="icon" v-else />
   </div>
 </template>
 
 <script>
 export default {
   name: 'MainHeaderHamburger',
+  data() {
+    return {
+      isShow: false,
+    };
+  },
   methods: {
-    showMobileMenu() {
+    open() {
+      this.isShow = !this.isShow;
       this.$emitter.emit('show-mobile-menu');
     },
   },

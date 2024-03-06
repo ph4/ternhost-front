@@ -6,7 +6,7 @@
         <h1>Sign In</h1>
       </div>
       <div class="login__header-signup">
-        <h3>No Account? <br /><router-link to="/signup">Sign Up</router-link></h3>
+        <h3>No Account? <br /><router-link to="/users/signup">Sign Up</router-link></h3>
       </div>
     </header>
     <div class="login__social">
@@ -47,7 +47,7 @@
           />
           <ErrorMessage name="password" class="login__form-group__error" />
         </Field>
-        <router-link to="/forgot-password">Forgot Password</router-link>
+        <router-link to="/users/password/forgot">Forgot Password</router-link>
       </div>
       <div class="login__form-button">
         <base-button class="btn-secondary">Sign In</base-button>

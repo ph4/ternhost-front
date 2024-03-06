@@ -7,7 +7,7 @@
           <div class="search__input">
             <input type="text" placeholder="Search your domain.." />
             <base-button class="btn-secondary">
-              <router-link to="/signup">Find Now</router-link>
+              <router-link to="/users/signup">Find Now</router-link>
             </base-button>
           </div>
         </div>

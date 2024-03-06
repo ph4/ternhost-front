@@ -5,18 +5,13 @@
 
       <div class="faq-body">
         <ul class="questions">
-          <li class="questions__item" v-for="item in faq" :key="item.id" @click="showAnswer(item.id)" ref="acc">
-            <header class="questions__item-header" :data-id="item.id">
-              <h1>{{ item.question }}</h1>
-
-              <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon" v-if="item.isActive" />
-              <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon" v-else />
-            </header>
-
-            <div class="questions__item-body" v-show="item.isActive" :data-id="item.id">
-              <p>{{ item.answer }}</p>
-            </div>
-          </li>
+          <question-item
+            v-for="item in faq"
+            :key="item.id"
+            :id="item.id"
+            :question="item.question"
+            :answer="item.answer"
+          ></question-item>
         </ul>
       </div>
     </base-container>
@@ -24,23 +19,20 @@
 </template>
 
 <script>
-// @TODO: Add animations
 import BaseContainer from '@/components/UI/BaseContainer.vue';
 import BaseTitle from '@/components/UI/BaseTitle.vue';
+
+import QuestionItem from './QuestionItem.vue';
 
 export default {
   name: 'AppQuestions',
   components: {
     BaseContainer,
     BaseTitle,
+    QuestionItem,
   },
   props: {
     faq: Object,
-  },
-  methods: {
-    showAnswer(id) {
-      this.faq.forEach((item, index) => (index === id ? (item.isActive = !item.isActive) : (item.isActive = false)));
-    },
   },
 };
 </script>
@@ -59,35 +51,6 @@ export default {
     }
     .faq-body {
       margin-top: 4.375rem;
-      .questions {
-        &__item {
-          margin-top: 1.5rem;
-          border: 0.063rem solid $gray-200;
-          box-shadow: 0 0.25rem 1.25rem 0 rgba($green-100, 0.3);
-          cursor: pointer;
-          overflow: hidden;
-          &-header {
-            @include center-y-between;
-            padding: 1rem;
-            position: relative;
-            z-index: 3;
-            background-color: $white-100;
-            h1 {
-              @include fluid-type($text-lg, $text-3xl, 600, $blue-200);
-            }
-            .icon {
-              font-size: 1.5rem;
-              color: $blue-200;
-            }
-          }
-          &-body {
-            padding: 1rem;
-            p {
-              @include fluid-type($text-base, $text-lg, 500, rgba($blue-200, 0.5));
-            }
-          }
-        }
-      }
     }
   }
 }

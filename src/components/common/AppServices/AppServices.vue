@@ -8,7 +8,8 @@
         <ul class="services-cards">
           <li class="services-cards__item" v-for="service in services" :key="service.id">
             <header class="services-cards__item-header">
-              <img :src="service.icon" alt="Icon" />
+              <!-- <img :src="service.icon" alt="Icon" /> -->
+              <font-awesome-icon :icon="service.icon" class="icon"></font-awesome-icon>
             </header>
             <div class="services-cards__item-text">
               <h1>{{ service.title }}</h1>
@@ -46,7 +47,7 @@ export default {
 .services {
   padding: 9.375rem 0;
   &.gray {
-    background-color: $white-200;
+    background-color: $white-500;
   }
   .container {
     .services-body {
@@ -69,6 +70,10 @@ export default {
             aspect-ratio: 1 / 1;
             border-radius: 0.625rem;
             background-color: $white-200;
+            .icon {
+              font-size: 2rem;
+              color: $blue-200;
+            }
           }
           &-text {
             margin-top: 2rem;
