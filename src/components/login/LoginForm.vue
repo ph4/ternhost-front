@@ -61,6 +61,8 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
+import axios from 'axios';
+
 import LoginFacebookIcon from '@/assets/images/login/login-facebook-icon.svg';
 import LoginGoogleIcon from '@/assets/images/login/login-google-icon.svg';
 import LoginAppleIcon from '@/assets/images/login/login-apple-icon.svg';
@@ -101,6 +103,18 @@ export default {
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
+      let data = {
+        username: values.email,
+        password: values.password,
+      };
+      axios.postForm("/api/v1/auth/login", data)
+        .then(function (resp) { console.log(resp); })
+        .catch(function (error) {
+          let data = error.response.data
+          let msg = (data && data.detail) ? data.detail : null;
+          console.error(error.message, msg);
+          alert(`${error.message} (${msg})` )
+        });
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);

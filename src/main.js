@@ -44,6 +44,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
 import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import OrderDomainPage from './pages/OrderDomainPage.vue';
+
 import OrderHostingPage from './pages/OrderHostingPage.vue';
 import OrderPayPage from './pages/OrderPayPage.vue';
 
