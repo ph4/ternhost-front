@@ -1,19 +1,22 @@
 <template>
   <li class="pricing__plans-group__item" :class="{ best: plan.isActive }">
     <header class="plan__header">
-      <h1>{{ plan.title }}</h1>
+      <h1>{{ this.plan.title }}</h1>
       <div class="plan__header-price">
         <div class="plan__header-price__row">
-          <h3>${{ plan.monthly_price }}/mo</h3>
-          <span>Save {{ plan.discount }}%</span>
+          <h3>${{ this.plan.monthly_price }}/mo</h3>
+          <span>Save {{ this.plan.discount }}%</span>
         </div>
-        <h1>${{ (plan.monthly_price - (plan.monthly_price / 100) * plan.discount).toFixed(2) }}<span>/mo</span></h1>
+        <h1>
+          ${{ (this.plan.monthly_price - (this.plan.monthly_price / 100) * this.plan.discount).toFixed(2)
+          }}<span>/mo</span>
+        </h1>
       </div>
     </header>
 
     <div class="plan__column">
       <ul class="plan__column-group">
-        <li class="plan__column-group__item" v-for="detail in plan.details" :key="detail.id">
+        <li class="plan__column-group__item" v-for="detail in this.plan.details" :key="detail.id">
           <h3>
             {{ detail.value }} <span>{{ detail.field }}</span>
           </h3>
@@ -22,7 +25,13 @@
     </div>
 
     <footer class="plan__footer">
-      <base-button class="btn-primary">Buy Now</base-button>
+      <router-link to="/order/pay" v-if="this.callback">
+        <base-button class="btn-primary" @click="this.callback(this.plan)">Select</base-button>
+      </router-link>
+
+      <router-link to="/users/signup" v-else>
+        <base-button class="btn-primary">Buy Now</base-button>
+      </router-link>
     </footer>
   </li>
 </template>
@@ -34,6 +43,7 @@ export default {
   name: 'TernPlan',
   props: {
     plan: Object,
+    callback: Function,
   },
   components: {
     BaseButton,

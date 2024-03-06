@@ -1,5 +1,5 @@
 <template>
-  <!-- <app-preloader></app-preloader> -->
+  <app-preloader></app-preloader>
 
   <order-hero>
     <template #hero-text>

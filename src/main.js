@@ -45,6 +45,7 @@ import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import OrderDomainPage from './pages/OrderDomainPage.vue';
 import OrderHostingPage from './pages/OrderHostingPage.vue';
+import OrderPayPage from './pages/OrderPayPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -64,6 +65,7 @@ const router = createRouter({
 
     { path: '/order/domain', component: OrderDomainPage },
     { path: '/order/hosting', component: OrderHostingPage },
+    { path: '/order/pay', component: OrderPayPage },
 
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],

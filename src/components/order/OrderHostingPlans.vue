@@ -4,7 +4,7 @@
 
     <div class="plans__box">
       <ul class="offers" ref="plans">
-        <tern-plan v-for="plan in plans" :key="plan.id" :plan="plan"></tern-plan>
+        <tern-plan v-for="plan in plans" :key="plan.id" :plan="plan" :callback="setPlan"></tern-plan>
       </ul>
     </div>
   </div>
@@ -14,6 +14,7 @@
 import TernPlansTime from '@/components/tern/TernPlansTime.vue';
 import TernPlan from '@/components/tern/TernPlan.vue';
 
+import { useCartStore } from '@/stores/useCartStore.js';
 import { useLoadPlans } from '@/hooks/useLoadPlans.js';
 import { gsap } from 'gsap';
 
@@ -61,6 +62,11 @@ export default {
     },
     resetActivePlansTime() {
       this.plansTime.forEach((time) => (time.isActive = false));
+    },
+    setPlan(plan) {
+      const store = useCartStore();
+
+      store.setPlan(plan);
     },
   },
 };

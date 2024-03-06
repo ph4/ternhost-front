@@ -35,7 +35,7 @@
       <order-cart-promocode></order-cart-promocode>
 
       <div class="continue">
-        <router-link to="/"><base-button class="btn btn-secondary">Continue</base-button></router-link>
+        <router-link to="/order/hosting"><base-button class="btn btn-secondary">Continue</base-button></router-link>
       </div>
     </footer>
   </li>

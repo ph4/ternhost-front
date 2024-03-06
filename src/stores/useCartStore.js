@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useCartStore = defineStore('cart', {
   state: () => ({
     domains: [],
+    hostings: [],
     discount: 0,
   }),
   getters: {
@@ -75,6 +76,7 @@ export const useCartStore = defineStore('cart', {
     removeFromCart(fullDomain) {
       this.domains = this.domains.filter((domain) => `${domain.root}${domain.tld}` !== fullDomain);
     },
+
     // FIXME: Written by ChatGPT
     setAge(ageId, fullDomain) {
       const domainIndex = this.domains.findIndex((domain) => `${domain.root}${domain.tld}` === fullDomain);
@@ -91,6 +93,9 @@ export const useCartStore = defineStore('cart', {
     },
     setDiscount(discount, price) {
       this.discount = discount;
+    },
+    setPlan(plan) {
+      this.hostings.push(plan);
     },
   },
 });
