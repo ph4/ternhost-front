@@ -15,9 +15,11 @@ import {
   faBasketShopping,
   faCheck,
   faXmark,
+  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faTrashCan,
   faXmark,
   faChevronRight,
   faBars,

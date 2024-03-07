@@ -68,6 +68,9 @@ export const useCartStore = defineStore('cart', {
         return state.domains.some((domain) => `${domain.root}${domain.tld}` === fullDomain);
       };
     },
+    isEmpty: (state) => {
+      return !state.domains.length && !state.hostings.length;
+    },
   },
   actions: {
     addToCart(domain) {
