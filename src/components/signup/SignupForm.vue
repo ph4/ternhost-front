@@ -74,7 +74,7 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
-import axios from 'axios';
+import api from '@/api.ts';
 
 export default {
   name: 'SignupForm',
@@ -122,13 +122,9 @@ export default {
           password: values.password,
           confirmPassword: values.confirmPassword,
       }
-      axios.post("/api/v1/auth/signup", data)
-        .then(function (resp) { console.log(resp); })
+      api.signUp(data)
         .catch(function (error) {
-          let data = error.response.data
-          let msg = (data && data.detail) ? data.detail : null;
-          console.error(error.message, msg);
-          alert(`${error.message} (${msg})` )
+          alert(`${error.message} (${error.detail})`)
         });
     },
     onInvalidSubmit({ errors }) {

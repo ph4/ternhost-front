@@ -61,13 +61,13 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
-import axios from 'axios';
-
 import LoginFacebookIcon from '@/assets/images/login/login-facebook-icon.svg';
 import LoginGoogleIcon from '@/assets/images/login/login-google-icon.svg';
 import LoginAppleIcon from '@/assets/images/login/login-apple-icon.svg';
 
 import BaseButton from '@/components/UI/BaseButton.vue';
+
+import api from '@/api.ts';
 
 export default {
   name: 'LoginForm',
@@ -103,17 +103,9 @@ export default {
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
-      let data = {
-        username: values.email,
-        password: values.password,
-      };
-      axios.postForm("/api/v1/auth/login", data)
-        .then(function (resp) { console.log(resp); })
+      api.logIn(values.email, values.password)
         .catch(function (error) {
-          let data = error.response.data
-          let msg = (data && data.detail) ? data.detail : null;
-          console.error(error.message, msg);
-          alert(`${error.message} (${msg})` )
+          alert(`${error.message} (${error.detail})`)
         });
     },
     onInvalidSubmit({ errors }) {
