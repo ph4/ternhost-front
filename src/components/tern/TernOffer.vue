@@ -1,6 +1,6 @@
 <template>
   <!-- <li class="pricing__plans-group__item" :class="{ best: offer.isActive }"> -->
-  <li class="pricing__plans-group__item">
+  <li class="pricing__plans-group__item" :class="{ best: isBest }">
     <header class="plan__header">
       <h1>{{ this.offer.title }}</h1>
       <div class="plan__header-price">
@@ -42,6 +42,7 @@ export default {
   props: {
     offer: Object,
     activeDuration: Number,
+    isBest: Boolean,
     callback: Function,
   },
   components: {

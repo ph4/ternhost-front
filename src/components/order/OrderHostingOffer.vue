@@ -9,6 +9,8 @@
           :key="offer.id"
           :offer="offer"
           :activeDuration="this.getActiveOfferDuration()"
+          :isBest="offer.id === 2"
+          :callback="this.addOfferToCart"
         ></tern-offer>
       </ul>
     </div>
@@ -45,10 +47,18 @@ export default {
     this.offers = useLoadOffers('order-hosting');
   },
   methods: {
-    setPlan(plan) {
+    prepareOffer(offer, duration) {
+      offer.prices[duration].isEnabled = true;
+
+      return offer;
+    },
+    addOfferToCart(offer) {
       const store = useCartStore();
 
-      store.setPlan({ ...plan, age: this.getActivePlansTime() });
+      const duration = this.getActiveOfferDuration();
+      const endOffer = this.prepareOffer(offer, duration);
+
+      store.addOfferToCart(endOffer);
     },
   },
 };

@@ -94,11 +94,11 @@ export const useCartStore = defineStore('cart', {
         }
       }
     },
-    setDiscount(discount, price) {
+    setDiscount(discount) {
       this.discount = discount;
     },
-    setPlan(plan) {
-      this.hostings.push(plan);
+    addOfferToCart(offer) {
+      this.hostings.push(offer);
     },
   },
 });

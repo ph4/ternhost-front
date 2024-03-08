@@ -16,6 +16,7 @@
               :key="offer.id"
               :offer="offer"
               :activeDuration="this.getActiveOfferDuration()"
+              :isBest="offer.id === 6"
             ></tern-offer>
           </ul>
         </div>

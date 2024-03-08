@@ -44,7 +44,7 @@ export default {
   mounted() {
     usePreloader(1);
 
-    this.store.isEmpty && this.$router.push('/');
+    // this.store.isEmpty && this.$router.push('/');
   },
 };
 </script>
