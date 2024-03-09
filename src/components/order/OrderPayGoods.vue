@@ -11,14 +11,26 @@
       </div>
     </header>
 
-    <div class="box__select">
-      <div class="box__select-active">
-        <h3>
-          <span>12 month / <span class="line-through">$199.50</span></span> $4.99
-        </h3>
-        <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon"></font-awesome-icon>
-      </div>
-    </div>
+    <base-select :onSelect="onSelect" class="select">
+      <template #intro>
+        <base-select-intro>
+          <h3 v-if="this.activeDuration">
+            {{ this.activeDuration.duration }} months / ${{ this.activeDuration.price }}
+            <span>${{ this.$getPriceWithDiscount(this.activeDuration.price, this.activeDuration.discount) }}</span>
+          </h3>
+          <h3 v-else>Select a duration</h3>
+        </base-select-intro>
+      </template>
+
+      <template #body>
+        <base-select-option v-for="value in this.goods.prices" :key="value.id" :value="value">
+          <h3>
+            {{ value.duration }} months / ${{ value.price }}
+            <span>${{ this.$getPriceWithDiscount(value.price, value.discount) }}</span>
+          </h3>
+        </base-select-option>
+      </template>
+    </base-select>
 
     <div class="box__services">
       <header class="box__services-header">
@@ -50,13 +62,50 @@
 </template>
 
 <script>
+import BaseSelect from '@/demo/BaseSelect.vue';
+import BaseSelectIntro from '@/demo/BaseSelectIntro.vue';
+import BaseSelectOption from '@/demo/BaseSelectOption.vue';
+
 export default {
   name: 'OrderPayGoods',
+  props: {
+    goods: Object,
+  },
+  components: {
+    BaseSelect,
+    BaseSelectIntro,
+    BaseSelectOption,
+  },
+  data() {
+    return {
+      activeDuration: this.getActiveOffer(),
+    };
+  },
+  mounted() {},
+  methods: {
+    onSelect(data) {
+      this.activeDuration = data;
+    },
+    getActiveOffer() {
+      return this.goods.prices.filter((price) => price.duration === this.goods.activeDuration)[0];
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/common/all';
+
+.select {
+  margin: 1rem 0;
+}
+
+h3 {
+  @include fluid-type($text-base, $text-base, 700, $gray-200);
+  span {
+    color: $blue-200;
+  }
+}
 
 .box {
   padding: 2rem;
@@ -94,25 +143,6 @@ export default {
       cursor: pointer;
       .icon {
         color: $blue-200;
-      }
-    }
-  }
-  &__select {
-    margin: 1rem 0;
-    &-active {
-      @include center-y-between;
-      padding: 1rem;
-      border-radius: 0.25rem;
-      border: 0.063rem solid $gray-200;
-      cursor: pointer;
-      h3 {
-        @include fluid-type($text-base, $text-base, 700, $blue-200);
-        span {
-          color: $gray-200;
-          &.line-through {
-            text-decoration: line-through;
-          }
-        }
       }
     }
   }

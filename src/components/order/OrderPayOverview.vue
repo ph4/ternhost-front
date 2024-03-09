@@ -4,7 +4,7 @@
       <order-pay-goods
         v-for="hosting in store.hostings"
         :key="hosting.id"
-        :offer="hosting"
+        :goods="hosting"
         title="Hosting"
       ></order-pay-goods>
     </template>

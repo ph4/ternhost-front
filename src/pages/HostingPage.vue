@@ -24,12 +24,10 @@ export default {
   components: {
     MainPromo,
     MainHeader,
-
     AppQuestions,
     AppFooter,
     AppTerms,
     AppPreloader,
-
     HostingHero,
   },
   data() {

@@ -1,5 +1,4 @@
 <template>
-  <!-- <li class="pricing__plans-group__item" :class="{ best: offer.isActive }"> -->
   <li class="pricing__plans-group__item" :class="{ best: isBest }">
     <header class="plan__header">
       <h1>{{ this.offer.title }}</h1>
@@ -8,7 +7,8 @@
           <h3>${{ this.getPrice() }}/mo</h3>
           <span>Save {{ this.getDiscount() }}%</span>
         </div>
-        <h1>${{ this.getPriceWithDiscount() }}<span>/mo</span></h1>
+
+        <h1>${{ this.$getPriceWithDiscount(this.getPrice(), this.getDiscount()) }}<span>/mo</span></h1>
       </div>
     </header>
 
@@ -41,7 +41,8 @@ export default {
   name: 'TernOffer',
   props: {
     offer: Object,
-    activeDuration: Number,
+
+    duration: Number,
     isBest: Boolean,
     callback: Function,
   },
@@ -50,16 +51,10 @@ export default {
   },
   methods: {
     getPrice() {
-      return this.offer.prices[this.activeDuration].price;
+      return this.offer.prices.filter((price) => price.duration === this.duration)[0].price;
     },
     getDiscount() {
-      return this.offer.prices[this.activeDuration].discount;
-    },
-    getPriceWithDiscount() {
-      const price = this.getPrice();
-      const discount = this.getDiscount();
-
-      return (price - (price / 100) * discount).toFixed(2);
+      return this.offer.prices.filter((price) => price.duration === this.duration)[0].discount;
     },
   },
 };

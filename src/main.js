@@ -49,6 +49,8 @@ import OrderDomainPage from './pages/OrderDomainPage.vue';
 import OrderHostingPage from './pages/OrderHostingPage.vue';
 import OrderPayPage from './pages/OrderPayPage.vue';
 
+import Demo from '@/demo/Demo.vue';
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -69,6 +71,7 @@ const router = createRouter({
     { path: '/order/hosting', component: OrderHostingPage },
     { path: '/order/pay', component: OrderPayPage },
 
+    { path: '/demo', component: Demo },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
@@ -88,6 +91,9 @@ import { createPinia } from 'pinia';
 
 const pinia = createPinia();
 
+// Plugins
+import getPriceWithDiscount from '@/plugins/getPriceWithDiscount.js';
+
 // Vue
 const app = createApp(App);
 
@@ -95,6 +101,8 @@ app.config.globalProperties.$emitter = emitter;
 
 app.use(router);
 app.use(pinia);
+
+app.use(getPriceWithDiscount);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
