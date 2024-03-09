@@ -97,8 +97,11 @@ export const useCartStore = defineStore('cart', {
     setDiscount(discount) {
       this.discount = discount;
     },
-    addOfferToCart(offer) {
+    addGoods(offer) {
       this.hostings.push(offer);
+    },
+    removeGoods(uid) {
+      this.hostings = this.hostings.filter((hosting) => hosting.uid !== uid);
     },
   },
 });

@@ -3,9 +3,9 @@
     <header class="box__header">
       <div class="box__header-title">
         <h1>Hosting</h1>
-        <span>Premium</span>
+        <span>{{ this.goods.title }}</span>
       </div>
-      <div class="box__header-clear">
+      <div class="box__header-clear" @click="this.removeGoods">
         <i class="fa-solid fa-trash-can icon"></i>
         <font-awesome-icon icon="fa-solid fa-trash-can" class="icon"></font-awesome-icon>
       </div>
@@ -32,7 +32,7 @@
       </template>
     </base-select>
 
-    <div class="box__services">
+    <div class="box__services hidden">
       <header class="box__services-header">
         <h3>More information about the domain service</h3>
         <div class="box__services-header__hide">
@@ -66,6 +66,8 @@ import BaseSelect from '@/demo/BaseSelect.vue';
 import BaseSelectIntro from '@/demo/BaseSelectIntro.vue';
 import BaseSelectOption from '@/demo/BaseSelectOption.vue';
 
+import { useCartStore } from '@/stores/useCartStore.js';
+
 export default {
   name: 'OrderPayGoods',
   props: {
@@ -88,6 +90,11 @@ export default {
     },
     getActiveOffer() {
       return this.goods.prices.filter((price) => price.duration === this.goods.activeDuration)[0];
+    },
+    removeGoods() {
+      const store = useCartStore();
+
+      store.removeGoods(this.goods.uid);
     },
   },
 };

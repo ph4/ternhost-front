@@ -1,7 +1,7 @@
 <!-- 
             :activeDuration="this.getActiveOfferDuration()"
           :isBest="offer.id === 2"
-          :callback="this.addOfferToCart"
+          :callback="this.addGoods"
  -->
 
 <template>
@@ -15,7 +15,7 @@
           :key="offer.id"
           :offer="offer"
           :duration="this.getActiveOfferDuration()"
-          :callback="this.addOfferToCart"
+          :callback="this.addGoods"
         ></tern-offer>
       </ul>
     </div>
@@ -29,6 +29,8 @@ import TernOffer from '@/components/tern/TernOffer.vue';
 import { useCartStore } from '@/stores/useCartStore.js';
 import { useLoadOffers } from '@/hooks/useLoadOffers.js';
 import { offersMixin } from '@/mixins/offers.js';
+
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'OrderHostingPlans',
@@ -52,10 +54,10 @@ export default {
     this.offers = useLoadOffers('order-hosting');
   },
   methods: {
-    addOfferToCart(offer) {
+    addGoods(offer) {
       const store = useCartStore();
 
-      store.addOfferToCart({ ...offer, activeDuration: this.getActiveOfferDuration() });
+      store.addGoods({ ...offer, activeDuration: this.getActiveOfferDuration(), uid: uuid() });
     },
   },
 };
