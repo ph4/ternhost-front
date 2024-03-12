@@ -1,4 +1,6 @@
 <template>
+  <order-modal></order-modal>
+
   <app-preloader></app-preloader>
 
   <order-hero>
@@ -18,6 +20,7 @@
 import OrderHero from '@/components/order/OrderHero.vue';
 import OrderPayOverview from '@/components/order/OrderPayOverview.vue';
 import OrderPayCart from '@/components/order/OrderPayCart.vue';
+import OrderModal from '@/components/order/OrderModal.vue';
 
 import AppFooter from '@/components/common/AppFooter/AppFooter.vue';
 import AppTerms from '@/components/common/AppTerms/AppTerms.vue';
@@ -32,6 +35,7 @@ export default {
     OrderHero,
     OrderPayOverview,
     OrderPayCart,
+    OrderModal,
     AppFooter,
     AppTerms,
     AppPreloader,

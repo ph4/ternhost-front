@@ -20,7 +20,6 @@ export default {
   border-radius: 1.875rem;
   background-color: $white-100;
   box-shadow: 0 0.25rem 2rem 0 rgba($black-100, 0.08);
-  margin-top: 1rem;
   @media screen and (max-width: 500px) {
     padding: 1rem;
   }

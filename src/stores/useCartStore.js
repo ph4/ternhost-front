@@ -1,4 +1,18 @@
 import { defineStore } from 'pinia';
+import { emitter } from '../main.js';
+
+/**
+ * orders: [
+ *  uid: 'asdasdas',
+ *  title: "Premium Web Hosting 12 months",
+ *  price: 34.99,
+ *  discount: 90,
+ *  extra: [
+ *     { id: 0, name: "DDOS Protection", key: "DDOS_PROTECTION", price: 34.99, discount: 90 },
+ *     { id: 1, name: "Daily Backups", key: "DAILY_BACKUPS", price: 44.99, discount: 40 },
+ *  ]
+ * ]
+ */
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -71,8 +85,24 @@ export const useCartStore = defineStore('cart', {
     isEmpty: (state) => {
       return !state.domains.length && !state.hostings.length;
     },
+    isLatest: (state) => {
+      return state.hostings.length + state.domains.length <= 1;
+    },
   },
   actions: {
+    add(entity, options) {
+      options.hosting && this.hostings.push(entity);
+      options.domain && this.domains.push(entity);
+    },
+    remove(uuid, options) {
+      if (this.isLatest) return emitter.emit('_order_-show-modal');
+
+      if (options.hosting) {
+        this.hostings = this.hostings.filter((hosting) => hosting.uuid !== uuid);
+      }
+    },
+    update() {},
+
     addToCart(domain) {
       this.domains.push(domain);
     },
@@ -96,12 +126,6 @@ export const useCartStore = defineStore('cart', {
     },
     setDiscount(discount) {
       this.discount = discount;
-    },
-    addGoods(offer) {
-      this.hostings.push(offer);
-    },
-    removeGoods(uid) {
-      this.hostings = this.hostings.filter((hosting) => hosting.uid !== uid);
     },
   },
 });

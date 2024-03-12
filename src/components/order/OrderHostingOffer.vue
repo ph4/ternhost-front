@@ -1,9 +1,3 @@
-<!-- 
-            :activeDuration="this.getActiveOfferDuration()"
-          :isBest="offer.id === 2"
-          :callback="this.addGoods"
- -->
-
 <template>
   <div class="plans">
     <tern-offer-durations :durations="this.offerDurations" class="order-hosting"></tern-offer-durations>
@@ -15,7 +9,7 @@
           :key="offer.id"
           :offer="offer"
           :duration="this.getActiveOfferDuration()"
-          :callback="this.addGoods"
+          :callback="this.add"
         ></tern-offer>
       </ul>
     </div>
@@ -54,10 +48,10 @@ export default {
     this.offers = useLoadOffers('order-hosting');
   },
   methods: {
-    addGoods(offer) {
+    add(offer) {
       const store = useCartStore();
 
-      store.addGoods({ ...offer, activeDuration: this.getActiveOfferDuration(), uid: uuid() });
+      store.add({ ...offer, duration: this.getActiveOfferDuration(), uuid: uuid() }, { hosting: true });
     },
   },
 };
