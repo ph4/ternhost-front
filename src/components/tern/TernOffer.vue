@@ -4,11 +4,11 @@
       <h1>{{ this.offer.title }}</h1>
       <div class="plan__header-price">
         <div class="plan__header-price__row">
-          <h3>${{ this.getPrice() }}/mo</h3>
-          <span>Save {{ this.getDiscount() }}%</span>
+          <h3>${{ this.getPrice }}/mo</h3>
+          <span>Save {{ this.getDiscount }}%</span>
         </div>
 
-        <h1>${{ this.$getPriceWithDiscount(this.getPrice(), this.getDiscount()) }}<span>/mo</span></h1>
+        <h1>${{ this.$getPriceWithDiscount(this.getPrice, this.getDiscount) }}<span>/mo</span></h1>
       </div>
     </header>
 
@@ -41,20 +41,19 @@ export default {
   name: 'TernOffer',
   props: {
     offer: Object,
-
-    duration: Number,
+    activeDuration: Number,
     isBest: Boolean,
     callback: Function,
   },
   components: {
     BaseButton,
   },
-  methods: {
+  computed: {
     getPrice() {
-      return this.offer.prices.filter((price) => price.duration === this.duration)[0].price;
+      return this.offer.prices.filter((price) => price.duration === this.activeDuration)[0].price;
     },
     getDiscount() {
-      return this.offer.prices.filter((price) => price.duration === this.duration)[0].discount;
+      return this.offer.prices.filter((price) => price.duration === this.activeDuration)[0].discount;
     },
   },
 };

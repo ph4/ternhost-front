@@ -16,6 +16,11 @@ import {
   faCheck,
   faXmark,
   faTrashCan,
+  faHouse,
+  faShieldHalved,
+  faServer,
+  faDesktop,
+  faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -29,6 +34,11 @@ library.add(
   faPlus,
   faBasketShopping,
   faCheck,
+  faHouse,
+  faShieldHalved,
+  faServer,
+  faDesktop,
+  faMicrochip,
 );
 
 // Vue Router
@@ -45,9 +55,7 @@ import NotFoundPage from './pages/NotFoundPage.vue';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
 import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
-import OrderDomainPage from './pages/OrderDomainPage.vue';
-import OrderHostingPage from './pages/OrderHostingPage.vue';
-import OrderPayPage from './pages/OrderPayPage.vue';
+import DashboardPage from './pages/DashboardPage.vue';
 
 import Demo from '@/demo/Demo.vue';
 
@@ -67,9 +75,7 @@ const router = createRouter({
     { path: '/users/email/check', component: CheckEmailPage },
     { path: '/users/password/new', component: SetPasswordPage },
 
-    { path: '/order/domain', component: OrderDomainPage },
-    { path: '/order/hosting', component: OrderHostingPage },
-    { path: '/order/pay', component: OrderPayPage },
+    { path: '/dashboard', component: DashboardPage },
 
     { path: '/demo', component: Demo },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },

@@ -1,0 +1,61 @@
+<template>
+  <div class="menu">
+    <ul class="menu__group">
+      <li class="menu__group-item" v-for="item in store.navbar">
+        <router-link :to="item.path" :class="{ active: this.$route.path === item.path }">
+          <font-awesome-icon :icon="item.icon" class="icon"></font-awesome-icon>
+          <h3>{{ item.title }}</h3>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { useDashboardStore } from '@/stores/useDashboardStore.js';
+
+export default {
+  name: 'DashboardSidebarNavbar',
+  data() {
+    return {
+      store: useDashboardStore(),
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/styles/common/all';
+
+.menu {
+  margin-top: 2rem;
+  &__group {
+    margin: 0.625rem;
+    &-item {
+      margin-top: 0.313rem;
+      &:first-child {
+        margin-top: 0;
+      }
+      a {
+        @include center-y;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        &.active {
+          background-color: rgba($blue-100, 0.1);
+        }
+        .icon {
+          @include center;
+          width: 1.5rem;
+          aspect-ratio: 1 / 1;
+          color: $blue-200;
+        }
+        h3 {
+          @include fluid-type($text-base, $text-base, 500, $blue-200);
+          margin-left: 1.25rem;
+        }
+      }
+    }
+  }
+}
+</style>

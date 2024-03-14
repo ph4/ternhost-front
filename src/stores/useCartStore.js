@@ -3,7 +3,7 @@ import { emitter } from '../main.js';
 
 /**
  * orders: [
- *  uid: 'asdasdas',
+ *  uuid: 'asdasdas',
  *  title: "Premium Web Hosting 12 months",
  *  price: 34.99,
  *  discount: 90,
@@ -18,6 +18,7 @@ export const useCartStore = defineStore('cart', {
   state: () => ({
     domains: [],
     hostings: [],
+    orders: [],
     discount: 0,
   }),
   getters: {
@@ -77,6 +78,19 @@ export const useCartStore = defineStore('cart', {
 
       return total.toFixed(2);
     },
+
+    getHostingPriceByUuid: (state) => {
+      return (uuid, duration) => {
+        const hosting = state.hostings.filter((hosting) => hosting.uuid === uuid)[0];
+
+        const a = hosting.prices.filter((price) => price.duration === duration)[0];
+
+        return {
+          price: a.price,
+          discount: a.discount,
+        };
+      };
+    },
     isAvailablePurchase: (state) => {
       return (fullDomain) => {
         return state.domains.some((domain) => `${domain.root}${domain.tld}` === fullDomain);
@@ -91,18 +105,38 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     add(entity, options) {
-      options.hosting && this.hostings.push(entity);
-      options.domain && this.domains.push(entity);
+      console.log(entity);
+
+      if (options.key === 'HOSTING') {
+        this.hostings.push(entity);
+
+        const { price, discount } = this.getHostingPriceByUuid(entity.uuid, entity.duration);
+
+        this.orders.push({
+          uuid: entity.uuid,
+          title: `${entity.title} Web Hosting ${entity.duration} months`,
+          price,
+          discount,
+        });
+      }
+      if (options.key === 'DOMAIN') {
+        this.domains.push(entity);
+      }
     },
     remove(uuid, options) {
       if (this.isLatest) return emitter.emit('_order_-show-modal');
 
-      if (options.hosting) {
+      if (options.key === 'HOSTING') {
         this.hostings = this.hostings.filter((hosting) => hosting.uuid !== uuid);
       }
     },
     update() {},
+    clear() {
+      this.hostings = [];
+      this.domains = [];
+    },
 
+    // Legacy
     addToCart(domain) {
       this.domains.push(domain);
     },

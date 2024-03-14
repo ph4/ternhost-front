@@ -1,5 +1,5 @@
 <template>
-  <div class="service-switch" :class="{ enabled: this.isEnabled }" @click="this.toggleSwitch"></div>
+  <div class="service-switch" :class="{ enabled: this.isEnabled }" @click="this.toggle"></div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
     };
   },
   methods: {
-    toggleSwitch() {
+    toggle() {
       this.isEnabled = !this.isEnabled;
       this.isEnabled ? this.on?.() : this.off?.();
     },
