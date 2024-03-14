@@ -1,11 +1,11 @@
 <template>
   <div class="menu">
     <ul class="menu__group">
-      <li class="menu__group-item" v-for="item in store.navbar">
-        <router-link :to="item.path" :class="{ active: this.$route.path === item.path }">
-          <font-awesome-icon :icon="item.icon" class="icon"></font-awesome-icon>
-          <h3>{{ item.title }}</h3>
-        </router-link>
+      <li class="menu__group-item" v-for="page in store.navbar" :key="page.id">
+        <a :href="page.path" :class="{ active: this.$route.path === page.path }">
+          <font-awesome-icon :icon="page.icon" class="icon"></font-awesome-icon>
+          <h3>{{ page.title }}</h3>
+        </a>
       </li>
     </ul>
   </div>

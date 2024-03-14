@@ -4,7 +4,7 @@
       <h1>Need Help?</h1>
       <h3>Write to us, our specialists will tell you how to solve your problem as quickly as possible</h3>
     </div>
-    <base-button class="btn-white">Support</base-button>
+    <base-button class="btn-white" @click="this.getSupport">Support</base-button>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   name: 'DashboardSidebarSupport',
   components: {
     BaseButton,
+  },
+  methods: {
+    getSupport() {
+      console.log('[getSupport]: ');
+    },
   },
 };
 </script>

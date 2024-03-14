@@ -21,9 +21,17 @@ import {
   faServer,
   faDesktop,
   faMicrochip,
+  faLocationDot,
+  faShieldDog,
+  faCircleDollarToSlot,
+  faFingerprint,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faFingerprint,
+  faShieldDog,
+  faCircleDollarToSlot,
+  faLocationDot,
   faTrashCan,
   faXmark,
   faChevronRight,
@@ -57,7 +65,7 @@ import CheckEmailPage from './pages/CheckEmailPage.vue';
 import SetPasswordPage from './pages/SetPasswordPage.vue';
 import DashboardPage from './pages/DashboardPage.vue';
 
-import Demo from '@/demo/Demo.vue';
+import DashboardViewHome from '@/components/dashboard/DashboardViewHome.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -75,9 +83,17 @@ const router = createRouter({
     { path: '/users/email/check', component: CheckEmailPage },
     { path: '/users/password/new', component: SetPasswordPage },
 
-    { path: '/dashboard', component: DashboardPage },
+    {
+      path: '/dashboard',
+      component: DashboardPage,
+      children: [
+        {
+          path: '',
+          component: DashboardViewHome,
+        },
+      ],
+    },
 
-    { path: '/demo', component: Demo },
     { path: '/:pathMatch(.*)*', component: NotFoundPage },
   ],
 });
