@@ -1,13 +1,11 @@
 <template>
-  <base-container>
-    <div class="box-container">
-      <dashboard-user></dashboard-user>
-      <dashboard-bill></dashboard-bill>
-      <dashboard-transactions></dashboard-transactions>
-      <dashboard-metrics></dashboard-metrics>
-      <dashboard-security></dashboard-security>
-    </div>
-  </base-container>
+  <div class="box-container">
+    <dashboard-user></dashboard-user>
+    <dashboard-bill></dashboard-bill>
+    <dashboard-transactions></dashboard-transactions>
+    <dashboard-metrics></dashboard-metrics>
+    <dashboard-security></dashboard-security>
+  </div>
 </template>
 
 <script>
@@ -42,11 +40,13 @@ export default {
 }
 
 .box-container {
-  margin-top: 1.5rem;
+  margin: 1.5rem;
+  margin-top: calc(1.5rem + 64px);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 1rem;
+  position: relative;
   @media screen and (max-width: 1400px) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);

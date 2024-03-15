@@ -42,7 +42,7 @@ export default {
         border-radius: 0.25rem;
         cursor: pointer;
         &.active {
-          background-color: rgba($blue-100, 0.1);
+          background-color: rgba($blue-200, 0.1);
         }
         .icon {
           @include center;

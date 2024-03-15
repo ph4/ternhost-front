@@ -26,5 +26,6 @@ export default {
   background-color: $white-200;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 </style>

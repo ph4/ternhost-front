@@ -123,7 +123,7 @@ export default {
             border-radius: 50%;
             background-color: rgba($blue-100, 0.1);
             .icon {
-              font-size: $text-2xl;
+              font-size: $text-lg;
               color: $blue-100;
             }
           }
@@ -137,6 +137,7 @@ export default {
               }
               h3 {
                 @include fluid-type($text-sm, $text-sm, 500, $gray-200);
+                margin-top: 0.25rem;
               }
             }
             &-amount {

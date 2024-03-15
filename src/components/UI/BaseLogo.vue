@@ -41,7 +41,7 @@ export default {
     }
   }
   h1 {
-    @include fluid-type($text-4xl, $text-4xl, 700, $blue-200);
+    @include fluid-type($text-3xl, $text-3xl, 700, $blue-200);
     text-transform: uppercase;
     margin-left: 0.5rem;
   }

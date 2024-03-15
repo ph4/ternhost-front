@@ -8,7 +8,7 @@
     </header>
 
     <footer class="wallet__footer">
-      <h1>${{ this.balance }}</h1>
+      <h1>${{ this.balance.toFixed(2) }}</h1>
     </footer>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
   &__footer {
     @include center-y-between;
     h1 {
-      @include fluid-type($text-5xl, $text-5xl, 700, $white-100);
+      @include fluid-type($text-6xl, $text-6xl, 700, $white-100);
     }
     padding-top: 3rem;
   }

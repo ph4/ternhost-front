@@ -1,6 +1,6 @@
 <template>
   <header class="dashboard__body-header" ref="header">
-    <div class="container">
+    <div class="header__container">
       <div class="header__body">
         <h1 class="header__body-page">{{ this.getCurrentPage }}</h1>
         <img class="header__body-user" :src="this.avatar" alt="User" />
@@ -20,7 +20,7 @@
             <router-link :to="page.path">{{ page.title }}</router-link>
           </li>
           <li class="header__mobile-menu__item">
-            <router-link to="/users/login"><base-button class="btn-secondary">Login</base-button></router-link>
+            <router-link to="/users/login"><base-button class="btn-secondary">Support</base-button></router-link>
           </li>
         </ul>
       </div>
@@ -69,43 +69,39 @@ export default {
     },
   },
   methods: {
-    open() {
-      const tl = gsap.timeline();
-
-      tl.to(this.$refs.header, {
-        duration: 0.5,
-        height: '100vh',
-      })
-        .to(this.$refs.headerMobile, {
-          duration: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          opacity: 0,
-        })
-        .to(this.$refs.headerMobile, {
-          opacity: 1,
-          duration: 0.5,
-        });
-    },
-    close() {
-      const tl = gsap.timeline();
-
-      tl.to(this.$refs.headerMobile, {
-        duration: 0.5,
-        opacity: 0,
-      })
-        .to(this.$refs.headerMobile, {
-          duration: 0,
-          display: 'none',
-        })
-        .to(this.$refs.header, {
-          height: 'auto',
-          duration: 0.5,
-        });
-    },
     animate() {
-      !this.isShow ? this.open() : this.close();
+      const tl = gsap.timeline();
+
+      !this.isShow
+        ? tl
+            .to(this.$refs.header, {
+              duration: 0.5,
+              height: '100vh',
+            })
+            .to(this.$refs.headerMobile, {
+              duration: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              opacity: 0,
+            })
+            .to(this.$refs.headerMobile, {
+              opacity: 1,
+              duration: 0.5,
+            })
+        : tl
+            .to(this.$refs.headerMobile, {
+              duration: 0.5,
+              opacity: 0,
+            })
+            .to(this.$refs.headerMobile, {
+              duration: 0,
+              display: 'none',
+            })
+            .to(this.$refs.header, {
+              height: 'auto',
+              duration: 0.5,
+            });
 
       this.isShow = !this.isShow;
     },
@@ -119,11 +115,14 @@ export default {
 .dashboard__body-header {
   width: 100%;
   background-color: $white-100;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border-left: 0.063rem solid $blue-200;
-  .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  .header__container {
     width: 100%;
-    max-width: 1536px;
     display: flex;
     flex-direction: column;
     height: 100%;
