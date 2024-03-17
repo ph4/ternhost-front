@@ -26,9 +26,11 @@ import {
   faCircleDollarToSlot,
   faFingerprint,
   faCircleQuestion,
+  faCubes,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faCubes,
   faCircleQuestion,
   faFingerprint,
   faShieldDog,
@@ -70,6 +72,7 @@ import DashboardPage from './pages/DashboardPage.vue';
 import DashboardViewHome from '@/components/dashboard/DashboardViewHome.vue';
 import DashboardViewDomain from '@/components/dashboard/DashboardViewDomain.vue';
 import DashboardViewHosting from '@/components/dashboard/DashboardViewHosting.vue';
+import DashboardViewBuilder from './components/dashboard/DashboardViewBuilder.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -102,6 +105,10 @@ const router = createRouter({
         {
           path: 'hosting',
           component: DashboardViewHosting,
+        },
+        {
+          path: 'builder',
+          component: DashboardViewBuilder,
         },
       ],
     },

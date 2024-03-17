@@ -17,7 +17,7 @@
             <th class="table-item service">
               <div class="table-item__service">
                 <div class="table-item__service-icon">
-                  <font-awesome-icon icon="fa-solid fa-server" class="icon" />
+                  <font-awesome-icon icon="fa-solid fa-cubes" class="icon" />
                 </div>
                 <div class="table-item__service-text">
                   <h2>{{ row.title }}</h2>
@@ -66,7 +66,7 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 import BaseSwitch from '@/components/UI/BaseSwitch.vue';
 
 export default {
-  name: 'DashboardViewHosting',
+  name: 'DashboardViewBuilder',
   components: {
     BaseButton,
     BaseSwitch,
@@ -76,7 +76,7 @@ export default {
       rows: [
         {
           id: 0,
-          title: 'Hosting 36 months',
+          title: 'Web Builder 6 months',
           category: 'Web Builder',
           isOnline: true,
           expiration: '01/01/2025',
@@ -84,7 +84,7 @@ export default {
         },
         {
           id: 1,
-          title: 'Hosting 36 months',
+          title: 'Web Builder 36 months',
           category: 'Web Builder',
           isOnline: false,
           expiration: '01/01/2025',
@@ -92,7 +92,7 @@ export default {
         },
         {
           id: 2,
-          title: 'Hosting 36 months',
+          title: 'Web Builder 12 months',
           category: 'Web Builder',
           isOnline: true,
           expiration: '01/01/2025',
