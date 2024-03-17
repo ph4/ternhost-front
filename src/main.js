@@ -68,6 +68,7 @@ import SetPasswordPage from './pages/SetPasswordPage.vue';
 import DashboardPage from './pages/DashboardPage.vue';
 
 import DashboardViewHome from '@/components/dashboard/DashboardViewHome.vue';
+import DashboardViewDomain from '@/components/dashboard/DashboardViewDomain.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -92,6 +93,10 @@ const router = createRouter({
         {
           path: '',
           component: DashboardViewHome,
+        },
+        {
+          path: 'domain',
+          component: DashboardViewDomain,
         },
       ],
     },

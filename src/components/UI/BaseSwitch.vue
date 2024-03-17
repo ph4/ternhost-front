@@ -6,18 +6,16 @@
 export default {
   name: 'BaseSwitch',
   props: {
+    id: Number,
     on: Function,
     off: Function,
-  },
-  data() {
-    return {
-      isEnabled: false,
-    };
+    isEnabled: Boolean,
   },
   methods: {
     toggle() {
-      this.isEnabled = !this.isEnabled;
-      this.isEnabled ? this.on?.() : this.off?.();
+      console.log(this.id);
+
+      !this.isEnabled ? this.on(this.id) : this.off(this.id);
     },
   },
 };
@@ -34,6 +32,7 @@ export default {
   position: relative;
   margin-left: 0.5rem;
   cursor: pointer;
+  transition: all 0.25s;
   &::after {
     content: '';
     position: absolute;
@@ -43,6 +42,7 @@ export default {
     aspect-ratio: 1 / 1;
     background-color: $white-100;
     border-radius: 50%;
+    transition: all 0.25s;
   }
   &.enabled {
     background-color: $blue-100;

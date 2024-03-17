@@ -24,6 +24,7 @@ export default {
 @import '@/styles/common/all';
 
 .dashboard__body {
+  width: 100%;
   min-height: 100vh;
   flex-grow: 1;
   background-color: $white-200;
