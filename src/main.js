@@ -69,6 +69,7 @@ import DashboardPage from './pages/DashboardPage.vue';
 
 import DashboardViewHome from '@/components/dashboard/DashboardViewHome.vue';
 import DashboardViewDomain from '@/components/dashboard/DashboardViewDomain.vue';
+import DashboardViewHosting from '@/components/dashboard/DashboardViewHosting.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -97,6 +98,10 @@ const router = createRouter({
         {
           path: 'domain',
           component: DashboardViewDomain,
+        },
+        {
+          path: 'hosting',
+          component: DashboardViewHosting,
         },
       ],
     },

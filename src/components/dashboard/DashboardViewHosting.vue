@@ -45,6 +45,7 @@
             <th class="table-item">
               <div class="table-item__actions">
                 <base-button class="btn-white" @click="this.renew(row.id)">Renew</base-button>
+                <base-button class="btn-secondary" @click="this.controls(row.id)">Controls</base-button>
               </div>
             </th>
           </tr>
@@ -65,7 +66,7 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 import BaseSwitch from '@/components/UI/BaseSwitch.vue';
 
 export default {
-  name: 'DashboardViewDomain',
+  name: 'DashboardViewHosting',
   components: {
     BaseButton,
     BaseSwitch,
@@ -73,19 +74,26 @@ export default {
   data() {
     return {
       rows: [
-        { id: 0, title: 'game.io', category: 'Domain', isOnline: true, expiration: '01/01/2025', isAutoRenewal: true },
+        {
+          id: 0,
+          title: 'Hosting 36 months',
+          category: 'Web Builder',
+          isOnline: true,
+          expiration: '01/01/2025',
+          isAutoRenewal: true,
+        },
         {
           id: 1,
-          title: 'best.store',
-          category: 'Domain',
+          title: 'Hosting 36 months',
+          category: 'Web Builder',
           isOnline: false,
           expiration: '01/01/2025',
           isAutoRenewal: false,
         },
         {
           id: 2,
-          title: 'domain.net',
-          category: 'Domain',
+          title: 'Hosting 36 months',
+          category: 'Web Builder',
           isOnline: true,
           expiration: '01/01/2025',
           isAutoRenewal: true,
@@ -96,6 +104,9 @@ export default {
   methods: {
     renew(id) {
       console.log('[renew]: ', id);
+    },
+    controls(id) {
+      console.log('[controls]: ', id);
     },
     on(id) {
       const row = this.getRowById(id);
