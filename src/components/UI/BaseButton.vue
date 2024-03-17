@@ -31,10 +31,6 @@ export default {
     border: 0.125rem solid $blue-100;
     color: $blue-100;
     transition: all 0.2s;
-    &:hover {
-      background-color: $blue-100;
-      color: $white-100;
-    }
   }
   &-green {
     background-color: $green-2;

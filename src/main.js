@@ -25,9 +25,11 @@ import {
   faShieldDog,
   faCircleDollarToSlot,
   faFingerprint,
+  faCircleQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faCircleQuestion,
   faFingerprint,
   faShieldDog,
   faCircleDollarToSlot,

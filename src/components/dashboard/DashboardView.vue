@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard__body">
     <dashboard-header></dashboard-header>
+    <dashboard-help></dashboard-help>
 
     <router-view></router-view>
   </div>
@@ -8,11 +9,13 @@
 
 <script>
 import DashboardHeader from './DashboardHeader.vue';
+import DashboardHelp from './DashboardHelp.vue';
 
 export default {
   name: 'DashboardView',
   components: {
     DashboardHeader,
+    DashboardHelp,
   },
 };
 </script>

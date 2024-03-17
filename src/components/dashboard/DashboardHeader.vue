@@ -5,7 +5,7 @@
         <h1 class="header__body-page">{{ this.getCurrentPage }}</h1>
         <img class="header__body-user" :src="this.avatar" alt="User" />
 
-        <div class="header__body-mobile" @click="this.animate">
+        <div class="header__body-mobile" @click="this.show">
           <base-logo></base-logo>
 
           <div class="header__body-mobile__bars">
@@ -14,40 +14,27 @@
         </div>
       </div>
 
-      <div class="header__mobile" ref="headerMobile">
-        <ul class="header__mobile-menu">
-          <li class="header__mobile-menu__item" v-for="page in store.navbar" :key="page.id">
-            <router-link :to="page.path">{{ page.title }}</router-link>
-          </li>
-          <li class="header__mobile-menu__item">
-            <router-link to="/users/login"><base-button class="btn-secondary">Support</base-button></router-link>
-          </li>
-        </ul>
-      </div>
+      <dashboard-header-dropdown></dashboard-header-dropdown>
     </div>
   </header>
 </template>
 
 <script>
 import BaseLogo from '@/components/UI/BaseLogo.vue';
-import BaseButton from '@/components/UI/BaseButton.vue';
 
 import LoginPersonImage from '@/assets/images/login/login-person.jpg';
 
-import { useDashboardStore } from '@/stores/useDashboardStore.js';
-import { gsap } from 'gsap';
+import DashboardHeaderDropdown from './DashboardHeaderDropdown.vue';
 
 export default {
   name: 'DashboardHeader',
   components: {
     BaseLogo,
-    BaseButton,
+    DashboardHeaderDropdown,
   },
   data() {
     return {
       avatar: LoginPersonImage,
-      store: useDashboardStore(),
-      isShow: false,
     };
   },
   computed: {
@@ -69,41 +56,8 @@ export default {
     },
   },
   methods: {
-    animate() {
-      const tl = gsap.timeline();
-
-      !this.isShow
-        ? tl
-            .to(this.$refs.header, {
-              duration: 0.5,
-              height: '100vh',
-            })
-            .to(this.$refs.headerMobile, {
-              duration: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              opacity: 0,
-            })
-            .to(this.$refs.headerMobile, {
-              opacity: 1,
-              duration: 0.5,
-            })
-        : tl
-            .to(this.$refs.headerMobile, {
-              duration: 0.5,
-              opacity: 0,
-            })
-            .to(this.$refs.headerMobile, {
-              duration: 0,
-              display: 'none',
-            })
-            .to(this.$refs.header, {
-              height: 'auto',
-              duration: 0.5,
-            });
-
-      this.isShow = !this.isShow;
+    show() {
+      this.$emitter.emit('_dashboard_-show-dropdown-menu', this.$refs.header);
     },
   },
 };
@@ -161,23 +115,6 @@ export default {
           .icon {
             font-size: $text-3xl;
             color: $blue-200;
-          }
-        }
-      }
-    }
-    .header__mobile {
-      height: 100%;
-      flex-grow: 1;
-      display: none;
-      &-menu {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        &__item {
-          text-align: center;
-          a {
-            @include fluid-type($text-base, $text-base, 500, $blue-200);
           }
         }
       }
