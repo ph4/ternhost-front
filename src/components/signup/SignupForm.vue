@@ -74,6 +74,8 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import * as yup from 'yup';
 
+import api from '@/api.ts';
+
 export default {
   name: 'SignupForm',
   components: {
@@ -115,6 +117,15 @@ export default {
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
+      let data = { email: values.email,
+          phoneNumber: values.phoneNumber.toString(),
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+      }
+      api.signUp(data)
+        .catch(function (error) {
+          alert(`${error.message} (${error.detail})`)
+        });
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);
