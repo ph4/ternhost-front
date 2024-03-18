@@ -67,6 +67,8 @@ import LoginAppleIcon from '@/assets/images/login/login-apple-icon.svg';
 
 import BaseButton from '@/components/UI/BaseButton.vue';
 
+import api from '@/api.ts';
+
 export default {
   name: 'LoginForm',
   components: {
@@ -101,6 +103,10 @@ export default {
   methods: {
     onSubmit(values) {
       console.log('[onSubmit]: ', values);
+      api.logIn(values.email, values.password)
+        .catch(function (error) {
+          alert(`${error.message} (${error.detail})`)
+        });
     },
     onInvalidSubmit({ errors }) {
       console.log('[onInvalidSubmit]: ', errors);
