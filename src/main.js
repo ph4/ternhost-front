@@ -1,62 +1,62 @@
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import './style.scss';
 import App from './App.vue';
 
 // Font Awesome
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {
-  faChevronRight,
-  faBars,
-  faCircleXmark,
-  faChevronDown,
-  faChevronUp,
-  faPlus,
-  faBasketShopping,
-  faCheck,
-  faXmark,
-  faTrashCan,
-  faHouse,
-  faShieldHalved,
-  faServer,
-  faDesktop,
-  faMicrochip,
-  faLocationDot,
-  faShieldDog,
-  faCircleDollarToSlot,
-  faFingerprint,
-  faCircleQuestion,
-  faCubes,
-  faGear,
+    faChevronRight,
+    faBars,
+    faCircleXmark,
+    faChevronDown,
+    faChevronUp,
+    faPlus,
+    faBasketShopping,
+    faCheck,
+    faXmark,
+    faTrashCan,
+    faHouse,
+    faShieldHalved,
+    faServer,
+    faDesktop,
+    faMicrochip,
+    faLocationDot,
+    faShieldDog,
+    faCircleDollarToSlot,
+    faFingerprint,
+    faCircleQuestion,
+    faCubes,
+    faGear,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faGear,
-  faCubes,
-  faCircleQuestion,
-  faFingerprint,
-  faShieldDog,
-  faCircleDollarToSlot,
-  faLocationDot,
-  faTrashCan,
-  faXmark,
-  faChevronRight,
-  faBars,
-  faCircleXmark,
-  faChevronDown,
-  faChevronUp,
-  faPlus,
-  faBasketShopping,
-  faCheck,
-  faHouse,
-  faShieldHalved,
-  faServer,
-  faDesktop,
-  faMicrochip,
+    faGear,
+    faCubes,
+    faCircleQuestion,
+    faFingerprint,
+    faShieldDog,
+    faCircleDollarToSlot,
+    faLocationDot,
+    faTrashCan,
+    faXmark,
+    faChevronRight,
+    faBars,
+    faCircleXmark,
+    faChevronDown,
+    faChevronUp,
+    faPlus,
+    faBasketShopping,
+    faCheck,
+    faHouse,
+    faShieldHalved,
+    faServer,
+    faDesktop,
+    faMicrochip,
 );
 
 // Vue Router
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
 import HomePage from './pages/HomePage.vue';
 import HostingPage from './pages/HostingPage.vue';
@@ -77,51 +77,68 @@ import DashboardViewHosting from '@/components/dashboard/DashboardViewHosting.vu
 import DashboardViewBuilder from '@/components/dashboard/DashboardViewBuilder.vue';
 import DashboardViewServices from '@/components/dashboard/DashboardViewServices.vue';
 
+import OrderPage from "@/pages/OrderPage.vue";
+import OrderViewDomain from "@/components/order/OrderViewDomain.vue";
+
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { path: '/', component: HomePage },
+    history: createWebHistory(),
+    routes: [
+        {path: '/', component: HomePage},
 
-    { path: '/hosting', component: HostingPage },
-    { path: '/domain', component: DomainPage },
-    { path: '/builder', component: BuilderPage },
-    { path: '/help', component: HelpPage },
+        {path: '/hosting', component: HostingPage},
+        {path: '/domain', component: DomainPage},
+        {path: '/builder', component: BuilderPage},
+        {path: '/help', component: HelpPage},
 
-    { path: '/users/login', component: LoginPage },
-    { path: '/users/signup', component: SignupPage },
-    { path: '/users/password/forgot', component: ForgotPasswordPage },
-    { path: '/users/email/check', component: CheckEmailPage },
-    { path: '/users/password/new', component: SetPasswordPage },
+        {path: '/users/login', component: LoginPage},
+        {path: '/users/signup', component: SignupPage},
+        {path: '/users/password/forgot', component: ForgotPasswordPage},
+        {path: '/users/email/check', component: CheckEmailPage},
+        {path: '/users/password/new', component: SetPasswordPage},
 
-    {
-      path: '/dashboard',
-      component: DashboardPage,
-      children: [
         {
-          path: '',
-          component: DashboardViewHome,
+            path: '/dashboard',
+            component: DashboardPage,
+            children: [
+                {
+                    path: '',
+                    component: DashboardViewHome,
+                },
+                {
+                    path: 'domain',
+                    component: DashboardViewDomain,
+                },
+                {
+                    path: 'hosting',
+                    component: DashboardViewHosting,
+                },
+                {
+                    path: 'builder',
+                    component: DashboardViewBuilder,
+                },
+                {
+                    path: 'service',
+                    component: DashboardViewServices,
+                },
+            ],
         },
-        {
-          path: 'domain',
-          component: DashboardViewDomain,
-        },
-        {
-          path: 'hosting',
-          component: DashboardViewHosting,
-        },
-        {
-          path: 'builder',
-          component: DashboardViewBuilder,
-        },
-        {
-          path: 'service',
-          component: DashboardViewServices,
-        },
-      ],
-    },
 
-    { path: '/:pathMatch(.*)*', component: NotFoundPage },
-  ],
+        {
+            path: "/order",
+            component: OrderPage,
+            children: [
+                {
+                    path: 'domain',
+                    component: OrderViewDomain
+                }
+            ]
+        },
+
+        {
+            path: '/:pathMatch(.*)*',
+            component: NotFoundPage
+        },
+    ],
 });
 
 // Event Bus
@@ -130,12 +147,12 @@ import mitt from 'mitt';
 export const emitter = mitt();
 
 // Swiper
-import { register } from 'swiper/element/bundle';
+import {register} from 'swiper/element/bundle';
 
 register();
 
 // Pinia
-import { createPinia } from 'pinia';
+import {createPinia} from 'pinia';
 
 const pinia = createPinia();
 

@@ -10,6 +10,7 @@
         standard dummy text ever since the 1500s,
       </h3>
     </template>
+
     <template #form>
       <check-email-form></check-email-form>
     </template>
