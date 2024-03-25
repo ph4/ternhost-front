@@ -113,10 +113,28 @@ export default {
       </div>
     </base-container>
   </section>
+
+  <order-pass>
+    <template #pass>
+      <h2 class="order-pass-title">Alternatively, you have the option to bypass this step and generate <br/>a domain at
+        a later time.</h2>
+      <a href="/order/hosting" class="order-pass-link">I'll generate my domain at a later time ></a>
+    </template>
+  </order-pass>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/common/all";
+
+.order-pass-title {
+  @include fluid-type($text-lg, $text-2xl, 500, $gray-200);
+}
+
+.order-pass-link {
+  @include fluid-type($text-xl, $text-4xl, 700, $blue-100);
+  display: block;
+  margin-top: 0.938rem;
+}
 
 .hero {
   width: 100%;
@@ -124,19 +142,6 @@ export default {
 
   .container {
     height: 100%;
-
-    .header {
-      &__logo {
-        @include center;
-        padding: 1rem 0;
-
-        h1 {
-          @include fluid-type($text-2xl, $text-2xl, 700, $white-100);
-          margin-left: 0.5rem;
-          text-transform: uppercase;
-        }
-      }
-    }
 
     .hero-text {
       margin-top: 3.125rem;

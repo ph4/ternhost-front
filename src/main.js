@@ -79,6 +79,7 @@ import DashboardViewServices from '@/components/dashboard/DashboardViewServices.
 
 import OrderPage from "@/pages/OrderPage.vue";
 import OrderViewDomain from "@/components/order/OrderViewDomain.vue";
+import OrderViewHosting from "@/components/order/OrderViewHosting.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -130,6 +131,10 @@ const router = createRouter({
                 {
                     path: 'domain',
                     component: OrderViewDomain
+                },
+                {
+                    path: 'hosting',
+                    component: OrderViewHosting
                 }
             ]
         },
