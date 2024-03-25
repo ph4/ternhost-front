@@ -67,30 +67,37 @@ export default {
   text-align: center;
   border-radius: 0.625rem;
   padding: 1.25rem 0;
+
   &.best {
     background-color: $blue-100;
+
     .plan__header {
       h1 {
         color: $white-100;
       }
+
       &-price {
         &__row {
           h3 {
             color: rgba($white-100, 0.7);
           }
+
           span {
             background-color: $yellow-100;
             color: $blue-200;
           }
         }
+
         h1 {
           color: $white-100;
+
           span {
             color: $white-100;
           }
         }
       }
     }
+
     .plan__column {
       &-group {
         &__item {
@@ -101,19 +108,24 @@ export default {
       }
     }
   }
+
   .plan__header {
     h1 {
       @include fluid-type($text-xl, $text-xl, 700, $blue-100);
       text-transform: uppercase;
     }
+
     &-price {
       padding: 1.25rem 0;
+
       &__row {
         @include center;
+
         h3 {
           @include fluid-type($text-base, $text-base, 700, $gray-200);
           text-decoration: line-through;
         }
+
         span {
           @include fluid-type($text-sm, $text-sm, 700, $white-100);
           border-radius: 0.25rem;
@@ -122,25 +134,31 @@ export default {
           margin-left: 0.625rem;
         }
       }
+
       h1 {
         @include fluid-type($text-3xl, $text-3xl, 700, $blue-200);
         margin-top: 0.5rem;
+
         span {
           @include fluid-type($text-sm, $text-sm, 700, $blue-200);
         }
       }
     }
   }
+
   .plan__column {
     &-group {
       &__item {
         border-bottom: 0.063rem solid $white-200;
         padding: 0.75rem 0;
+
         &:last-child {
           border-bottom: 0;
         }
+
         h3 {
           @include fluid-type($text-sm, $text-sm, 600, $gray-200);
+
           span {
             font-weight: 400;
           }
@@ -148,6 +166,7 @@ export default {
       }
     }
   }
+
   .plan__footer {
     margin-top: 3rem;
   }

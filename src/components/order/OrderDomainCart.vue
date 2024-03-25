@@ -73,7 +73,9 @@ export default {
       <order-promo></order-promo>
 
       <div class="continue">
-        <base-button class="btn-secondary">Continue</base-button>
+        <router-link to="/order/hosting">
+          <base-button class="btn-secondary">Continue</base-button>
+        </router-link>
       </div>
     </footer>
   </li>

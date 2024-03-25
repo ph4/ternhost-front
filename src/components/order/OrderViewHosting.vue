@@ -3,13 +3,15 @@ import BaseLogo from "@/components/UI/BaseLogo.vue";
 import BaseContainer from "@/components/UI/BaseContainer.vue";
 
 import OrderFeature from "@/components/order/OrderFeature.vue";
+import OrderPass from "@/components/order/OrderPass.vue";
 
 import TernOfferDurations from "@/components/tern/TernOfferDurations.vue";
 import TernOffer from "@/components/tern/TernOffer.vue"
 
 import {offersMixin} from "@/mixins/offers.js";
 import {useLoadOffers} from "@/hooks/useLoadOffers.js";
-import OrderPass from "@/components/order/OrderPass.vue";
+import {v4 as uuidv4} from "uuid";
+import {useOrderStore} from "@/stores/useOrderStore.js";
 
 export default {
   name: "OrderViewHosting.vue",
@@ -24,6 +26,7 @@ export default {
   mixins: [offersMixin],
   data() {
     return {
+      store: useOrderStore(),
       offerDurations: [
         {id: 0, value: 1, isActive: false},
         {id: 1, value: 12, isActive: true},
@@ -36,6 +39,13 @@ export default {
   mounted() {
     this.offers = useLoadOffers('order-hosting');
   },
+  methods: {
+    buy(offer) {
+      const activeAge = offer.prices.filter((price) => price.duration === this.getActiveOfferDuration())[0];
+
+      this.store.buyHosting({...offer, uuid: uuidv4(), activeAge});
+    }
+  }
 }
 </script>
 
@@ -66,6 +76,7 @@ export default {
                 :offer="offer"
                 :activeDuration="this.getActiveOfferDuration()"
                 :isBest="offer.id === 5"
+                :callback="this.buy"
             ></tern-offer>
           </ul>
         </div>
@@ -77,7 +88,7 @@ export default {
     <template #pass>
       <h2 class="order-pass-title">Alternatively, you have the option to bypass this step and generate a domain at a
         later time.</h2>
-      <a href="/order/pay" class="order-pass-link">I'll select my hosting at a later time ></a>
+      <router-link to="/order/pay" class="order-pass-link">I'll select my hosting at a later time ></router-link>
     </template>
   </order-pass>
 </template>

@@ -49,6 +49,9 @@ export const useOrderStore = defineStore('order', {
         sellDomain(entity) {
             this.domains = this.domains.filter((domain) => `${domain.root}${domain.tld}` !== `${entity.root}${entity.tld}`);
         },
+        buyHosting(entity) {
+            this.hostings.push(entity);
+        },
         setActiveAge(uuid, age, type) {
             if (type === 'domain') {
                 const domain = this.domains.filter((domain) => domain.uuid === uuid);

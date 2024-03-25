@@ -118,7 +118,7 @@ export default {
     <template #pass>
       <h2 class="order-pass-title">Alternatively, you have the option to bypass this step and generate <br/>a domain at
         a later time.</h2>
-      <a href="/order/hosting" class="order-pass-link">I'll generate my domain at a later time ></a>
+      <router-link to="/order/hosting" class="order-pass-link">I'll generate my domain at a later time ></router-link>
     </template>
   </order-pass>
 </template>
@@ -142,6 +142,11 @@ export default {
 
   .container {
     height: 100%;
+
+    .header {
+      @include center;
+      padding: 2rem 0;
+    }
 
     .hero-text {
       margin-top: 3.125rem;
