@@ -2,6 +2,7 @@
 import BaseLogo from "@/components/UI/BaseLogo.vue";
 
 import OrderProduct from "@/components/order/OrderProduct.vue";
+import OrderModal from "@/components/order/OrderModal.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
@@ -10,16 +11,20 @@ export default {
   components: {
     BaseLogo,
     OrderProduct,
+    OrderModal,
   },
   data() {
     return {
       store: useOrderStore()
     }
-  }
+  },
 }
 </script>
 
 <template>
+
+  <order-modal></order-modal>
+
   <!-- hero -->
   <section class="hero">
     <div class="container">
@@ -175,7 +180,7 @@ export default {
 
 .hero {
   width: 100%;
-  background: linear-gradient(180deg, rgba(0, 152, 255, 1) 80%, rgba(255, 255, 255, 1) 80%);
+  background: linear-gradient(180deg, rgba(0, 152, 255, 1) 666px, rgba(255, 255, 255, 1) 666px);
   margin-bottom: 5rem;
 
   .container {

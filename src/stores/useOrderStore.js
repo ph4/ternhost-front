@@ -22,6 +22,9 @@ export const useOrderStore = defineStore('order', {
         isEmpty: (state) => {
             return state.domains.length === 0
         },
+        isLatest: (state) => {
+            return (state.domains.length + state.hostings.length) === 1
+        },
         getTotalPriceDomain: (state) => {
             let total = 0;
 
@@ -71,6 +74,9 @@ export const useOrderStore = defineStore('order', {
         },
         buyHosting(entity) {
             this.hostings.push(entity);
+        },
+        sellHosting(entity) {
+            this.hostings = this.hostings.filter((hosting) => hosting.uuid !== entity.uuid);
         },
         setActiveAge(uuid, age, type) {
             if (type === 'domain') {

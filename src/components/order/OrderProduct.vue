@@ -48,6 +48,15 @@ export default {
     setActiveAge(age) {
       this.store.setActiveAge(this.product.uuid, age, "HOSTING")
       this.isShowSelect = false;
+    },
+    remove() {
+      if (this.store.isLatest) {
+        this.$emitter.emit("_order_-toggle-modal", {product: this.product, type: this.product.type});
+      } else {
+        if (this.product.type === "HOSTING") {
+          this.store.sellHosting(this.product)
+        }
+      }
     }
   }
 }
@@ -60,7 +69,7 @@ export default {
         <h1>{{ this.product.name }}</h1>
         <span>{{ this.product.title }}</span>
       </div>
-      <div class="box__header-clear">
+      <div class="box__header-clear" @click="this.remove">
         <font-awesome-icon icon="fa-solid fa-trash-can" class="icon"></font-awesome-icon>
       </div>
     </header>
