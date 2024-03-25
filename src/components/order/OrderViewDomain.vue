@@ -3,10 +3,14 @@ import OrderFeature from "@/components/order/OrderFeature.vue";
 import OrderPass from "@/components/order/OrderPass.vue";
 import OrderDomain from "@/components/order/OrderDomain.vue";
 import OrderTransfer from "@/components/order/OrderTransfer.vue";
+import OrderDomainCart from "@/components/order/OrderDomainCart.vue";
 
 import BaseContainer from "@/components/UI/BaseContainer.vue";
 import BaseLogo from "@/components/UI/BaseLogo.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+
+import {useOrderStore} from "@/stores/useOrderStore.js";
+import {gsap} from 'gsap';
 
 export default {
   name: "OrderViewDomain.vue",
@@ -17,7 +21,68 @@ export default {
     OrderFeature,
     OrderPass,
     OrderDomain,
-    OrderTransfer
+    OrderTransfer,
+    OrderDomainCart
+  },
+  data() {
+    return {
+      store: useOrderStore()
+    }
+  },
+  mounted() {
+    this.$emitter.on('_order_-toggle-cart', this.toggle)
+  },
+  methods: {
+    toggle() {
+      const tl = gsap.timeline();
+
+      !this.store.isEmpty
+          ?
+          tl
+              .to('.transfer', {
+                opacity: 0,
+                y: '25%',
+                duration: 0.25,
+              })
+              .to('.transfer', {
+                display: 'none',
+                duration: 0,
+              })
+              .to('.cart', {
+                display: "flex",
+                flexDirection: "column",
+                opacity: 0,
+                y: '25%',
+                duration: 0,
+              })
+              .to('.cart', {
+                y: '0%',
+                opacity: 1,
+                duration: 0.25
+              })
+          :
+          tl
+              .to('.cart', {
+                opacity: 0,
+                y: '25%',
+                duration: 0.25,
+              })
+              .to('.cart', {
+                display: 'none',
+                duration: 0,
+              })
+              .to('.transfer', {
+                display: 'block',
+                opacity: 0,
+                y: '25%',
+                duration: 0,
+              })
+              .to('.transfer', {
+                y: '0%',
+                opacity: 1,
+                duration: 0.25
+              })
+    }
   }
 }
 </script>
@@ -42,8 +107,8 @@ export default {
       <div class="domains">
         <ul class="domains__group">
           <order-domain></order-domain>
-
-          <order-transfer></order-transfer>
+          <order-transfer class="transfer"></order-transfer>
+          <order-domain-cart class="cart"></order-domain-cart>
         </ul>
       </div>
     </base-container>
@@ -55,7 +120,7 @@ export default {
 
 .hero {
   width: 100%;
-  background: linear-gradient(180deg, rgba(0, 152, 255, 1) 80%, rgba(255, 255, 255, 1) 80%);
+  background: linear-gradient(180deg, rgba(0, 152, 255, 1) 500px, rgba(255, 255, 255, 1) 500px);
 
   .container {
     height: 100%;
@@ -97,74 +162,6 @@ export default {
         grid-gap: 3rem;
         @media screen and (max-width: 1100px) {
           grid-template-columns: 1fr;
-        }
-
-        &-item {
-          align-self: flex-start;
-          padding: 2.188rem;
-          border-radius: 1.875rem;
-          background-color: $white-100;
-          max-width: 31.25rem;
-          width: 100%;
-          box-shadow: 0 0.25rem 2.188rem 0 rgba($black-100, 0.08);
-          margin: 0 auto;
-          @media screen and (max-width: 500px) {
-            padding: 1.25rem;
-            border-radius: 1rem;
-          }
-
-          &__header {
-            h1 {
-              @include fluid-type($text-xl, $text-3xl, 700, $blue-200);
-            }
-          }
-
-          &__body {
-            margin-top: 2.5rem;
-
-            .search-domain {
-              display: flex;
-              justify-content: space-between;
-              background-color: $white-200;
-              border-radius: 0.313rem;
-
-              input {
-                @include fluid-type($text-sm, $text-base, $color: $gray-200);
-                padding: 1.063rem;
-                background-color: transparent;
-                flex-grow: 1;
-              }
-
-              button {
-                padding: 0 1rem;
-                display: flex;
-                align-items: center;
-                @media screen and (max-width: 500px) {
-                  padding: 0 0.5rem;
-                }
-
-                span {
-                  @include fluid-type($text-sm, $text-base, 700, $white-100);
-                }
-
-                .icon {
-                  margin-left: 1rem;
-                }
-              }
-            }
-
-            p {
-              @include fluid-type($text-sm, $text-base, $color: $gray-200);
-              margin-top: 2.5rem;
-            }
-          }
-
-          &__footer {
-            button {
-              width: 100%;
-              box-shadow: 0 0.25rem 1.25rem 0 rgba(#779341, 0.3);
-            }
-          }
         }
       }
     }

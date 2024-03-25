@@ -5,6 +5,20 @@ export default {
   name: "OrderTransfer.vue",
   components: {
     BaseButton
+  },
+  data() {
+    return {
+      name: ""
+    }
+  },
+  methods: {
+    transfer() {
+      if (this.name !== "") {
+        console.log('[transfer]: ', this.name);
+      }
+
+      this.name = ''
+    }
   }
 }
 </script>
@@ -16,7 +30,7 @@ export default {
     </header>
     <div class="domains__group-item__body">
       <div class="search-domain">
-        <input type="text" placeholder="Search your domain..."/>
+        <input type="text" placeholder="Search your domain..." v-model="this.name"/>
       </div>
       <p>
         Our powerful infrastructure ensures stability and high performance, while our support experts are
@@ -24,7 +38,7 @@ export default {
       </p>
     </div>
     <footer class="domains__group-item__footer">
-      <base-button class="btn-secondary">Next</base-button>
+      <base-button class="btn-secondary" @click="this.transfer">Next</base-button>
     </footer>
   </li>
 </template>
