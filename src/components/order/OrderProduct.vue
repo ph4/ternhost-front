@@ -14,6 +14,7 @@ export default {
     return {
       store: useOrderStore(),
       isShowExtra: false,
+      isShowSelect: false,
     }
   },
   methods: {
@@ -40,6 +41,13 @@ export default {
     },
     isEnabledSwitch(id) {
       return this.store.isExsistActiveExtraHosting(this.product.uuid, id);
+    },
+    toggleSelect() {
+      this.isShowSelect = !this.isShowSelect;
+    },
+    setActiveAge(age) {
+      this.store.setActiveAge(this.product.uuid, age, "HOSTING")
+      this.isShowSelect = false;
     }
   }
 }
@@ -58,13 +66,29 @@ export default {
     </header>
 
     <div class="box__select">
-      <div class="box__select-active">
-        <h3>
-          <span>{{ this.product.activeAge.duration }} month / <span
-              class="line-through">${{ this.product.activeAge.price }}</span></span>
-          ${{ this.$getPriceWithDiscount(this.product.activeAge.price, this.product.activeAge.discount) }}
-        </h3>
-        <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
+      <div class="select" :class="{show: this.isShowSelect}">
+        <div class="select-intro" @click="this.toggleSelect">
+          <h3>
+            {{ this.product.activeAge.duration }} months /
+            <span class="line-through">${{ this.product.activeAge.price }} </span>
+            <span class="discount">${{
+                this.$getPriceWithDiscount(this.product.activeAge.price, this.product.activeAge.discount)
+              }}</span>
+          </h3>
+          <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
+        </div>
+        <ul class="select-options">
+          <li class="select-options__option" v-for="price in this.product.prices" :key="price.id"
+              @click="this.setActiveAge(price)">
+            <h3>
+              {{ price.duration }} months /
+              <span class="line-through">${{ price.price }} </span>
+              <span class="discount">${{
+                  this.$getPriceWithDiscount(price.price, price.discount)
+                }}</span>
+            </h3>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -106,6 +130,83 @@ export default {
 
 <style scoped lang="scss">
 @import "@/styles/common/all";
+
+.select {
+  padding: 1rem 0;
+
+  &.show {
+    .select-intro {
+      .icon {
+        transform: rotate(180deg);
+      }
+
+    }
+
+    .select-options {
+      display: block;
+    }
+  }
+
+  &-intro {
+    @include center-y-between;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 0.063rem solid $gray-200;
+    cursor: pointer;
+
+    h3 {
+      @include fluid-type($text-sm, $text-base, 700, $gray-200);
+
+      span {
+        &.line-through {
+          text-decoration: line-through;
+        }
+
+        &.discount {
+          color: $blue-200;
+          margin-left: 0.25rem;
+        }
+      }
+    }
+
+    .icon {
+      color: $gray-200;
+    }
+  }
+
+  &-options {
+    display: none;
+    margin-top: 0.125rem;
+    width: 100%;
+    border-radius: 0.25rem;
+    border: 0.063rem solid $gray-200;
+    cursor: pointer;
+
+    &__option {
+      @include fluid-type($text-sm, $text-base, 700, $gray-200);
+      padding: 0.5rem;
+      transition: all .2s;
+
+      &:hover {
+        background-color: rgba($blue-200, .10);
+      }
+
+      h3 {
+        span {
+          &.line-through {
+            text-decoration: line-through;
+          }
+
+          &.discount {
+            color: $blue-200;
+            margin-left: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}
 
 .box {
   padding: 2rem;
@@ -150,30 +251,6 @@ export default {
 
       .icon {
         color: $blue-200;
-      }
-    }
-  }
-
-  &__select {
-    margin: 1rem 0;
-
-    &-active {
-      @include center-y-between;
-      padding: 1rem;
-      border-radius: 0.25rem;
-      border: 0.063rem solid $gray-200;
-      cursor: pointer;
-
-      h3 {
-        @include fluid-type($text-base, $text-base, 700, $blue-200);
-
-        span {
-          color: $gray-200;
-
-          &.line-through {
-            text-decoration: line-through;
-          }
-        }
       }
     }
   }

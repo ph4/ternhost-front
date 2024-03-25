@@ -78,6 +78,14 @@ export const useOrderStore = defineStore('order', {
 
                 domain[0].activeAge = age;
             }
+
+            if (type === 'HOSTING') {
+                const hosting = this.getHostingByUUID(uuid);
+
+                hosting.activeAge = age;
+
+                console.log("ashdhajsdbjhkda")
+            }
         },
         setPromo({value, status, discount}) {
             this.promo.value = value;
