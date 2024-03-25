@@ -40,6 +40,26 @@ export const useOrderStore = defineStore('order', {
             })
 
             return applyDiscount(total, state.promo.discount);
+        },
+        getHostingByUUID: (state) => {
+            return (uuid) => {
+                return state.hostings.filter((hosting) => hosting.uuid === uuid)[0];
+            }
+        },
+        getHostingExtraById: (state) => {
+            return (uuid, id) => {
+                const entity = state.getHostingByUUID(uuid);
+
+                return entity.extra.filter((extra) => extra.id === id)[0];
+            }
+        },
+        isExsistActiveExtraHosting: (state) => {
+            return (uuid, id) => {
+                const entity = state.getHostingByUUID(uuid);
+                const extra = entity?.activeExtra?.filter((extra) => extra.id === id)[0];
+
+                return extra !== undefined
+            }
         }
     },
     actions: {
@@ -63,6 +83,20 @@ export const useOrderStore = defineStore('order', {
             this.promo.value = value;
             this.promo.status = status;
             this.promo.discount = discount;
+        },
+        onExtra({type, uuid, extra}) {
+            if (type === "HOSTING") {
+                const entity = this.getHostingByUUID(uuid);
+
+                entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
+            }
+        },
+        offExtra({type, uuid, extraId}) {
+            if (type === "HOSTING") {
+                const entity = this.getHostingByUUID(uuid);
+
+                entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== extraId);
+            }
         }
     },
 });

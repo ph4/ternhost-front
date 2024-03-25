@@ -14,7 +14,7 @@ import {v4 as uuidv4} from "uuid";
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
 export default {
-  name: "OrderViewHosting.vue",
+  name: "OrderViewHosting",
   components: {
     OrderPass,
     TernOffer,

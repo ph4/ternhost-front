@@ -28,9 +28,15 @@ import {
     faCircleQuestion,
     faCubes,
     faGear,
+    faShield,
+    faHeadset,
+    faRightLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+    faShield,
+    faHeadset,
+    faRightLeft,
     faGear,
     faCubes,
     faCircleQuestion,
@@ -80,6 +86,7 @@ import DashboardViewServices from '@/components/dashboard/DashboardViewServices.
 import OrderPage from "@/pages/OrderPage.vue";
 import OrderViewDomain from "@/components/order/OrderViewDomain.vue";
 import OrderViewHosting from "@/components/order/OrderViewHosting.vue";
+import OrderViewPay from "@/components/order/OrderViewPay.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -135,6 +142,10 @@ const router = createRouter({
                 {
                     path: 'hosting',
                     component: OrderViewHosting
+                },
+                {
+                    path: 'pay',
+                    component: OrderViewPay
                 }
             ]
         },
