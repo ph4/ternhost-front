@@ -8,7 +8,7 @@ export const useOrderStore = defineStore('order', {
         promo: {
             value: "",
             status: 0,
-            discount: 0
+            discount: 0,
         }
     }),
     getters: {
@@ -30,7 +30,19 @@ export const useOrderStore = defineStore('order', {
 
             state.domains.forEach((domain) => total += domain.activeAge.price);
 
-            return applyDiscount(total, state.promo.discount);
+            // return applyDiscount(total, state.promo.discount);
+            return parseFloat(total.toFixed(2));
+        },
+        getTotalPriceHosting: (state) => {
+            let total = 0;
+
+            state.hostings.forEach((hosting) => total += hosting.activeAge.price);
+
+            // return applyDiscount(total, state.promo.discount);
+            return parseFloat(total.toFixed(2));
+        },
+        getTotalPriceHostingExtra: (state) => {
+            return state.hostings.activeExtra?.reduce((acc, item) => acc + item.price, 0);
         },
         getTotalDiscountPriceDomain: (state) => {
             let total = 0;
@@ -42,7 +54,8 @@ export const useOrderStore = defineStore('order', {
                 total += (price - (price / 100) * discount)
             })
 
-            return applyDiscount(total, state.promo.discount);
+            // return applyDiscount(total, state.promo.discount);
+            return parseFloat(total.toFixed(2));
         },
         getHostingByUUID: (state) => {
             return (uuid) => {
@@ -63,6 +76,57 @@ export const useOrderStore = defineStore('order', {
 
                 return extra !== undefined
             }
+        },
+        getTotal: (state) => {
+            let total = 0;
+
+            /*
+            const totalHosting = state.hostings.map(hosting => {
+                const activeAgePrice = hosting.activeAge.price;
+                const activeExtraPrices = hosting.activeExtra ? hosting.activeExtra.map(extra => extra.price) : [];
+                const totalExtraPrice = activeExtraPrices.reduce((acc, curr) => acc + curr, 0);
+                const totalPrice = activeAgePrice + totalExtraPrice;
+
+                return {
+                    hostingId: hosting.id,
+                    total: totalPrice
+                };
+            });
+            */
+
+            const totalHosting = state.hostings.map(hosting => {
+                const activeAgePrice = hosting.activeAge.price;
+
+                let totalExtraPrice = 0;
+                if (hosting.activeExtra) {
+                    totalExtraPrice = hosting.activeExtra.reduce((acc, extra) => {
+                        const discountedPrice = extra.price * (1 - extra.discount / 100);
+                        return acc + discountedPrice;
+                    }, 0);
+                }
+
+                const totalPrice = activeAgePrice + totalExtraPrice;
+                return {
+                    hostingId: hosting.id,
+                    total: totalPrice
+                };
+            });
+
+            total += totalHosting.reduce((acc, entity) => acc += entity.total, 0);
+
+            return total;
+        },
+        getTotalDiscount: (state) => {
+            const total = state.getTotal;
+
+            return applyDiscount(total, state.promo.discount);
+        },
+        saved: (state) => {
+            const total = state.getTotal;
+            const totalDiscount = applyDiscount(total, state.promo.discount);
+            const save = total - totalDiscount;
+
+            return parseInt(save);
         }
     },
     actions: {

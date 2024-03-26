@@ -17,28 +17,16 @@ export default {
     }
   },
   mounted() {
-    const isEmpty = this.store.domains.length + this.store.hostings.length;
-
-    /*if (this.product.type === "HOSTING") {
-      this.store.sellHosting(this.product)
-    }*/
-
     this.$emitter.on("_order_-toggle-modal", (data) => {
-      console.log(data)
-
       this.isShow = true;
       this.product = data.product;
     })
   },
   methods: {
     cancel() {
-      console.log('cancel');
-
       this.isShow = false;
     },
     remove() {
-      console.log('remove');
-
       this.store.sellHosting(this.product);
       this.isShow = false;
     },

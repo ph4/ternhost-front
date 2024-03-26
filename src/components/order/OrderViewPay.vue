@@ -3,6 +3,7 @@ import BaseLogo from "@/components/UI/BaseLogo.vue";
 
 import OrderProduct from "@/components/order/OrderProduct.vue";
 import OrderModal from "@/components/order/OrderModal.vue";
+import OrderPayCart from "@/components/order/OrderPayCart.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
@@ -12,6 +13,7 @@ export default {
     BaseLogo,
     OrderProduct,
     OrderModal,
+    OrderPayCart
   },
   data() {
     return {
@@ -38,7 +40,7 @@ export default {
           <order-product v-for="product in store.hostings" :key="product.uuid"
                          :product="{...product, type: 'HOSTING', name: 'Hosting'}"></order-product>
 
-          <!-- Domain -->
+          <!--          Domains? -->
 
           <!-- Add new product -->
           <router-link to="/order/domain">
@@ -51,125 +53,7 @@ export default {
           </router-link>
         </div>
 
-        <div class="orders hidden">
-          <div class="box">
-            <header class="box__header">
-              <h1>Your Order</h1>
-            </header>
-
-            <div class="box__services">
-              <header class="box__services-header">
-                <h1>Premium Web Hosting 12 month</h1>
-                <div class="box__services-header__total">
-                  <h3>$34.99</h3>
-                  <h3 class="discount">$9.99</h3>
-                </div>
-              </header>
-
-              <div class="services">
-                <ul class="services__group">
-                  <li class="services__group-item">
-                    <div class="services__group-item__name">
-                      <i class="fa-solid fa-check icon"></i>
-                      <h3>DDOS protection</h3>
-                    </div>
-                    <div class="services__group-item__price">
-                      <h3>$34.99</h3>
-                      <h3 class="discount">$9.99</h3>
-                    </div>
-                  </li>
-                  <li class="services__group-item">
-                    <div class="services__group-item__name">
-                      <i class="fa-solid fa-check icon"></i>
-                      <h3>Daily Backups</h3>
-                    </div>
-                    <div class="services__group-item__price">
-                      <h3>$34.99</h3>
-                      <h3 class="discount">$9.99</h3>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="box__services">
-              <header class="box__services-header">
-                <h1>Domain testdomain.com for 3 years</h1>
-                <div class="box__services-header__total">
-                  <h3>$34.99</h3>
-                  <h3 class="discount">$9.99</h3>
-                </div>
-              </header>
-
-              <div class="services">
-                <ul class="services__group">
-                  <li class="services__group-item">
-                    <div class="services__group-item__name">
-                      <i class="fa-solid fa-check icon"></i>
-                      <h3>Domain SSL For 12 Months</h3>
-                    </div>
-                    <div class="services__group-item__price">
-                      <h3>$34.99</h3>
-                      <h3 class="discount">$9.99</h3>
-                    </div>
-                  </li>
-                  <li class="services__group-item">
-                    <div class="services__group-item__name">
-                      <i class="fa-solid fa-check icon"></i>
-                      <h3>Domain WHOIS Privacy Protection</h3>
-                    </div>
-                    <div class="services__group-item__price">
-                      <h3>$34.99</h3>
-                      <h3 class="discount">$9.99</h3>
-                    </div>
-                  </li>
-                  <li class="services__group-item">
-                    <div class="services__group-item__name">
-                      <i class="fa-solid fa-check icon"></i>
-                      <h3>Hosting on TernHost DNS servers</h3>
-                    </div>
-                    <div class="services__group-item__price">
-                      <!-- <h3>$34.99</h3> -->
-                      <h3 class="discount">$9.99</h3>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="box__compute">
-              <ul class="computes">
-                <li class="computes__item">
-                  <h3 class="field">Plan Discount - 74%</h3>
-                  <h3 class="value saving">-$494.40</h3>
-                </li>
-                <li class="computes__item">
-                  <h3 class="field">Taxes & Fees</h3>
-                  <h3 class="value">$0.00</h3>
-                </li>
-              </ul>
-            </div>
-
-            <div class="box__payment">
-              <header class="box__payment-header">
-                <h1>Total</h1>
-                <div class="box__payment-header__total">
-                  <h1>$671.52</h1>
-                  <h1 class="discount">$177.12</h1>
-                </div>
-              </header>
-
-              <div class="box__payment-promocode">
-                <input type="text" placeholder="Enter Promocode..."/>
-                <button><i class="fa-solid fa-plus icon"></i></button>
-              </div>
-
-              <div class="box__payment-pay">
-                <button class="btn btn-secondary">Pay</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <order-pay-cart></order-pay-cart>
       </div>
     </div>
   </section>
@@ -214,7 +98,7 @@ export default {
           border-radius: 1.875rem;
           background-color: $white-100;
           box-shadow: 0 0.25rem 2rem 0 rgba($black-100, 0.08);
-          margin-top: 1rem;
+          margin-bottom: 1rem;
           @media screen and (max-width: 500px) {
             padding: 1rem;
           }
@@ -394,7 +278,6 @@ export default {
 
           &.add-new-product {
             text-align: center;
-            margin-top: 2rem;
 
             h1 {
               @include fluid-type($text-xl, $text-2xl, 600, $blue-200);
