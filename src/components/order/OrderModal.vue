@@ -27,7 +27,7 @@ export default {
       this.isShow = false;
     },
     remove() {
-      this.store.sellHosting(this.product);
+      this.product.type === "DOMAIN" ? this.store.sellDomain(this.product) : this.store.sellHosting(this.product);
       this.isShow = false;
     },
   }

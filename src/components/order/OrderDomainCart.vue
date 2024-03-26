@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     setActiveAge(uuid, age) {
-      this.store.setActiveAge(uuid, age, "domain");
+      this.store.setActiveAge(uuid, age, "DOMAIN");
       this.toggleSelect(uuid)
     },
     toggleSelect(uuid) {

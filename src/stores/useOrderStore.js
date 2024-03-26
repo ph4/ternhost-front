@@ -62,6 +62,11 @@ export const useOrderStore = defineStore('order', {
                 return state.hostings.filter((hosting) => hosting.uuid === uuid)[0];
             }
         },
+        getDomainByUUID: (state) => {
+            return (uuid) => {
+                return state.domains.filter((domain) => domain.uuid === uuid)[0];
+            }
+        },
         getHostingExtraById: (state) => {
             return (uuid, id) => {
                 const entity = state.getHostingByUUID(uuid);
@@ -69,9 +74,17 @@ export const useOrderStore = defineStore('order', {
                 return entity.extra.filter((extra) => extra.id === id)[0];
             }
         },
-        isExsistActiveExtraHosting: (state) => {
+        getDomainExtraById: (state) => {
             return (uuid, id) => {
-                const entity = state.getHostingByUUID(uuid);
+                const entity = state.getDomainByUUID(uuid);
+
+                return entity.extra.filter((extra) => extra.id === id)[0];
+            }
+        },
+        isExsistActiveExtraHosting: (state) => {
+            return (uuid, id, type) => {
+                const entity = type === "DOMAIN" ? state.getDomainByUUID(uuid) : state.getHostingByUUID(uuid);
+
                 const extra = entity?.activeExtra?.filter((extra) => extra.id === id)[0];
 
                 return extra !== undefined
@@ -112,7 +125,26 @@ export const useOrderStore = defineStore('order', {
                 };
             });
 
+            const totalDomain = state.domains.map(domain => {
+                const activeAgePrice = domain.activeAge.price;
+
+                let totalExtraPrice = 0;
+                if (domain.activeExtra) {
+                    totalExtraPrice = domain.activeExtra.reduce((acc, extra) => {
+                        const discountedPrice = extra.price * (1 - extra.discount / 100);
+                        return acc + discountedPrice;
+                    }, 0);
+                }
+
+                const totalPrice = activeAgePrice + totalExtraPrice;
+                return {
+                    domainId: domain.id,
+                    total: totalPrice
+                };
+            });
+
             total += totalHosting.reduce((acc, entity) => acc += entity.total, 0);
+            total += totalDomain.reduce((acc, entity) => acc += entity.total, 0);
 
             return total;
         },
@@ -126,7 +158,7 @@ export const useOrderStore = defineStore('order', {
             const totalDiscount = applyDiscount(total, state.promo.discount);
             const save = total - totalDiscount;
 
-            return parseInt(save);
+            return save;
         }
     },
     actions: {
@@ -143,7 +175,7 @@ export const useOrderStore = defineStore('order', {
             this.hostings = this.hostings.filter((hosting) => hosting.uuid !== entity.uuid);
         },
         setActiveAge(uuid, age, type) {
-            if (type === 'domain') {
+            if (type === 'DOMAIN') {
                 const domain = this.domains.filter((domain) => domain.uuid === uuid);
 
                 domain[0].activeAge = age;
@@ -153,8 +185,6 @@ export const useOrderStore = defineStore('order', {
                 const hosting = this.getHostingByUUID(uuid);
 
                 hosting.activeAge = age;
-
-                console.log("ashdhajsdbjhkda")
             }
         },
         setPromo({value, status, discount}) {
@@ -167,11 +197,19 @@ export const useOrderStore = defineStore('order', {
                 const entity = this.getHostingByUUID(uuid);
 
                 entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
+            } else {
+                const entity = this.getDomainByUUID(uuid);
+
+                entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
             }
         },
         offExtra({type, uuid, extraId}) {
             if (type === "HOSTING") {
                 const entity = this.getHostingByUUID(uuid);
+
+                entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== extraId);
+            } else {
+                const entity = this.getDomainByUUID(uuid);
 
                 entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== extraId);
             }

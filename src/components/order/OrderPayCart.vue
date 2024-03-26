@@ -53,45 +53,27 @@ export default {
         </div>
       </div>
 
-      <div class="box__services">
+      <div class="box__services" v-for="domain in this.store.domains" :key="domain.uuid">
         <header class="box__services-header">
-          <h1>Domain testdomain.com for 3 years</h1>
+          <h1>Domain {{ domain.root }}{{ domain.tld }} for {{ domain.activeAge.age }} month</h1>
           <div class="box__services-header__total">
-            <h3>$34.99</h3>
-            <h3 class="discount">$9.99</h3>
+            <h3>${{ domain.activeAge.price }}</h3>
+            <h3 class="discount">${{
+                this.$getPriceWithDiscount(domain.activeAge.price, domain.activeAge.discount)
+              }}</h3>
           </div>
         </header>
 
         <div class="services">
           <ul class="services__group">
-            <li class="services__group-item">
+            <li class="services__group-item" v-for="extra in domain.activeExtra" :key="extra.id">
               <div class="services__group-item__name">
-                <i class="fa-solid fa-check icon"></i>
-                <h3>Domain SSL For 12 Months</h3>
+                <font-awesome-icon icon="fa-solid fa-check" class="icon"></font-awesome-icon>
+                <h3>{{ extra.title }}</h3>
               </div>
               <div class="services__group-item__price">
-                <h3>$34.99</h3>
-                <h3 class="discount">$9.99</h3>
-              </div>
-            </li>
-            <li class="services__group-item">
-              <div class="services__group-item__name">
-                <i class="fa-solid fa-check icon"></i>
-                <h3>Domain WHOIS Privacy Protection</h3>
-              </div>
-              <div class="services__group-item__price">
-                <h3>$34.99</h3>
-                <h3 class="discount">$9.99</h3>
-              </div>
-            </li>
-            <li class="services__group-item">
-              <div class="services__group-item__name">
-                <i class="fa-solid fa-check icon"></i>
-                <h3>Hosting on TernHost DNS servers</h3>
-              </div>
-              <div class="services__group-item__price">
-                <!-- <h3>$34.99</h3> -->
-                <h3 class="discount">$9.99</h3>
+                <h3>${{ extra.price }}</h3>
+                <h3 class="discount">${{ this.$getPriceWithDiscount(extra.price, extra.discount) }}</h3>
               </div>
             </li>
           </ul>
@@ -101,8 +83,9 @@ export default {
       <div class="box__compute">
         <ul class="computes">
           <li class="computes__item">
-            <h3 class="field">Plan Discount - {{ this.store.promo.discount }}%</h3>
-            <h3 class="value saving">-${{ this.store.saved }}</h3>
+            <h3 class="field">Plan Discount -
+              {{ this.store.promo.discount }}%</h3>
+            <h3 class="value saving">-${{ (this.store.saved).toLocaleString('en-US', {maximumFractionDigits: 2}) }}</h3>
           </li>
           <li class="computes__item">
             <h3 class="field">Taxes & Fees</h3>

@@ -38,7 +38,7 @@ export default {
     },
     buy(entity) {
       this.store.buyDomain(entity);
-      this.store.domains.length === 1 && this.$emitter.emit('_order_-toggle-cart');
+      this.store.domains.length >= 1 && this.$emitter.emit('_order_-toggle-cart');
     },
     sell(entity) {
       this.store.sellDomain(entity);

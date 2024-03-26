@@ -17,36 +17,87 @@ export default {
       isShowSelect: false,
     }
   },
+  computed: {
+    option() {
+      if (this.product.type === "DOMAIN") {
+        return (entity) => entity.age;
+      }
+      return (entity) => entity.duration;
+    },
+    options() {
+      if (this.product.type === "DOMAIN") {
+        return this.product.ages;
+      }
+      return this.product.prices;
+    },
+    age() {
+      if (this.product.type === "DOMAIN") {
+        return this.product.activeAge.age;
+      }
+      return this.product.activeAge.duration;
+    },
+    title() {
+      if (this.product.type === 'DOMAIN') {
+        return `${this.product.root}${this.product.tld}`;
+      }
+      return this.product.title;
+    }
+  },
   methods: {
     toggleExtra() {
       this.isShowExtra = !this.isShowExtra;
     },
     switchOn(id) {
-      const options = {
-        type: "HOSTING",
-        uuid: this.product.uuid,
-        extra: this.store.getHostingExtraById(this.product.uuid, id),
-      }
+      if (this.product.type === "DOMAIN") {
+        const options = {
+          type: "DOMAIN",
+          uuid: this.product.uuid,
+          extra: this.store.getDomainExtraById(this.product.uuid, id)
+        }
 
-      this.store.onExtra(options);
+        this.store.onExtra(options);
+      } else {
+        const options = {
+          type: "HOSTING",
+          uuid: this.product.uuid,
+          extra: this.store.getHostingExtraById(this.product.uuid, id),
+        }
+
+        this.store.onExtra(options);
+      }
     },
     switchOff(id) {
-      const options = {
-        type: "HOSTING",
-        uuid: this.product.uuid,
-        extraId: id
-      }
+      if (this.product.type === "DOMAIN") {
+        const options = {
+          type: "DOMAIN",
+          uuid: this.product.uuid,
+          extraId: id
+        }
 
-      this.store.offExtra(options);
+        this.store.offExtra(options);
+      } else {
+        const options = {
+          type: "HOSTING",
+          uuid: this.product.uuid,
+          extraId: id
+        }
+
+        this.store.offExtra(options);
+      }
     },
     isEnabledSwitch(id) {
-      return this.store.isExsistActiveExtraHosting(this.product.uuid, id);
+      return this.store.isExsistActiveExtraHosting(this.product.uuid, id, this.product.type);
     },
     toggleSelect() {
       this.isShowSelect = !this.isShowSelect;
     },
     setActiveAge(age) {
-      this.store.setActiveAge(this.product.uuid, age, "HOSTING")
+      if (this.product.type === "DOMAIN") {
+        this.store.setActiveAge(this.product.uuid, age, "DOMAIN")
+      } else {
+        this.store.setActiveAge(this.product.uuid, age, "HOSTING")
+      }
+
       this.isShowSelect = false;
     },
     remove() {
@@ -55,6 +106,8 @@ export default {
       } else {
         if (this.product.type === "HOSTING") {
           this.store.sellHosting(this.product)
+        } else {
+          this.store.sellDomain(this.product)
         }
       }
     }
@@ -67,7 +120,7 @@ export default {
     <header class="box__header">
       <div class="box__header-title">
         <h1>{{ this.product.name }}</h1>
-        <span>{{ this.product.title }}</span>
+        <span>{{ this.title }}</span>
       </div>
       <div class="box__header-clear" @click="this.remove">
         <font-awesome-icon icon="fa-solid fa-trash-can" class="icon"></font-awesome-icon>
@@ -78,7 +131,7 @@ export default {
       <div class="select" :class="{show: this.isShowSelect}">
         <div class="select-intro" @click="this.toggleSelect">
           <h3>
-            {{ this.product.activeAge.duration }} months /
+            {{ this.age }} months /
             <span class="line-through">${{ this.product.activeAge.price }} </span>
             <span class="discount">${{
                 this.$getPriceWithDiscount(this.product.activeAge.price, this.product.activeAge.discount)
@@ -87,10 +140,10 @@ export default {
           <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
         </div>
         <ul class="select-options">
-          <li class="select-options__option" v-for="price in this.product.prices" :key="price.id"
+          <li class="select-options__option" v-for="price in this.options" :key="price.id"
               @click="this.setActiveAge(price)">
             <h3>
-              {{ price.duration }} months /
+              {{ this.option(price) }} months /
               <span class="line-through">${{ price.price }} </span>
               <span class="discount">${{
                   this.$getPriceWithDiscount(price.price, price.discount)

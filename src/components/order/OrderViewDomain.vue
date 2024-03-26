@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      store: useOrderStore()
+      store: useOrderStore(),
     }
   },
   mounted() {
@@ -82,6 +82,10 @@ export default {
                 opacity: 1,
                 duration: 0.25
               })
+
+      // Налаштовуємо поведінку таймлайну
+      tl.repeat(0); // Повторювати лише один раз
+      tl.play();
     }
   }
 }

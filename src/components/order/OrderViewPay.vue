@@ -36,11 +36,11 @@ export default {
 
       <div class="order-wrapper">
         <div class="basket">
-          <!-- Hosting -->
           <order-product v-for="product in store.hostings" :key="product.uuid"
                          :product="{...product, type: 'HOSTING', name: 'Hosting'}"></order-product>
 
-          <!--          Domains? -->
+          <order-product v-for="product in store.domains" :key="product.uuid"
+                         :product="{...product, type: 'DOMAIN', name: 'Domain'}"></order-product>
 
           <!-- Add new product -->
           <router-link to="/order/domain">
