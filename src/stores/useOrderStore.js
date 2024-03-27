@@ -93,20 +93,6 @@ export const useOrderStore = defineStore('order', {
         getTotal: (state) => {
             let total = 0;
 
-            /*
-            const totalHosting = state.hostings.map(hosting => {
-                const activeAgePrice = hosting.activeAge.price;
-                const activeExtraPrices = hosting.activeExtra ? hosting.activeExtra.map(extra => extra.price) : [];
-                const totalExtraPrice = activeExtraPrices.reduce((acc, curr) => acc + curr, 0);
-                const totalPrice = activeAgePrice + totalExtraPrice;
-
-                return {
-                    hostingId: hosting.id,
-                    total: totalPrice
-                };
-            });
-            */
-
             const totalHosting = state.hostings.map(hosting => {
                 const activeAgePrice = hosting.activeAge.price;
 

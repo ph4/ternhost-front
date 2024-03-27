@@ -8,7 +8,7 @@
           <span>Save {{ this.getDiscount }}%</span>
         </div>
 
-        <h1>${{ this.$getPriceWithDiscount(this.getPrice, this.getDiscount) }}<span>/mo</span></h1>
+        <h1>${{ this.$discount(this.getPrice, this.getDiscount) }}<span>/mo</span></h1>
       </div>
     </header>
 

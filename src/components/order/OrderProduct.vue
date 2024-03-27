@@ -134,7 +134,7 @@ export default {
             {{ this.age }} months /
             <span class="line-through">${{ this.product.activeAge.price }} </span>
             <span class="discount">${{
-                this.$getPriceWithDiscount(this.product.activeAge.price, this.product.activeAge.discount)
+                this.$discount(this.product.activeAge.price, this.product.activeAge.discount)
               }}</span>
           </h3>
           <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
@@ -146,7 +146,7 @@ export default {
               {{ this.option(price) }} months /
               <span class="line-through">${{ price.price }} </span>
               <span class="discount">${{
-                  this.$getPriceWithDiscount(price.price, price.discount)
+                  this.$discount(price.price, price.discount)
                 }}</span>
             </h3>
           </li>
@@ -174,7 +174,7 @@ export default {
             <div class="services__group-item__end">
               <div class="service-price">
                 <h3>${{ extra.price }}</h3>
-                <h3 class="discount">${{ this.$getPriceWithDiscount(extra.price, extra.discount) }}</h3>
+                <h3 class="discount">${{ this.$discount(extra.price, extra.discount) }}</h3>
               </div>
               <base-switch
                   :id="extra.id"

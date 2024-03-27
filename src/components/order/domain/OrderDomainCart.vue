@@ -1,109 +1,89 @@
 <script>
 import BaseButton from "@/components/UI/BaseButton.vue";
-import {v4 as uuidv4} from 'uuid';
 
-import {useFakeDomains} from "@/static/domains.js";
+import OrderPromo from "@/components/order/OrderPromo.vue";
+
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
 export default {
-  name: "OrderDomain.vue",
+  name: "OrderDomainCart",
   components: {
-    BaseButton
+    BaseButton,
+    OrderPromo,
   },
   data() {
     return {
       store: useOrderStore(),
-      domains: [],
-      isPreloading: false,
-      root: "",
+      isSelectShow: undefined,
     }
   },
   methods: {
-    loadDomains() {
-      if (!this.root.length) return;
-
-      this.isPreloading = true;
-
-      const domains = useFakeDomains();
-
-      if (domains) {
-        setTimeout(() => {
-          this.domains = domains.map((domain) => {
-            return {...domain, root: this.root, uuid: uuidv4(), activeAge: domain.ages[0]}
-          })
-
-          this.isPreloading = false;
-        }, 500);
-      }
+    setActiveAge(uuid, age) {
+      this.store.setActiveAge(uuid, age, "DOMAIN");
+      this.toggleSelect(uuid)
     },
-    buy(entity) {
-      this.store.buyDomain(entity);
-      this.store.domains.length >= 1 && this.$emitter.emit('_order_-toggle-cart');
+    toggleSelect(uuid) {
+      !this.isSelectShow ? this.isSelectShow = uuid : this.isSelectShow = undefined;
     },
-    sell(entity) {
-      this.store.sellDomain(entity);
-      this.store.domains.length === 0 && this.$emitter.emit('_order_-toggle-cart');
-    }
   }
 }
 </script>
 
 <template>
-  <li class="domains__group-item domains-list">
+  <li class="domains__group-item order">
     <header class="domains__group-item__header">
-      <h1>Search Your Domain Now</h1>
+      <h1>You Order</h1>
     </header>
     <div class="domains__group-item__body">
-      <div class="search-domain">
-        <input type="text" placeholder="Search your domain..." v-model="this.root"/>
-        <base-button class="btn-secondary" @click="this.loadDomains">Search</base-button>
-      </div>
-    </div>
-
-    <div class="preloader" v-if="this.isPreloading">
-      <h1>Preloader</h1>
-    </div>
-
-    <p class="lol" :class="{ hidden: this.isPreloading }" v-if="!this.domains.length">
-      Become the owner of a stylish and memorable domain that will be your digital reflection. Don't miss
-      the opportunity to stand out from the crowd – acquire your unique domain right now with a special
-      offer.
-    </p>
-
-    <div class="catalog" v-if="this.domains.length && !this.isPreloading">
-      <ul class="catalog__group">
-        <li class="catalog__group-item" v-for="domain in this.domains" :key="domain.uuid">
-          <h3>{{ domain.root }}{{ domain.tld }}</h3>
-          <div class="catalog__group-item__box">
-            <div class="catalog__price">
-              <h3>${{ domain.ages[0].price }}/yr.</h3>
-              <h1>${{ this.$getPriceWithDiscount(domain.ages[0].price, domain.ages[0].discount) }}/yr.</h1>
+      <ul class="orders">
+        <li class="orders__item" v-for="goods in this.store.domains" :key="goods.uuid">
+          <div class="orders__item-domain">
+            <h3>{{ goods.root }}{{ goods.tld }}</h3>
+          </div>
+          <div class="orders__item-age">
+            <!-- select -->
+            <div class="select" :class="{show: isSelectShow === goods.uuid}">
+              <div class="select-intro" @click="this.toggleSelect(goods.uuid)">
+                <h3>{{ goods.activeAge.age }} months</h3>
+                <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
+              </div>
+              <ul class="select-options">
+                <li class="select-options__option" v-for="age in goods.ages" :key="age.id"
+                    @click="this.setActiveAge(goods.uuid, age)">
+                  {{ age.age }} months
+                </li>
+              </ul>
             </div>
-            <div class="catalog__basket" @click="this.buy(domain)" :class="{hidden: this.store.isPurchased(domain)}">
-              <font-awesome-icon
-                  icon="fa-solid fa-basket-shopping"
-                  class="icon"
-                  :class="{hidden: this.store.isPurchased(domain)}"/>
-            </div>
-            <div class="catalog__actions" :class="{hidden: !this.store.isPurchased(domain)}">
-              <font-awesome-icon icon="fa-solid fa-check" class="icon buy"></font-awesome-icon>
-              <font-awesome-icon icon="fa-solid fa-xmark" class="icon sell"
-                                 @click="this.sell(domain)"></font-awesome-icon>
-            </div>
+          </div>
+          <div class="orders__item-price">
+            <h3>${{ goods.activeAge.price }}/yr</h3>
+            <h1>${{ this.$discount(goods.activeAge.price, goods.activeAge.discount) }}/yr</h1>
           </div>
         </li>
       </ul>
     </div>
+    <footer class="domains__group-item__footer">
+      <div class="top">
+        <h1>Total</h1>
+        <div class="total-price">
+          <h1>${{ this.store.getTotalPriceDomain }}</h1>
+          <h1>${{ this.store.getTotalDiscountPriceDomain }}</h1>
+        </div>
+      </div>
+
+      <order-promo></order-promo>
+
+      <div class="continue">
+        <router-link to="/order/hosting">
+          <base-button class="btn-secondary">Continue</base-button>
+        </router-link>
+      </div>
+    </footer>
   </li>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/common/all";
-
-.lol {
-  @include fluid-type($text-sm, $text-base, $color: $gray-200);
-  margin-top: 2.5rem;
-}
 
 .domains__group-item {
   padding: 2.188rem;
@@ -117,8 +97,7 @@ export default {
 
   &.order {
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: none;
 
     .domains__group-item__header {
       padding: 2.188rem 2.188rem 0 2.188rem;
@@ -143,13 +122,6 @@ export default {
         margin: 2.188rem 2.188rem 0 2.188rem;
         @media screen and (max-width: 500px) {
           margin: 1rem 1rem 0 1rem;
-        }
-      }
-
-      .promocode {
-        margin: 2rem 2.188rem;
-        @media screen and (max-width: 500px) {
-          margin: 1rem;
         }
       }
 
@@ -238,20 +210,53 @@ export default {
         }
 
         &-age {
-          &__active {
-            @include center-y-between;
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            border: 0.063rem solid $gray-200;
-            cursor: pointer;
+          .select {
+            &.show {
+              .select-intro {
+                .icon {
+                  transform: rotate(180deg);
+                }
+              }
 
-            h3 {
-              @include fluid-type($text-sm, $text-base, 500, $gray-200);
+              .select-options {
+                display: block;
+              }
             }
 
-            .icon {
-              color: $gray-200;
+            &-intro {
+              @include center-y-between;
+              width: 100%;
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+              border: 0.063rem solid $gray-200;
+              cursor: pointer;
+
+              h3 {
+                @include fluid-type($text-sm, $text-base, 500, $gray-200);
+              }
+
+              .icon {
+                color: $gray-200;
+              }
+            }
+
+            &-options {
+              display: none;
+              margin-top: 0.125rem;
+              width: 100%;
+              border-radius: 0.25rem;
+              border: 0.063rem solid $gray-200;
+              cursor: pointer;
+
+              &__option {
+                @include fluid-type($text-sm, $text-base, 500, $gray-200);
+                padding: 0.5rem;
+                transition: all .2s;
+
+                &:hover {
+                  background-color: rgba($blue-200, .10);
+                }
+              }
             }
           }
         }
@@ -308,25 +313,6 @@ export default {
       }
     }
 
-    .promocode {
-      border-radius: 0.25rem;
-      border: 0.125rem solid $gray-200;
-      display: flex;
-      justify-content: space-between;
-      margin: 2rem 0;
-
-      input {
-        @include fluid-type($text-base, $text-base, $color: $gray-200);
-        padding: 0 1rem;
-      }
-
-      button {
-        background-color: $gray-200;
-        padding: 1rem;
-        color: $white-100;
-      }
-    }
-
     .continue {
       button {
         width: 100%;
@@ -368,12 +354,12 @@ export default {
           }
 
           .catalog__basket,
-          .catalog__actions {
+          .catalog__buy,
+          .catalog__sell {
             @include center;
             margin-left: 1.25rem;
             width: 2rem;
             aspect-ratio: 1 / 1;
-            cursor: pointer;
           }
 
           .catalog__basket {
@@ -382,32 +368,20 @@ export default {
 
             .icon {
               color: $gray-200;
-
             }
           }
 
-          .catalog__actions {
-            &:hover {
-              .icon.buy {
-                display: none;
-              }
-
-              .icon.sell {
-                display: block;
-              }
-            }
-
+          .catalog__buy {
             .icon {
+              color: $green-2;
               font-size: 1.25rem;
+            }
+          }
 
-              &.buy {
-                color: $green-2;
-              }
-
-              &.sell {
-                color: $red-1;
-                display: none;
-              }
+          .catalog__sell {
+            .icon {
+              color: $red-1;
+              font-size: 1.25rem;
             }
           }
         }

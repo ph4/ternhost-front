@@ -32,7 +32,7 @@ export default {
           <div class="box__services-header__total">
             <h3>${{ hosting.activeAge.price }}</h3>
             <h3 class="discount">${{
-                this.$getPriceWithDiscount(hosting.activeAge.price, hosting.activeAge.discount)
+                this.$discount(hosting.activeAge.price, hosting.activeAge.discount)
               }}</h3>
           </div>
         </header>
@@ -46,7 +46,7 @@ export default {
               </div>
               <div class="services__group-item__price">
                 <h3>${{ extra.price }}</h3>
-                <h3 class="discount">${{ this.$getPriceWithDiscount(extra.price, extra.discount) }}</h3>
+                <h3 class="discount">${{ this.$discount(extra.price, extra.discount) }}</h3>
               </div>
             </li>
           </ul>
@@ -59,7 +59,7 @@ export default {
           <div class="box__services-header__total">
             <h3>${{ domain.activeAge.price }}</h3>
             <h3 class="discount">${{
-                this.$getPriceWithDiscount(domain.activeAge.price, domain.activeAge.discount)
+                this.$discount(domain.activeAge.price, domain.activeAge.discount)
               }}</h3>
           </div>
         </header>
@@ -73,7 +73,7 @@ export default {
               </div>
               <div class="services__group-item__price">
                 <h3>${{ extra.price }}</h3>
-                <h3 class="discount">${{ this.$getPriceWithDiscount(extra.price, extra.discount) }}</h3>
+                <h3 class="discount">${{ this.$discount(extra.price, extra.discount) }}</h3>
               </div>
             </li>
           </ul>

@@ -1,9 +1,9 @@
 <script>
 import OrderFeature from "@/components/order/OrderFeature.vue";
 import OrderPass from "@/components/order/OrderPass.vue";
-import OrderDomain from "@/components/order/OrderDomain.vue";
+import OrderDomainSearch from "@/components/order/domain/OrderSearchDomain.vue";
 import OrderTransfer from "@/components/order/OrderTransfer.vue";
-import OrderDomainCart from "@/components/order/OrderDomainCart.vue";
+import OrderDomainCart from "@/components/order/domain/OrderDomainCart.vue";
 
 import BaseContainer from "@/components/UI/BaseContainer.vue";
 import BaseLogo from "@/components/UI/BaseLogo.vue";
@@ -13,14 +13,14 @@ import {useOrderStore} from "@/stores/useOrderStore.js";
 import {gsap} from 'gsap';
 
 export default {
-  name: "OrderViewDomain.vue",
+  name: "OrderViewDomain",
   components: {
     BaseLogo,
     BaseContainer,
     BaseButton,
     OrderFeature,
     OrderPass,
-    OrderDomain,
+    OrderDomainSearch,
     OrderTransfer,
     OrderDomainCart
   },
@@ -83,8 +83,7 @@ export default {
                 duration: 0.25
               })
 
-      // Налаштовуємо поведінку таймлайну
-      tl.repeat(0); // Повторювати лише один раз
+      tl.repeat(0);
       tl.play();
     }
   }
@@ -110,7 +109,7 @@ export default {
 
       <div class="domains">
         <ul class="domains__group">
-          <order-domain></order-domain>
+          <order-domain-search></order-domain-search>
           <order-transfer class="transfer"></order-transfer>
           <order-domain-cart class="cart"></order-domain-cart>
         </ul>

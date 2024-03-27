@@ -84,9 +84,11 @@ import DashboardViewBuilder from '@/components/dashboard/DashboardViewBuilder.vu
 import DashboardViewServices from '@/components/dashboard/DashboardViewServices.vue';
 
 import OrderPage from "@/pages/OrderPage.vue";
-import OrderViewDomain from "@/components/order/OrderViewDomain.vue";
+import OrderViewDomain from "@/components/order/domain/OrderViewDomain.vue";
 import OrderViewHosting from "@/components/order/OrderViewHosting.vue";
 import OrderViewPay from "@/components/order/OrderViewPay.vue";
+
+import DemoSelect from '@/demo/DemoSelect.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -154,6 +156,8 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             component: NotFoundPage
         },
+
+        {path: '/demo', component: DemoSelect},
     ],
 });
 
@@ -173,7 +177,7 @@ import {createPinia} from 'pinia';
 const pinia = createPinia();
 
 // Plugins
-import getPriceWithDiscount from '@/plugins/getPriceWithDiscount.js';
+import discount from '@/plugins/discount.js';
 
 // Vue
 const app = createApp(App);
@@ -183,7 +187,7 @@ app.config.globalProperties.$emitter = emitter;
 app.use(router);
 app.use(pinia);
 
-app.use(getPriceWithDiscount);
+app.use(discount);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

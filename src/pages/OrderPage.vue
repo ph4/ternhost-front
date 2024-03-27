@@ -1,6 +1,6 @@
 <script>
 
-import OrderViewDomain from "@/components/order/OrderViewDomain.vue";
+import OrderViewDomain from "@/components/order/domain/OrderViewDomain.vue";
 import OrderPass from "@/components/order/OrderPass.vue";
 
 import AppFooter from "@/components/common/AppFooter/AppFooter.vue";
