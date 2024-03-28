@@ -4,10 +4,11 @@ export default {
   inject: ['onSelect', 'toggle'],
   props: {
     value: Object,
+    entity: null,
   },
   methods: {
     select() {
-      this.onSelect(this.value);
+      this.onSelect({value: this.value, entity: this.entity});
       this.toggle()
     }
   }

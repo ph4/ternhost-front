@@ -1,9 +1,9 @@
 <script>
 import OrderFeature from "@/components/order/OrderFeature.vue";
 import OrderPass from "@/components/order/OrderPass.vue";
-import OrderDomainSearch from "@/components/order/domain/OrderSearchDomain.vue";
+import Search from "@/components/order/domain/OrderSearchDomain.vue";
 import OrderTransfer from "@/components/order/OrderTransfer.vue";
-import OrderDomainCart from "@/components/order/domain/OrderDomainCart.vue";
+import OrderCartDomain from "@/components/order/domain/OrderCartDomain.vue";
 
 import BaseContainer from "@/components/UI/BaseContainer.vue";
 import BaseLogo from "@/components/UI/BaseLogo.vue";
@@ -20,9 +20,9 @@ export default {
     BaseButton,
     OrderFeature,
     OrderPass,
-    OrderDomainSearch,
+    Search,
     OrderTransfer,
-    OrderDomainCart
+    OrderCartDomain
   },
   data() {
     return {
@@ -109,9 +109,9 @@ export default {
 
       <div class="domains">
         <ul class="domains__group">
-          <order-domain-search></order-domain-search>
+          <Search></Search>
           <order-transfer class="transfer"></order-transfer>
-          <order-domain-cart class="cart"></order-domain-cart>
+          <order-cart-domain class="cart"></order-cart-domain>
         </ul>
       </div>
     </base-container>

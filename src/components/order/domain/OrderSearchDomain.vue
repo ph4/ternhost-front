@@ -1,9 +1,9 @@
 <script>
 import BaseButton from "@/components/UI/BaseButton.vue";
 
-import OrderSearchDomainInput from "@/components/order/domain/OrderSearchDomainInput.vue";
-import OrderSearchDomainPreloader from "@/components/order/domain/OrderSearchDomainPreloader.vue";
-import OrderSearchDomainCatalog from "@/components/order/domain/OrderSearchDomainCatalog.vue";
+import Input from "@/components/order/domain/OrderSearchDomainInput.vue";
+import Preloader from "@/components/order/domain/OrderSearchDomainPreloader.vue";
+import Catalog from "@/components/order/domain/OrderSearchDomainCatalog.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
@@ -11,23 +11,28 @@ export default {
   name: "OrderDomainSearch",
   components: {
     BaseButton,
-    OrderSearchDomainInput,
-    OrderSearchDomainPreloader,
-    OrderSearchDomainCatalog
+    Input,
+    Preloader,
+    Catalog
   },
   data() {
     return {
       store: useOrderStore(),
       domains: [],
+      isPreloading: false,
     }
   },
   mounted() {
     this.$emitter.on("_order_-set-domains", (domains) => this.setDomains(domains));
+    this.$emitter.on("_order_-switch-preloader", (state) => this.switch(state))
   },
   methods: {
     setDomains(domains) {
       this.domains = domains;
     },
+    switch(state) {
+      this.isPreloading = state;
+    }
   }
 }
 </script>
@@ -38,16 +43,18 @@ export default {
       <h1>Search Your Domain Now</h1>
     </header>
 
-    <order-search-domain-input></order-search-domain-input>
-    <order-search-domain-preloader></order-search-domain-preloader>
+    <Input/>
+    <Preloader v-if="this.isPreloading"/>
 
-    <p class="lol" v-if="!this.domains.length">
-      Become the owner of a stylish and memorable domain that will be your digital reflection. Don't miss
-      the opportunity to stand out from the crowd – acquire your unique domain right now with a special
-      offer.
-    </p>
+    <div v-else>
+      <p class="lol" v-if="!this.domains.length">
+        Become the owner of a stylish and memorable domain that will be your digital reflection. Don't miss
+        the opportunity to stand out from the crowd – acquire your unique domain right now with a special
+        offer.
+      </p>
 
-    <order-search-domain-catalog :domains="this.domains"></order-search-domain-catalog>
+      <Catalog :domains="this.domains"/>
+    </div>
   </li>
 </template>
 

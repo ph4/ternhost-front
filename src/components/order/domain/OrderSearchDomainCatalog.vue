@@ -1,5 +1,6 @@
 <script>
 import {useOrderStore} from "@/stores/useOrderStore.js";
+import {OrderType} from "@/enums/order.js";
 
 export default {
   name: "OrderSearchDomainCatalog",
@@ -13,14 +14,12 @@ export default {
   },
   methods: {
     buy(entity) {
-      this.store.buyDomain(entity);
-
-      this.store.domains.length >= 1 && this.$emitter.emit('_order_-toggle-cart');
+      this.store.buy({entity, type: OrderType.DOMAIN});
+      this.store.getOrdersByCategory(OrderType.DOMAIN).length === 1 && this.$emitter.emit('_order_-toggle-cart');
     },
     sell(entity) {
-      this.store.sellDomain(entity);
-
-      this.store.domains.length === 0 && this.$emitter.emit('_order_-toggle-cart');
+      this.store.sell({entity, type: OrderType.DOMAIN});
+      this.store.getOrdersByCategory(OrderType.DOMAIN).length === 0 && this.$emitter.emit('_order_-toggle-cart');
     }
   }
 }

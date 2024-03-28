@@ -1,5 +1,4 @@
 <script>
-
 export default {
   name: 'BaseSelect',
   provide() {
@@ -32,8 +31,8 @@ export default {
 
       <slot name="intro"></slot>
 
-      <font-awesome-icon icon="fa-solid fa-chevron-up" v-if="this.isShow"></font-awesome-icon>
-      <font-awesome-icon icon="fa-solid fa-chevron-down" v-else></font-awesome-icon>
+      <font-awesome-icon icon="fa-solid fa-chevron-up" class="icon" v-if="this.isShow"></font-awesome-icon>
+      <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon" v-else></font-awesome-icon>
     </div>
 
     <div class="select-body" v-if="this.isShow">
@@ -56,6 +55,10 @@ export default {
     padding: 0.5rem;
     transition: all .2s;
     cursor: pointer;
+
+    .icon {
+      color: $gray-200;
+    }
   }
 
   &-body {
@@ -64,6 +67,8 @@ export default {
     top: 100%;
     left: 0;
     width: 100%;
+    z-index: 666;
+    background-color: $white-100;
   }
 }
 </style>

@@ -1,31 +1,18 @@
 <script>
 import BaseButton from "@/components/UI/BaseButton.vue";
 
-import OrderPromo from "@/components/order/OrderPromo.vue";
-
-import {useOrderStore} from "@/stores/useOrderStore.js";
+import CartPromo from "@/components/order/OrderPromo.vue";
+import CartList from "@/components/order/domain/OrderCartDomainList.vue";
+import CartTotal from "@/components/order/domain/OrderCartDomainTotal.vue";
 
 export default {
   name: "OrderDomainCart",
   components: {
     BaseButton,
-    OrderPromo,
+    CartPromo,
+    CartList,
+    CartTotal,
   },
-  data() {
-    return {
-      store: useOrderStore(),
-      isSelectShow: undefined,
-    }
-  },
-  methods: {
-    setActiveAge(uuid, age) {
-      this.store.setActiveAge(uuid, age, "DOMAIN");
-      this.toggleSelect(uuid)
-    },
-    toggleSelect(uuid) {
-      !this.isSelectShow ? this.isSelectShow = uuid : this.isSelectShow = undefined;
-    },
-  }
 }
 </script>
 
@@ -35,43 +22,11 @@ export default {
       <h1>You Order</h1>
     </header>
     <div class="domains__group-item__body">
-      <ul class="orders">
-        <li class="orders__item" v-for="goods in this.store.domains" :key="goods.uuid">
-          <div class="orders__item-domain">
-            <h3>{{ goods.root }}{{ goods.tld }}</h3>
-          </div>
-          <div class="orders__item-age">
-            <!-- select -->
-            <div class="select" :class="{show: isSelectShow === goods.uuid}">
-              <div class="select-intro" @click="this.toggleSelect(goods.uuid)">
-                <h3>{{ goods.activeAge.age }} months</h3>
-                <font-awesome-icon icon="fa-solid fa-chevron-down" class="icon"></font-awesome-icon>
-              </div>
-              <ul class="select-options">
-                <li class="select-options__option" v-for="age in goods.ages" :key="age.id"
-                    @click="this.setActiveAge(goods.uuid, age)">
-                  {{ age.age }} months
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="orders__item-price">
-            <h3>${{ goods.activeAge.price }}/yr</h3>
-            <h1>${{ this.$discount(goods.activeAge.price, goods.activeAge.discount) }}/yr</h1>
-          </div>
-        </li>
-      </ul>
+      <cart-list></cart-list>
     </div>
     <footer class="domains__group-item__footer">
-      <div class="top">
-        <h1>Total</h1>
-        <div class="total-price">
-          <h1>${{ this.store.getTotalPriceDomain }}</h1>
-          <h1>${{ this.store.getTotalDiscountPriceDomain }}</h1>
-        </div>
-      </div>
-
-      <order-promo></order-promo>
+      <cart-total></cart-total>
+      <cart-promo></cart-promo>
 
       <div class="continue">
         <router-link to="/order/hosting">
@@ -187,96 +142,6 @@ export default {
       margin-top: 2.5rem;
     }
 
-    .orders {
-      &__item {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 2rem;
-        padding: 1rem 0;
-        @media screen and (max-width: 500px) {
-          grid-template-columns: 1fr;
-          &:first-child {
-            border-top: 0;
-          }
-          border-top: 0.063rem solid $white-7;
-        }
-
-        &-domain {
-          @include center-y;
-
-          h3 {
-            @include fluid-type($text-sm, $text-base, 500, $gray-200);
-          }
-        }
-
-        &-age {
-          .select {
-            &.show {
-              .select-intro {
-                .icon {
-                  transform: rotate(180deg);
-                }
-              }
-
-              .select-options {
-                display: block;
-              }
-            }
-
-            &-intro {
-              @include center-y-between;
-              width: 100%;
-              padding: 0.5rem;
-              border-radius: 0.25rem;
-              border: 0.063rem solid $gray-200;
-              cursor: pointer;
-
-              h3 {
-                @include fluid-type($text-sm, $text-base, 500, $gray-200);
-              }
-
-              .icon {
-                color: $gray-200;
-              }
-            }
-
-            &-options {
-              display: none;
-              margin-top: 0.125rem;
-              width: 100%;
-              border-radius: 0.25rem;
-              border: 0.063rem solid $gray-200;
-              cursor: pointer;
-
-              &__option {
-                @include fluid-type($text-sm, $text-base, 500, $gray-200);
-                padding: 0.5rem;
-                transition: all .2s;
-
-                &:hover {
-                  background-color: rgba($blue-200, .10);
-                }
-              }
-            }
-          }
-        }
-
-        &-price {
-          text-align: right;
-
-          h3 {
-            @include fluid-type($text-xs, $text-xs, 500, $gray-200);
-            text-decoration: line-through;
-          }
-
-          h1 {
-            @include fluid-type($text-base, $text-lg, 700, $blue-200);
-            margin-top: 0.25rem;
-          }
-        }
-      }
-    }
-
     .orders-empty {
       margin-bottom: 1rem;
 
@@ -291,26 +156,6 @@ export default {
       @include fluid-type($text-base, $text-base, 500, $blue-200);
       text-align: center;
       margin-top: 1rem;
-    }
-
-    .top {
-      @include center-y-between;
-
-      h1 {
-        @include fluid-type($text-xl, $text-3xl, 700, $blue-200);
-      }
-
-      .total-price {
-        @include center-y;
-
-        h1 {
-          &:first-child {
-            @include fluid-type($text-xl, $text-3xl, $color: $gray-200);
-            margin-right: 0.5rem;
-            text-decoration: line-through;
-          }
-        }
-      }
     }
 
     .continue {

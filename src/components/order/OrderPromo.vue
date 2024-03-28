@@ -4,7 +4,7 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 import {useOrderStore} from "@/stores/useOrderStore.js";
 
 export default {
-  name: "OrderPromo.vue",
+  name: "OrderPromo",
   components: {
     BaseButton
   },

@@ -1,8 +1,11 @@
 import {defineStore} from 'pinia';
 import {applyDiscount} from "@/utils/applyDiscount.js";
+import {OrderType} from "@/enums/order.js";
+import app from "@/App.vue";
 
 export const useOrderStore = defineStore('order', {
     state: () => ({
+        orders: [],
         domains: [],
         hostings: [],
         promo: {
@@ -14,32 +17,41 @@ export const useOrderStore = defineStore('order', {
     getters: {
         isPurchased: (state) => {
             return (entity) => {
-                const result = state.domains.filter(domain => `${domain.root}${domain.tld}` === `${entity.root}${entity.tld}`)
+                const result = state.orders.filter(domain => `${domain.root}${domain.tld}` === `${entity.root}${entity.tld}`)
 
                 return result.length > 0;
             }
         },
         isEmpty: (state) => {
-            return state.domains.length === 0
+            return state.orders.length === 0
         },
+        getOrdersByCategory: (state) => {
+            return (category) => {
+                return state.orders.filter((order) => order.type === category);
+            }
+        },
+        getTotalPriceByCategory: (state) => {
+            return (category) => {
+                const total = state.orders.filter((order) => order.type === category).reduce((acc, value) => acc += value.activeAge.price, 0)
+
+                return parseFloat(total.toFixed(2));
+            }
+        },
+        getTotalDiscountPriceByCategory: (state) => {
+            return (category) => {
+                const total = state.orders.filter((order) => order.type === category).reduce((acc, value) => {
+                    const discountedPrice = applyDiscount(value.activeAge.price, value.activeAge.discount);
+
+                    return acc + discountedPrice;
+                }, 0);
+
+                return parseFloat(applyDiscount(total, state.promo.discount).toFixed(2))
+            }
+        },
+
+        // @FIXME:
         isLatest: (state) => {
             return (state.domains.length + state.hostings.length) === 1
-        },
-        getTotalPriceDomain: (state) => {
-            let total = 0;
-
-            state.domains.forEach((domain) => total += domain.activeAge.price);
-
-            // return applyDiscount(total, state.promo.discount);
-            return parseFloat(total.toFixed(2));
-        },
-        getTotalPriceHosting: (state) => {
-            let total = 0;
-
-            state.hostings.forEach((hosting) => total += hosting.activeAge.price);
-
-            // return applyDiscount(total, state.promo.discount);
-            return parseFloat(total.toFixed(2));
         },
         getTotalPriceHostingExtra: (state) => {
             return state.hostings.activeExtra?.reduce((acc, item) => acc + item.price, 0);
@@ -148,29 +160,26 @@ export const useOrderStore = defineStore('order', {
         }
     },
     actions: {
-        buyDomain(entity) {
-            this.domains.push(entity);
+        buy({entity, type}) {
+            this.orders.push({...entity, type});
         },
-        sellDomain(entity) {
-            this.domains = this.domains.filter((domain) => `${domain.root}${domain.tld}` !== `${entity.root}${entity.tld}`);
-        },
-        buyHosting(entity) {
-            this.hostings.push(entity);
-        },
-        sellHosting(entity) {
-            this.hostings = this.hostings.filter((hosting) => hosting.uuid !== entity.uuid);
-        },
-        setActiveAge(uuid, age, type) {
-            if (type === 'DOMAIN') {
-                const domain = this.domains.filter((domain) => domain.uuid === uuid);
-
-                domain[0].activeAge = age;
+        sell({entity, type}) {
+            switch (type) {
+                case OrderType.DOMAIN:
+                    this.orders = this.orders.filter(order => !(order.type === OrderType.DOMAIN && `${order.root}${order.tld}` === `${entity.root}${entity.tld}`));
+                    break;
+                case OrderType.HOSTING:
+                    this.orders = this.orders.filter(order => order.uuid !== entity.uuid);
+                    break;
+                default:
+                    return console.error(`Unknown order type: ${type}`);
             }
+        },
+        setActiveAge({entity, age}) {
+            const order = this.orders.filter((order) => order.uuid === entity.uuid)[0];
 
-            if (type === 'HOSTING') {
-                const hosting = this.getHostingByUUID(uuid);
-
-                hosting.activeAge = age;
+            if (order) {
+                order.activeAge = age;
             }
         },
         setPromo({value, status, discount}) {
