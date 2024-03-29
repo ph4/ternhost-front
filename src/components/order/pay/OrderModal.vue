@@ -13,13 +13,13 @@ export default {
     return {
       store: useOrderStore(),
       isShow: false,
-      product: undefined,
+      callback: undefined,
     }
   },
   mounted() {
-    this.$emitter.on("_order_-toggle-modal", (data) => {
+    this.$emitter.on("_order_-toggle-modal", (callback) => {
       this.isShow = true;
-      this.product = data.product;
+      this.callback = callback;
     })
   },
   methods: {
@@ -27,8 +27,8 @@ export default {
       this.isShow = false;
     },
     remove() {
-      this.product.type === "DOMAIN" ? this.store.sellDomain(this.product) : this.store.sellHosting(this.product);
-      this.isShow = false;
+      this.callback();
+      this.cancel();
     },
   }
 }

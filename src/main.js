@@ -86,7 +86,7 @@ import DashboardViewServices from '@/components/dashboard/DashboardViewServices.
 import OrderPage from "@/pages/OrderPage.vue";
 import OrderViewDomain from "@/components/order/domain/OrderViewDomain.vue";
 import OrderViewHosting from "@/components/order/hosting/OrderViewHosting.vue";
-import OrderViewPay from "@/components/order/OrderViewPay.vue";
+import OrderViewPay from "@/components/order/pay/OrderViewPay.vue";
 
 import DemoSelect from '@/demo/DemoSelect.vue'
 

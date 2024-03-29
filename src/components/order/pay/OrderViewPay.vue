@@ -1,33 +1,38 @@
 <script>
 import BaseLogo from "@/components/UI/BaseLogo.vue";
 
-import OrderProduct from "@/components/order/OrderProduct.vue";
-import OrderModal from "@/components/order/OrderModal.vue";
-import OrderPayCart from "@/components/order/OrderPayCart.vue";
+import Product from "@/components/order/pay/OrderProduct.vue";
+import Modal from "@/components/order/pay/OrderModal.vue";
+import Cart from "@/components/order/pay/OrderPayCart.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
+import {OrderType} from "@/enums/order.js";
 
 export default {
   name: "OrderViewPay",
   components: {
     BaseLogo,
-    OrderProduct,
-    OrderModal,
-    OrderPayCart
+    Product,
+    Modal,
+    Cart
   },
   data() {
     return {
       store: useOrderStore()
     }
   },
+  computed: {
+    getProductName() {
+      return (type) => type === OrderType.DOMAIN ? "Domain" : "Hosting";
+    }
+  }
 }
 </script>
 
 <template>
 
-  <order-modal></order-modal>
+  <Modal/>
 
-  <!-- hero -->
   <section class="hero">
     <div class="container">
       <header class="header">
@@ -36,13 +41,9 @@ export default {
 
       <div class="order-wrapper">
         <div class="basket">
-          <order-product v-for="product in store.hostings" :key="product.uuid"
-                         :product="{...product, type: 'HOSTING', name: 'Hosting'}"></order-product>
+          <Product v-for="product in this.store.orders" :key="product.uuid"
+                   :product="{...product, type: product.type, name: this.getProductName(product.type)}"/>
 
-          <order-product v-for="product in store.domains" :key="product.uuid"
-                         :product="{...product, type: 'DOMAIN', name: 'Domain'}"></order-product>
-
-          <!-- Add new product -->
           <router-link to="/order/domain">
             <div class="box add-new-product">
               <h1>
@@ -53,7 +54,7 @@ export default {
           </router-link>
         </div>
 
-        <order-pay-cart></order-pay-cart>
+        <Cart/>
       </div>
     </div>
   </section>

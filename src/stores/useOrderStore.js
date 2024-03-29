@@ -48,115 +48,70 @@ export const useOrderStore = defineStore('order', {
                 return parseFloat(applyDiscount(total, state.promo.discount).toFixed(2))
             }
         },
-
-        // @FIXME:
-        isLatest: (state) => {
-            return (state.domains.length + state.hostings.length) === 1
-        },
-        getTotalPriceHostingExtra: (state) => {
-            return state.hostings.activeExtra?.reduce((acc, item) => acc + item.price, 0);
-        },
-        getTotalDiscountPriceDomain: (state) => {
-            let total = 0;
-
-            state.domains.forEach((domain) => {
-                const price = domain.activeAge.price;
-                const discount = domain.activeAge.discount;
-
-                total += (price - (price / 100) * discount)
-            })
-
-            // return applyDiscount(total, state.promo.discount);
-            return parseFloat(total.toFixed(2));
-        },
-        getHostingByUUID: (state) => {
-            return (uuid) => {
-                return state.hostings.filter((hosting) => hosting.uuid === uuid)[0];
-            }
-        },
-        getDomainByUUID: (state) => {
-            return (uuid) => {
-                return state.domains.filter((domain) => domain.uuid === uuid)[0];
-            }
-        },
-        getHostingExtraById: (state) => {
-            return (uuid, id) => {
-                const entity = state.getHostingByUUID(uuid);
-
-                return entity.extra.filter((extra) => extra.id === id)[0];
-            }
-        },
-        getDomainExtraById: (state) => {
-            return (uuid, id) => {
-                const entity = state.getDomainByUUID(uuid);
-
-                return entity.extra.filter((extra) => extra.id === id)[0];
-            }
-        },
-        isExsistActiveExtraHosting: (state) => {
-            return (uuid, id, type) => {
-                const entity = type === "DOMAIN" ? state.getDomainByUUID(uuid) : state.getHostingByUUID(uuid);
-
+        isExistExtra: (state) => {
+            return ({uuid, id}) => {
+                const entity = state.orders.filter((order) => order.uuid === uuid)[0];
                 const extra = entity?.activeExtra?.filter((extra) => extra.id === id)[0];
 
-                return extra !== undefined
+                return extra !== undefined;
             }
         },
+
+        // @FIXME:
         getTotal: (state) => {
             let total = 0;
 
-            const totalHosting = state.hostings.map(hosting => {
-                const activeAgePrice = hosting.activeAge.price;
-
-                let totalExtraPrice = 0;
-                if (hosting.activeExtra) {
-                    totalExtraPrice = hosting.activeExtra.reduce((acc, extra) => {
-                        const discountedPrice = extra.price * (1 - extra.discount / 100);
-                        return acc + discountedPrice;
-                    }, 0);
+            state.orders.forEach(order => {
+                // Додати ціну активного віку
+                if (order.activeAge && order.activeAge.price) {
+                    total += order.activeAge.price;
                 }
 
-                const totalPrice = activeAgePrice + totalExtraPrice;
-                return {
-                    hostingId: hosting.id,
-                    total: totalPrice
-                };
-            });
-
-            const totalDomain = state.domains.map(domain => {
-                const activeAgePrice = domain.activeAge.price;
-
-                let totalExtraPrice = 0;
-                if (domain.activeExtra) {
-                    totalExtraPrice = domain.activeExtra.reduce((acc, extra) => {
-                        const discountedPrice = extra.price * (1 - extra.discount / 100);
-                        return acc + discountedPrice;
-                    }, 0);
+                // Додати ціни активних додаткових послуг, якщо вони існують
+                if (order.activeExtra && order.activeExtra.length > 0) {
+                    order.activeExtra.forEach(extra => {
+                        if (extra.price) {
+                            total += extra.price;
+                        }
+                    });
                 }
-
-                const totalPrice = activeAgePrice + totalExtraPrice;
-                return {
-                    domainId: domain.id,
-                    total: totalPrice
-                };
             });
-
-            total += totalHosting.reduce((acc, entity) => acc += entity.total, 0);
-            total += totalDomain.reduce((acc, entity) => acc += entity.total, 0);
 
             return total;
         },
         getTotalDiscount: (state) => {
-            const total = state.getTotal;
+            let totalPrice = 0;
 
-            return applyDiscount(total, state.promo.discount);
+            state.orders.forEach(order => {
+                // Додати ціну активного віку зі знижкою
+                if (order.activeAge && order.activeAge.price !== undefined && order.activeAge.discount !== undefined) {
+                    const discountedPrice = order.activeAge.price * (1 - order.activeAge.discount / 100);
+                    totalPrice += discountedPrice >= 0 ? discountedPrice : order.activeAge.price;
+                }
+
+                // Додати ціни активних додаткових послуг зі знижкою, якщо вони існують
+                if (order.activeExtra && order.activeExtra.length > 0) {
+                    order.activeExtra.forEach(extra => {
+                        if (extra.price !== undefined && extra.discount !== undefined) {
+                            const discountedExtraPrice = extra.price * (1 - extra.discount / 100);
+                            totalPrice += discountedExtraPrice >= 0 ? discountedExtraPrice : extra.price;
+                        }
+                    });
+                }
+            });
+
+            return applyDiscount(totalPrice, state.promo.discount);
         },
         saved: (state) => {
-            const total = state.getTotal;
-            const totalDiscount = applyDiscount(total, state.promo.discount);
-            const save = total - totalDiscount;
+            if (state.promo.discount) {
+                const total = state.getTotal;
+                const totalDiscount = applyDiscount(total, state.promo.discount);
+                const save = total - totalDiscount;
 
-            return save;
+                return save;
+            }
+
+            return 0;
         }
     },
     actions: {
@@ -187,27 +142,23 @@ export const useOrderStore = defineStore('order', {
             this.promo.status = status;
             this.promo.discount = discount;
         },
-        onExtra({type, uuid, extra}) {
-            if (type === "HOSTING") {
-                const entity = this.getHostingByUUID(uuid);
+        onExtra({uuid, extra}) {
+            const entity = this.orders.filter((order) => order.uuid === uuid)[0];
 
-                entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
-            } else {
-                const entity = this.getDomainByUUID(uuid);
-
-                entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
+            if (entity) {
+                return entity.activeExtra ? entity.activeExtra.push(extra) : entity.activeExtra = [extra];
             }
+
+            return console.error('Error');
         },
-        offExtra({type, uuid, extraId}) {
-            if (type === "HOSTING") {
-                const entity = this.getHostingByUUID(uuid);
+        offExtra({uuid, id}) {
+            const entity = this.orders.filter((order) => order.uuid === uuid)[0];
 
-                entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== extraId);
-            } else {
-                const entity = this.getDomainByUUID(uuid);
-
-                entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== extraId);
+            if (entity) {
+                return entity.activeExtra = entity.activeExtra.filter((extra) => extra.id !== id);
             }
+
+            return console.error('Error');
         }
     },
 });

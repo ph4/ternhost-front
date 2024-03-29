@@ -69,6 +69,7 @@ export default {
     width: 100%;
     z-index: 666;
     background-color: $white-100;
+    border-radius: 0.5rem;
   }
 }
 </style>

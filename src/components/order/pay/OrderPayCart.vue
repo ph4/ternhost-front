@@ -4,6 +4,7 @@ import OrderPromo from "@/components/order/OrderPromo.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
+import {OrderType} from "@/enums/order.js";
 
 export default {
   name: "OrderPayCart",
@@ -14,6 +15,16 @@ export default {
   data() {
     return {
       store: useOrderStore()
+    }
+  },
+  computed: {
+    title() {
+      return (product) => {
+        if (product.type === OrderType.DOMAIN) {
+          return `Domain ${product.root}${product.tld} for ${product.activeAge.age} months`
+        }
+        return `${product.title} Web Hosting ${product.activeAge.duration} months`;
+      };
     }
   }
 }
@@ -26,47 +37,18 @@ export default {
         <h1>Your Order</h1>
       </header>
 
-      <div class="box__services" v-for="hosting in this.store.hostings" :key="hosting.uuid">
+      <div class="box__services" v-for="product in this.store.orders" :key="product.uuid">
         <header class="box__services-header">
-          <h1>{{ hosting.title }} Web Hosting {{ hosting.activeAge.duration }} month</h1>
+          <h1>{{ this.title(product) }}</h1>
           <div class="box__services-header__total">
-            <h3>${{ hosting.activeAge.price }}</h3>
-            <h3 class="discount">${{
-                this.$discount(hosting.activeAge.price, hosting.activeAge.discount)
-              }}</h3>
+            <h3>${{ product.activeAge.price }}</h3>
+            <h3 class="discount">${{ this.$discount(product.activeAge.price, product.activeAge.discount) }}</h3>
           </div>
         </header>
 
         <div class="services">
           <ul class="services__group">
-            <li class="services__group-item" v-for="extra in hosting.activeExtra" :key="extra.id">
-              <div class="services__group-item__name">
-                <font-awesome-icon icon="fa-solid fa-check" class="icon"></font-awesome-icon>
-                <h3>{{ extra.title }}</h3>
-              </div>
-              <div class="services__group-item__price">
-                <h3>${{ extra.price }}</h3>
-                <h3 class="discount">${{ this.$discount(extra.price, extra.discount) }}</h3>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="box__services" v-for="domain in this.store.domains" :key="domain.uuid">
-        <header class="box__services-header">
-          <h1>Domain {{ domain.root }}{{ domain.tld }} for {{ domain.activeAge.age }} month</h1>
-          <div class="box__services-header__total">
-            <h3>${{ domain.activeAge.price }}</h3>
-            <h3 class="discount">${{
-                this.$discount(domain.activeAge.price, domain.activeAge.discount)
-              }}</h3>
-          </div>
-        </header>
-
-        <div class="services">
-          <ul class="services__group">
-            <li class="services__group-item" v-for="extra in domain.activeExtra" :key="extra.id">
+            <li class="services__group-item" v-for="extra in product.activeExtra" :key="extra.id">
               <div class="services__group-item__name">
                 <font-awesome-icon icon="fa-solid fa-check" class="icon"></font-awesome-icon>
                 <h3>{{ extra.title }}</h3>
@@ -85,7 +67,12 @@ export default {
           <li class="computes__item">
             <h3 class="field">Plan Discount -
               {{ this.store.promo.discount }}%</h3>
-            <h3 class="value saving">-${{ (this.store.saved).toLocaleString('en-US', {maximumFractionDigits: 2}) }}</h3>
+            <h3 class="value saving">${{
+                (this.store.saved).toLocaleString('en-US', {
+                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 2
+                })
+              }}</h3>
           </li>
           <li class="computes__item">
             <h3 class="field">Taxes & Fees</h3>
@@ -98,9 +85,14 @@ export default {
         <header class="box__payment-header">
           <h1>Total</h1>
           <div class="box__payment-header__total">
-            <h1>${{ (this.store.getTotal).toLocaleString('en-US', {maximumFractionDigits: 2}) }}</h1>
+            <h1>${{
+                (this.store.getTotal).toLocaleString('en-US', {maximumFractionDigits: 2, minimumFractionDigits: 2})
+              }}</h1>
             <h1 class="discount">${{
-                (this.store.getTotalDiscount).toLocaleString('en-US', {maximumFractionDigits: 2})
+                (this.store.getTotalDiscount).toLocaleString('en-US', {
+                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 2
+                })
               }}</h1>
           </div>
         </header>
