@@ -2,7 +2,7 @@
 import OrderFeature from "@/components/order/OrderFeature.vue";
 import OrderPass from "@/components/order/OrderPass.vue";
 import Search from "@/components/order/domain/OrderSearchDomain.vue";
-import OrderTransfer from "@/components/order/OrderTransfer.vue";
+import OrderTransfer from "@/components/order/domain/OrderTransfer.vue";
 import OrderCartDomain from "@/components/order/domain/OrderCartDomain.vue";
 
 import BaseContainer from "@/components/UI/BaseContainer.vue";
@@ -36,55 +36,16 @@ export default {
     toggle() {
       const tl = gsap.timeline();
 
-      !this.store.isEmpty
-          ?
-          tl
-              .to('.transfer', {
-                opacity: 0,
-                y: '25%',
-                duration: 0.25,
-              })
-              .to('.transfer', {
-                display: 'none',
-                duration: 0,
-              })
-              .to('.cart', {
-                display: "flex",
-                flexDirection: "column",
-                opacity: 0,
-                y: '25%',
-                duration: 0,
-              })
-              .to('.cart', {
-                y: '0%',
-                opacity: 1,
-                duration: 0.25
-              })
-          :
-          tl
-              .to('.cart', {
-                opacity: 0,
-                y: '25%',
-                duration: 0.25,
-              })
-              .to('.cart', {
-                display: 'none',
-                duration: 0,
-              })
-              .to('.transfer', {
-                display: 'block',
-                opacity: 0,
-                y: '25%',
-                duration: 0,
-              })
-              .to('.transfer', {
-                y: '0%',
-                opacity: 1,
-                duration: 0.25
-              })
+      const {first, second} = !this.store.isEmpty ? {first: '.transfer', second: '.cart'} : {
+        first: '.cart',
+        second: '.transfer'
+      };
 
-      tl.repeat(0);
-      tl.play();
+      tl.to(first, {opacity: 0, y: '25%', duration: 0.25})
+          .set(first, {display: 'none'})
+          .set(second, {display: 'block', opacity: 0, y: '25%'})
+          .to(second, {y: '0%', opacity: 1, duration: 0.25})
+          .play();
     }
   }
 }

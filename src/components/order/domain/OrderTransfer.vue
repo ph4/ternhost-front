@@ -2,7 +2,7 @@
 import BaseButton from "@/components/UI/BaseButton.vue";
 
 export default {
-  name: "OrderTransfer.vue",
+  name: "OrderTransfer",
   components: {
     BaseButton
   },

@@ -14,11 +14,11 @@ export default {
   },
   methods: {
     buy(entity) {
-      this.store.buy({entity, type: OrderType.DOMAIN});
+      this.store.buy({...entity, type: OrderType.DOMAIN});
       this.store.getOrdersByCategory(OrderType.DOMAIN).length === 1 && this.$emitter.emit('_order_-toggle-cart');
     },
     sell(entity) {
-      this.store.sell({entity, type: OrderType.DOMAIN});
+      this.store.sell({...entity, type: OrderType.DOMAIN});
       this.store.getOrdersByCategory(OrderType.DOMAIN).length === 0 && this.$emitter.emit('_order_-toggle-cart');
     }
   }

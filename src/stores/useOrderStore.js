@@ -160,11 +160,11 @@ export const useOrderStore = defineStore('order', {
         }
     },
     actions: {
-        buy({entity, type}) {
-            this.orders.push({...entity, type});
+        buy(entity) {
+            this.orders.push(entity);
         },
-        sell({entity, type}) {
-            switch (type) {
+        sell(entity) {
+            switch (entity.type) {
                 case OrderType.DOMAIN:
                     this.orders = this.orders.filter(order => !(order.type === OrderType.DOMAIN && `${order.root}${order.tld}` === `${entity.root}${entity.tld}`));
                     break;
@@ -172,7 +172,7 @@ export const useOrderStore = defineStore('order', {
                     this.orders = this.orders.filter(order => order.uuid !== entity.uuid);
                     break;
                 default:
-                    return console.error(`Unknown order type: ${type}`);
+                    return console.error(`Unknown order type: ${entity.type}`);
             }
         },
         setActiveAge({entity, age}) {
