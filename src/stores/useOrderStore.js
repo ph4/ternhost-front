@@ -56,18 +56,13 @@ export const useOrderStore = defineStore('order', {
                 return extra !== undefined;
             }
         },
-
-        // @FIXME:
         getTotal: (state) => {
             let total = 0;
 
             state.orders.forEach(order => {
-                // Додати ціну активного віку
                 if (order.activeAge && order.activeAge.price) {
                     total += order.activeAge.price;
                 }
-
-                // Додати ціни активних додаткових послуг, якщо вони існують
                 if (order.activeExtra && order.activeExtra.length > 0) {
                     order.activeExtra.forEach(extra => {
                         if (extra.price) {
@@ -83,13 +78,10 @@ export const useOrderStore = defineStore('order', {
             let totalPrice = 0;
 
             state.orders.forEach(order => {
-                // Додати ціну активного віку зі знижкою
                 if (order.activeAge && order.activeAge.price !== undefined && order.activeAge.discount !== undefined) {
                     const discountedPrice = order.activeAge.price * (1 - order.activeAge.discount / 100);
                     totalPrice += discountedPrice >= 0 ? discountedPrice : order.activeAge.price;
                 }
-
-                // Додати ціни активних додаткових послуг зі знижкою, якщо вони існують
                 if (order.activeExtra && order.activeExtra.length > 0) {
                     order.activeExtra.forEach(extra => {
                         if (extra.price !== undefined && extra.discount !== undefined) {

@@ -18,13 +18,47 @@ export default {
   },
   mounted() {
     this.$emitter.on("_order_-toggle-modal", (callback) => {
-      this.isShow = true;
+      this.open()
       this.callback = callback;
     })
   },
   methods: {
+    open() {
+      const tl = gsap.timeline();
+
+      tl.to(".modal__body", {
+        duration: 0,
+        y: '-25%',
+        opacity: 0,
+      }).to('.modal', {
+        duration: 0,
+        display: "flex",
+        justifyContent: 'center',
+        alignItems: 'center',
+        opacity: 0,
+      }).to('.modal', {
+        duration: 0.25,
+        opacity: 1,
+      }).to('.modal__body', {
+        duration: 0.25,
+        y: '0%',
+        opacity: 1,
+      })
+    },
     cancel() {
-      this.isShow = false;
+      const tl = gsap.timeline();
+
+      tl.to('.modal__body', {
+        duration: 0.25,
+        opacity: 0,
+        y: '-25%'
+      }).to('.modal', {
+        duration: 0.25,
+        opacity: 0,
+      }).to('.modal', {
+        duration: 0,
+        display: 'none'
+      })
     },
     remove() {
       this.callback();
@@ -36,7 +70,7 @@ export default {
 
 <template>
   <Teleport to="body">
-    <section class="modal" :class="{show: this.isShow}">
+    <section class="modal">
       <div class="modal__body">
         <header class="modal__body-header">
           <h1>Do you want to cancel your order?</h1>

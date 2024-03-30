@@ -11,6 +11,7 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 
 import {useOrderStore} from "@/stores/useOrderStore.js";
 import {gsap} from 'gsap';
+import {OrderType} from "@/enums/order.js";
 
 export default {
   name: "OrderViewDomain",
@@ -31,12 +32,16 @@ export default {
   },
   mounted() {
     this.$emitter.on('_order_-toggle-cart', this.toggle)
+
+    this.store.getOrdersByCategory(OrderType.DOMAIN).length && this.toggle();
   },
   methods: {
     toggle() {
       const tl = gsap.timeline();
-
-      const {first, second} = !this.store.isEmpty ? {first: '.transfer', second: '.cart'} : {
+      const {first, second} = this.store.getOrdersByCategory(OrderType.DOMAIN).length ? {
+        first: '.transfer',
+        second: '.cart'
+      } : {
         first: '.cart',
         second: '.transfer'
       };
