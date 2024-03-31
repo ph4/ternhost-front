@@ -6,11 +6,11 @@
       <div class="domains">
         <ul class="domains__group">
           <tern-domain-offer
-            v-for="domain in domains"
-            :key="domain.id"
-            :name="domain.name"
-            :monthlyPrice="domain.monthlyPrice"
-            :annualPrice="domain.annualPrice"
+              v-for="domain in domains"
+              :key="domain.id"
+              :name="domain.name"
+              :monthlyPrice="domain.monthlyPrice"
+              :annualPrice="domain.annualPrice"
           ></tern-domain-offer>
         </ul>
       </div>
@@ -43,16 +43,16 @@ export default {
   data() {
     return {
       domains: [
-        { id: 0, name: '.com', monthlyPrice: 10, annualPrice: 4.99 },
-        { id: 1, name: '.shop', monthlyPrice: 10, annualPrice: 1.99 },
-        { id: 2, name: '.nl', monthlyPrice: 10, annualPrice: 0.99 },
-        { id: 3, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
-        { id: 4, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
-        { id: 5, name: '.com', monthlyPrice: 10, annualPrice: 4.99 },
-        { id: 6, name: '.shop', monthlyPrice: 10, annualPrice: 1.99 },
-        { id: 7, name: '.nl', monthlyPrice: 10, annualPrice: 0.99 },
-        { id: 8, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
-        { id: 9, name: '.nl', monthlyPrice: 10, annualPrice: 2.99 },
+        {id: 0, name: '.com', monthlyPrice: 10, annualPrice: 4.99},
+        {id: 1, name: '.shop', monthlyPrice: 10, annualPrice: 1.99},
+        {id: 2, name: '.nl', monthlyPrice: 10, annualPrice: 0.99},
+        {id: 3, name: '.nl', monthlyPrice: 10, annualPrice: 2.99},
+        {id: 4, name: '.nl', monthlyPrice: 10, annualPrice: 2.99},
+        {id: 5, name: '.com', monthlyPrice: 10, annualPrice: 4.99},
+        {id: 6, name: '.shop', monthlyPrice: 10, annualPrice: 1.99},
+        {id: 7, name: '.nl', monthlyPrice: 10, annualPrice: 0.99},
+        {id: 8, name: '.nl', monthlyPrice: 10, annualPrice: 2.99},
+        {id: 9, name: '.nl', monthlyPrice: 10, annualPrice: 2.99},
       ],
     };
   },
@@ -64,6 +64,8 @@ export default {
 
 .hero {
   padding-top: calc(7.188rem + 7.5rem);
+  padding-bottom: 3rem;
+
   .container {
     background-image: url('@/assets/images/domain/domain-feature-background.svg');
     background-repeat: no-repeat;
@@ -72,11 +74,13 @@ export default {
     @media screen and (max-width: 1100px) {
       background-image: none;
     }
+
     .domains {
       position: relative;
       z-index: 3;
       background-color: $white-100;
       margin-top: 6.25rem;
+
       &__group {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -90,6 +94,7 @@ export default {
         }
       }
     }
+
     .show-all {
       @include center;
       margin-top: 4.5rem;

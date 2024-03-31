@@ -12,11 +12,11 @@
         <div class="plans__box">
           <ul class="offers" ref="offers">
             <tern-offer
-              v-for="offer in this.offers"
-              :key="offer.id"
-              :offer="offer"
-              :activeDuration="this.getActiveOfferDuration()"
-              :isBest="offer.id === 5"
+                v-for="offer in this.offers"
+                :key="offer.id"
+                :offer="offer"
+                :activeDuration="this.getActiveOfferDuration()"
+                :isBest="offer.id === 5"
             ></tern-offer>
           </ul>
         </div>
@@ -32,8 +32,8 @@ import BaseButton from '@/components/UI/BaseButton.vue';
 import TernOfferDurations from '@/components/tern/TernOfferDurations.vue';
 import TernOffer from '@/components/tern/TernOffer.vue';
 
-import { useLoadOffers } from '@/hooks/useLoadOffers.js';
-import { offersMixin } from '@/mixins/offers.js';
+import {useLoadOffers} from '@/hooks/useLoadOffers.js';
+import {offersMixin} from '@/mixins/offers.js';
 
 export default {
   name: 'BuilderHero',
@@ -47,10 +47,10 @@ export default {
   data() {
     return {
       offerDurations: [
-        { id: 0, value: 1, isActive: false },
-        { id: 1, value: 12, isActive: true },
-        { id: 2, value: 36, isActive: false },
-        { id: 3, value: 48, isActive: false },
+        {id: 0, value: 1, isActive: false},
+        {id: 1, value: 12, isActive: true},
+        {id: 2, value: 36, isActive: false},
+        {id: 3, value: 48, isActive: false},
       ],
       offers: [],
     };
@@ -67,21 +67,28 @@ export default {
 .hero {
   @include center;
   min-height: 100vh;
+  padding-bottom: 3rem;
+
   .container {
     margin-top: 10rem;
+
     .hero__header {
       text-align: center;
+
       h1 {
         @include fluid-type($text-4xl, $text-4xl, 700, $blue-200);
       }
     }
+
     .plans {
       @include center-col;
       margin-top: 3rem;
+
       &__box {
         width: 100%;
         margin-top: 5rem;
         background-color: $white-100;
+
         .offers {
           display: grid;
           grid-template-columns: repeat(4, 1fr);

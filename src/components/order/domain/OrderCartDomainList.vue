@@ -62,6 +62,9 @@ export default {
 }
 
 .orders {
+  max-height: 478px;
+  overflow-y: scroll;
+
   &__item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

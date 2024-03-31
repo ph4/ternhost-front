@@ -57,6 +57,10 @@ export default {
 
 .catalog {
   &__group {
+    max-height: 478px;
+    overflow-y: scroll;
+    
+
     &-item {
       @include center-y-between;
       border: 0.063rem solid $white-200;

@@ -1,7 +1,7 @@
 <template>
   <div class="mail">
     <div class="mail__girl">
-      <img :src="assets.CheckEmailImage" alt="Girl" />
+      <img :src="assets.CheckEmailImage" alt="Girl"/>
     </div>
     <footer class="mail__footer">
       <div class="mail__footer-text">
@@ -9,8 +9,12 @@
         <h3>We have sent you a reset password link on your registered email address</h3>
       </div>
       <div class="mail__footer-buttons">
-        <router-link to="/"><base-button class="btn-secondary">Go to Email</base-button></router-link>
-        <router-link to="/users/login"><base-button class="btn-white">Sign In</base-button></router-link>
+        <a href="/">
+          <base-button class="btn-secondary">Go to Email</base-button>
+        </a>
+        <a href="/users/login">
+          <base-button class="btn-white">Sign In</base-button>
+        </a>
       </div>
     </footer>
   </div>
@@ -58,6 +62,7 @@ export default {
     transform: none;
     padding: 1.625rem;
   }
+
   &__girl {
     img {
       width: 100%;
@@ -66,6 +71,7 @@ export default {
       }
     }
   }
+
   &__footer {
     position: relative;
     z-index: 3;
@@ -75,21 +81,27 @@ export default {
     @media screen and (max-width: 500px) {
       box-shadow: 0 -5rem 5rem 0 $white-100;
     }
+
     &-text {
       text-align: center;
+
       h1 {
         @include fluid-type($text-4xl, $text-4xl, 500, $blue-200);
       }
+
       h3 {
         @include fluid-type($text-lg, $text-lg, 500, $white-600);
         margin-top: 1rem;
       }
     }
+
     &-buttons {
       margin-top: 3.125rem;
+
       button {
         width: 100%;
         box-shadow: 0 0.25rem 1.188rem 0 rgba(#779341, 0.3);
+
         &:last-child {
           margin-top: 1rem;
         }

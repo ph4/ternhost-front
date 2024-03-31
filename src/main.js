@@ -65,16 +65,20 @@ library.add(
 import {createRouter, createWebHistory} from 'vue-router';
 
 import HomePage from './pages/HomePage.vue';
-import HostingPage from './pages/HostingPage.vue';
+
+import ViewHome from "@/components/home/ViewHome.vue";
+import ViewDomain from "@/components/home/ViewDomain.vue";
+import ViewHosting from "@/components/home/ViewHosting.vue";
+import ViewBuilder from "@/components/home/ViewBuilder.vue";
+
 import LoginPage from './pages/LoginPage.vue';
-import DomainPage from './pages/DomainPage.vue';
-import BuilderPage from './pages/BuilderPage.vue';
-import HelpPage from './pages/HelpPage.vue';
-import SignupPage from './pages/SignupPage.vue';
-import NotFoundPage from './pages/NotFoundPage.vue';
-import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
-import CheckEmailPage from './pages/CheckEmailPage.vue';
-import SetPasswordPage from './pages/SetPasswordPage.vue';
+
+import ViewLogin from "@/components/login/ViewLogin.vue";
+import ViewSignup from "@/components/login/ViewSignup.vue";
+import ViewEmail from "@/components/login/ViewEmail.vue";
+import ViewForgot from "@/components/login/ViewForgot.vue";
+import ViewNew from "@/components/login/ViewNew.vue";
+
 import DashboardPage from './pages/DashboardPage.vue';
 
 import DashboardViewHome from '@/components/dashboard/DashboardViewHome.vue';
@@ -84,28 +88,66 @@ import DashboardViewBuilder from '@/components/dashboard/DashboardViewBuilder.vu
 import DashboardViewServices from '@/components/dashboard/DashboardViewServices.vue';
 
 import OrderPage from "@/pages/OrderPage.vue";
+
 import OrderViewDomain from "@/components/order/domain/OrderViewDomain.vue";
 import OrderViewHosting from "@/components/order/hosting/OrderViewHosting.vue";
 import OrderViewPay from "@/components/order/pay/OrderViewPay.vue";
+
+import NotFoundPage from './pages/NotFoundPage.vue';
 
 import DemoSelect from '@/demo/DemoSelect.vue'
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/', component: HomePage},
-
-        {path: '/hosting', component: HostingPage},
-        {path: '/domain', component: DomainPage},
-        {path: '/builder', component: BuilderPage},
-        {path: '/help', component: HelpPage},
-
-        {path: '/users/login', component: LoginPage},
-        {path: '/users/signup', component: SignupPage},
-        {path: '/users/password/forgot', component: ForgotPasswordPage},
-        {path: '/users/email/check', component: CheckEmailPage},
-        {path: '/users/password/new', component: SetPasswordPage},
-
+        {
+            path: '/',
+            component: HomePage,
+            children: [
+                {
+                    path: '',
+                    component: ViewHome,
+                },
+                {
+                    path: 'home/domain',
+                    component: ViewDomain,
+                },
+                {
+                    path: 'home/hosting',
+                    component: ViewHosting,
+                },
+                {
+                    path: 'home/builder',
+                    component: ViewBuilder,
+                },
+            ]
+        },
+        {
+            path: '/users',
+            component: LoginPage,
+            children: [
+                {
+                    path: 'login',
+                    component: ViewLogin,
+                },
+                {
+                    path: 'signup',
+                    component: ViewSignup,
+                },
+                {
+                    path: 'email/check',
+                    component: ViewEmail,
+                },
+                {
+                    path: 'password/forgot',
+                    component: ViewForgot,
+                },
+                {
+                    path: 'password/new',
+                    component: ViewNew,
+                },
+            ]
+        },
         {
             path: '/dashboard',
             component: DashboardPage,

@@ -5,6 +5,7 @@ import BaseContainer from "@/components/UI/BaseContainer.vue";
 import HostingFeature from "@/components/order/OrderFeature.vue";
 import HostingPass from "@/components/order/OrderPass.vue";
 import HostingPlans from "@/components/order/hosting/OrderHostingPlans.vue";
+import {useOrderStore} from "@/stores/useOrderStore.js";
 
 export default {
   name: "OrderViewHosting",
@@ -15,6 +16,16 @@ export default {
     HostingPlans,
     HostingPass,
   },
+  data() {
+    return {
+      store: useOrderStore()
+    }
+  },
+  computed: {
+    getPath() {
+      return this.store.isEmpty ? '/dashboard' : '/order/pay'
+    }
+  }
 }
 </script>
 
@@ -40,7 +51,7 @@ export default {
     <template #pass>
       <h2 class="order-pass-title">Alternatively, you have the option to bypass this step and generate a domain at a
         later time.</h2>
-      <router-link to="/order/pay" class="order-pass-link">I'll select my hosting at a later time ></router-link>
+      <router-link :to="this.getPath" class="order-pass-link">I'll select my hosting at a later time ></router-link>
     </template>
   </hosting-pass>
 </template>

@@ -38,6 +38,10 @@ export default {
   methods: {
     remove() {
       this.$emitter.emit("_order_-toggle-modal", () => {
+        if (this.store.orders.length <= 1) {
+          this.$router.push('/');
+        }
+
         this.store.sell(this.product);
       });
     },
