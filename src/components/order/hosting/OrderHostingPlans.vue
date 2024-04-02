@@ -8,6 +8,7 @@ import {OrderType} from "@/enums/order.js";
 
 import {useLoadOffers} from "@/hooks/useLoadOffers.js";
 import {v4 as uuidv4} from "uuid";
+import {api} from "@/api.ts"
 
 export default {
   name: "OrderHostingPlans",
@@ -28,8 +29,9 @@ export default {
       offers: [],
     }
   },
-  mounted() {
-    this.offers = useLoadOffers('order-hosting');
+  async mounted() {
+    let resp = await api.orderGetHostingOffers()
+    this.offers = await resp.json()
   },
   methods: {
     buy(offer) {
@@ -55,7 +57,7 @@ export default {
             :key="offer.id"
             :offer="offer"
             :activeDuration="this.getActiveOfferDuration()"
-            :isBest="offer.id === 5"
+            :isBest="offer.isBest"
             :callback="this.buy"
         />
       </ul>

@@ -116,6 +116,10 @@ export const api = {
     });
   },
 
+  async orderGetHostingOffers() {
+    return await client["/api/v1/order/hosting-offers"].get();
+  },
+
   async homeDomainQuery(domain: string) {
     return await client["/api/v1/home/domain-query"].get({
       query: {
