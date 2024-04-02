@@ -102,9 +102,25 @@ export const api = {
     });
   },
 
-  async signUp(obj) {
+  async signUp(obj: any) {
     return await client["/api/v1/auth/signup"].post({
       json: obj,
+    });
+  },
+
+  async orderDomainQuery(domain: string) {
+    return await client["/api/v1/order/domain-query"].get({
+      query: {
+        domain: domain,
+      },
+    });
+  },
+
+  async homeDomainQuery(domain: string) {
+    return await client["/api/v1/home/domain-query"].get({
+      query: {
+        domain: domain,
+      },
     });
   },
 };

@@ -29,7 +29,7 @@ export default {
   <div class="catalog" v-if="this.domains.length">
     <ul class="catalog__group">
       <li class="catalog__group-item" v-for="domain in this.domains" :key="domain.uuid">
-        <h3>{{ domain.root }}{{ domain.tld }}</h3>
+        <h3>{{ domain.root }}.{{ domain.tld }}</h3>
         <div class="catalog__group-item__box">
           <div class="catalog__price">
             <h3>${{ domain.ages[0].price }}/yr.</h3>

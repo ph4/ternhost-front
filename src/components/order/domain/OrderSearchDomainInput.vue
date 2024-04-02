@@ -3,6 +3,7 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 
 import {useFakeDomains} from "@/static/domains.js";
 import {v4 as uuidv4} from "uuid";
+import {api} from "@/api.ts"
 
 export default {
   name: "OrderDomainSearchInput",
@@ -15,15 +16,16 @@ export default {
     }
   },
   methods: {
-    getDomains() {
+    async getDomains() {
       this.$emitter.emit('_order_-switch-preloader', true);
 
-      const domains = useFakeDomains();
+      const resp = await api.orderDomainQuery(this.root)
+      const domains = await resp.json()
 
       if (domains) {
         setTimeout(() => {
           const syncDomains = domains.map((domain) => {
-            return {...domain, root: this.root, uuid: uuidv4(), activeAge: domain.ages[0]}
+            return {...domain, uuid: uuidv4(), activeAge: domain.ages[0]}
           });
 
           this.$emitter.emit('_order_-set-domains', syncDomains);
