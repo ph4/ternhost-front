@@ -6,8 +6,6 @@ import app from "@/App.vue";
 export const useOrderStore = defineStore('order', {
     state: () => ({
         orders: [],
-        domains: [],
-        hostings: [],
         promo: {
             value: "",
             status: 0,

@@ -221,6 +221,9 @@ const pinia = createPinia();
 // Plugins
 import discount from '@/plugins/discount.js';
 
+// Notification
+import Notifications from '@kyvg/vue3-notification'
+
 // Vue
 const app = createApp(App);
 
@@ -228,7 +231,7 @@ app.config.globalProperties.$emitter = emitter;
 
 app.use(router);
 app.use(pinia);
-
+app.use(Notifications)
 app.use(discount);
 
 app.component('font-awesome-icon', FontAwesomeIcon);

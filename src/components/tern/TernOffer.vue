@@ -67,6 +67,8 @@ export default {
   text-align: center;
   border-radius: 0.625rem;
   padding: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
 
   &.best {
     background-color: $blue-100;
@@ -147,6 +149,8 @@ export default {
   }
 
   .plan__column {
+    flex-grow: 1;
+
     &-group {
       &__item {
         border-bottom: 0.063rem solid $white-200;

@@ -26,6 +26,21 @@ export default {
         return `${product.title} Web Hosting ${product.activeAge.duration} months`;
       };
     }
+  },
+  methods: {
+    pay() {
+      const data = {
+        orders: this.store.orders,
+        price: this.store.getTotal,
+        discount: this.store.promo.discount,
+        discountedPrice: this.store.getTotalDiscount,
+      }
+
+      console.log('[pay]: ', data);
+      
+      // this.$notify("hi there")
+      // this.$notify({type: "success", text: "The operation completed"});
+    }
   }
 }
 </script>
@@ -100,7 +115,7 @@ export default {
         <order-promo class="payment"></order-promo>
 
         <div class="box__payment-pay">
-          <base-button class="btn-secondary">Pay</base-button>
+          <base-button class="btn-secondary" @click="this.pay">Pay</base-button>
         </div>
       </div>
     </div>
