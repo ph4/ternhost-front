@@ -127,6 +127,13 @@ export const api = {
       },
     });
   },
+
+  async pushOrderCart(items: any[]) {
+    return await client["/api/v1/order/cart"].post({ json: items });
+  },
+  async fetchOrderCart() {
+    return await client["/api/v1/order/cart"].get();
+  },
 };
 
 export default api;

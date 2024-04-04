@@ -28,7 +28,7 @@ export default {
     }
   },
   methods: {
-    pay() {
+    async pay() {
       const data = {
         orders: this.store.orders,
         price: this.store.getTotal,
@@ -37,9 +37,11 @@ export default {
       }
 
       console.log('[pay]: ', data);
+
+      await this.store.pushCart();
       
-      // this.$notify("hi there")
-      // this.$notify({type: "success", text: "The operation completed"});
+      this.$notify("hi there")
+      this.$notify({type: "success", text: "The operation completed"});
     }
   }
 }
